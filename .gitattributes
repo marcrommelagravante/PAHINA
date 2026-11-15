@@ -1,0 +1,23 @@
+# Normalize line endings across OSes: LF by default for text and scripts
+* text=auto eol=lf
+
+# Preserve CRLF for Windows batch and command scripts
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Explicit binary types
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.eot binary
+*.pdf binary
+*.zip binary
+*.exe binary
+*.dll binary

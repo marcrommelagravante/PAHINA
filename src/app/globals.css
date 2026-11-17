@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+:root {
+  --color-paper: #F4F1EA;
+  --color-ink: #41474D;
+  --color-ink-muted: #56616B;
+  --color-powder: #B9D0E0;
+  --color-powder-soft: #DCE7EF;
+  --color-slate: #8999A6;
+  --color-soft: #E8E8E4;
+  --color-surface-elevated: #FAF8F3;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+@theme inline {
+  --color-paper: var(--color-paper);
+  --color-ink: var(--color-ink);
+  --color-ink-muted: var(--color-ink-muted);
+  --color-powder: var(--color-powder);
+  --color-powder-soft: var(--color-powder-soft);
+  --color-slate: var(--color-slate);
+  --color-soft: var(--color-soft);
+  --color-surface-elevated: var(--color-surface-elevated);
+
+  --font-display: var(--font-bodoni), Georgia, serif;
+  --font-editorial: var(--font-instrument), Georgia, serif;
+  --font-sans: var(--font-manrope), -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background-color: var(--color-powder);
+    color: var(--color-ink);
+  }
+
+  a,
+  button,
+  summary {
+    text-underline-offset: 0.24em;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 3px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 9px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-paper);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-powder);
+    border-radius: 9999px;
+    border: 2px solid var(--color-paper);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-slate);
+  }
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-editorial {
+  font-family: var(--font-editorial);
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hover-image-zoom {
+    transition: transform 650ms var(--ease-out);
+  }
+
+  .group:hover .hover-image-zoom {
+    transform: scale(1.035);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .hover-image-zoom {
+    transition: none;
+  }
+
+  .group:hover .hover-image-zoom {
+    transform: none;
+  }
+}

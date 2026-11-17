@@ -1,0 +1,140 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-17T21:00:30+08:00",
+  "title": "Design System: PAHINA — Coffee & Reading Room",
+  "extensions": {
+    "colorMeta": {
+      "paper-white": {
+        "role": "neutral",
+        "displayName": "Paper White",
+        "canonical": "#F4F1EA",
+        "tonalRamp": ["#2D2B27", "#48453E", "#69655C", "#8E897E", "#B6B1A6", "#D9D4CA", "#EDE9DF", "#FAF8F3"]
+      },
+      "deep-ink-grey": {
+        "role": "neutral",
+        "displayName": "Deep Ink Grey",
+        "canonical": "#41474D",
+        "tonalRamp": ["#1C2023", "#2A2F34", "#363B41", "#41474D", "#56616B", "#79848F", "#A6B0B9", "#D8DEE3"]
+      },
+      "powder-blue": {
+        "role": "primary",
+        "displayName": "Powder Blue",
+        "canonical": "#B9D0E0",
+        "tonalRamp": ["#1E3342", "#2E4C61", "#476F8B", "#6993B0", "#91B5CE", "#B9D0E0", "#DCE7EF", "#EFF5F9"]
+      },
+      "slate-grey": {
+        "role": "neutral",
+        "displayName": "Slate Grey",
+        "canonical": "#8999A6",
+        "tonalRamp": ["#20272C", "#333D45", "#4D5B66", "#6B7C8A", "#8999A6", "#AAB7C1", "#CDD6DD", "#E9EEF1"]
+      },
+      "soft-grey": {
+        "role": "neutral",
+        "displayName": "Soft Grey",
+        "canonical": "#E8E8E4",
+        "tonalRamp": ["#2B2B29", "#464643", "#676762", "#8C8C86", "#B3B3AC", "#D2D2CC", "#E8E8E4", "#F6F6F3"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Bodoni Moda Display",
+        "purpose": "Hero headlines, page titles, section headings, and uppercase PAHINA wordmark."
+      },
+      "editorial": {
+        "displayName": "Instrument Serif Editorial",
+        "purpose": "Selective pull quotes, photo captions, subcategory labels, and price confirmation notices."
+      },
+      "body": {
+        "displayName": "Manrope Body & UI",
+        "purpose": "Body paragraphs, navigation links, filter pills, and tabular menu pricing."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.23, 1, 0.32, 1)",
+        "purpose": "Scroll entrance settling, button presses, and hover image scaling."
+      },
+      {
+        "name": "ease-in-out",
+        "value": "cubic-bezier(0.77, 0, 0.175, 1)",
+        "purpose": "Balanced state transitions."
+      },
+      {
+        "name": "ease-drawer",
+        "value": "cubic-bezier(0.32, 0.72, 0, 1)",
+        "purpose": "Mobile full-screen navigation drawer open and exit."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Primary capsule call-to-action in Deep Ink Grey on Paper White.",
+      "html": "<a href=\"#\" class=\"ds-btn-primary\">Discover PAHINA.</a>",
+      "css": ".ds-btn-primary { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; border-radius: 9999px; background-color: #41474D; color: #F4F1EA; padding: 10px 24px; font-family: Manrope, sans-serif; font-size: 0.875rem; font-weight: 500; letter-spacing: 0.02em; text-decoration: none; transition: background-color 150ms cubic-bezier(0.23, 1, 0.32, 1), transform 150ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-btn-primary:hover { background-color: #2F353A; } .ds-btn-primary:active { transform: scale(0.97); } .ds-btn-primary:focus-visible { outline: 2px solid #41474D; outline-offset: 3px; }"
+    },
+    {
+      "name": "Powder Accent Button",
+      "kind": "button",
+      "refersTo": "button-powder",
+      "description": "Restrained Powder Blue accent capsule used for Visit Us and Reading Room CTAs.",
+      "html": "<a href=\"#\" class=\"ds-btn-powder\">Visit Us</a>",
+      "css": ".ds-btn-powder { display: inline-flex; min-height: 40px; align-items: center; justify-content: center; border-radius: 9999px; background-color: #B9D0E0; color: #41474D; padding: 8px 20px; font-family: Manrope, sans-serif; font-size: 0.875rem; font-weight: 500; letter-spacing: 0.02em; text-decoration: none; transition: background-color 150ms cubic-bezier(0.23, 1, 0.32, 1), transform 150ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-btn-powder:hover { background-color: #A6C2D6; } .ds-btn-powder:active { transform: scale(0.97); } .ds-btn-powder:focus-visible { outline: 2px solid #41474D; outline-offset: 3px; }"
+    },
+    {
+      "name": "Category Filter Pill",
+      "kind": "chip",
+      "description": "Toggle pill for /menu category filtering with high-contrast Ink selected state.",
+      "html": "<div style=\"display:flex;gap:8px;\"><button class=\"ds-pill ds-pill-active\">All</button><button class=\"ds-pill\">Coffee</button></div>",
+      "css": ".ds-pill { display: inline-flex; min-height: 38px; align-items: center; border-radius: 9999px; border: 1px solid #E8E8E4; background-color: #FAF8F3; color: #56616B; padding: 6px 16px; font-family: Manrope, sans-serif; font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: background-color 150ms, border-color 150ms, color 150ms; } .ds-pill:hover { border-color: #B9D0E0; color: #41474D; } .ds-pill-active { border-color: #41474D; background-color: #41474D; color: #F4F1EA; }"
+    },
+    {
+      "name": "Editorial Menu Row Card",
+      "kind": "card",
+      "refersTo": "menu-card",
+      "description": "Horizontal editorial menu row pairing a compact 4:5 portrait photo with tabular pricing.",
+      "html": "<article class=\"ds-menu-card\"><div class=\"ds-menu-thumb\"></div><div class=\"ds-menu-body\"><div class=\"ds-menu-head\"><h3 class=\"ds-menu-title\">Spanish Latte</h3><span class=\"ds-badge\">Signature</span></div><div class=\"ds-price-row\"><span>SMOL (12oz Hot)</span><strong>₱145</strong></div></div></article>",
+      "css": ".ds-menu-card { display: flex; gap: 16px; align-items: flex-start; border-radius: 12px; border: 1px solid #E8E8E4; background-color: #FAF8F3; padding: 16px; font-family: Manrope, sans-serif; color: #41474D; } .ds-menu-card:hover { border-color: #B9D0E0; } .ds-menu-thumb { width: 88px; height: 110px; flex-shrink: 0; border-radius: 8px; background-color: #E8E8E4; } .ds-menu-body { flex: 1; min-width: 0; } .ds-menu-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; } .ds-menu-title { margin: 0; font-family: Georgia, serif; font-size: 1.125rem; font-weight: 400; color: #41474D; } .ds-badge { border-radius: 9999px; background-color: #DCE7EF; color: #41474D; padding: 2px 10px; font-size: 0.75rem; font-weight: 500; } .ds-price-row { display: flex; justify-content: space-between; margin-top: 12px; padding-top: 8px; border-top: 1px solid #E8E8E4; font-size: 0.875rem; font-variant-numeric: tabular-nums; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Quiet Corner Chapter",
+    "overview": "PAHINA translates an independent neighborhood book café into a calm, sunlit digital publication. Instead of commercial storefront density or dark espresso clichés, surfaces open like warm uncoated book pages (Paper White) framed by muted architectural blue-grey accents (Powder Blue) and grounded editorial ink (Deep Ink Grey). Every screen prioritizes breathing room, legible typography, and authentic café photography over ornamental badges or stock restaurant widgets.",
+    "keyCharacteristics": [
+      "Tactile uncoated paper ground paired with crisp hairline divisions rather than drop shadows.",
+      "Intentional upright-and-italic Bodoni Moda display headlines paired with restrained Instrument Serif editorial quotes and Manrope UI text.",
+      "Strict fidelity to confirmed facts and transparent, unhurried presentation of placeholder details."
+    ],
+    "rules": [
+      {
+        "name": "The Contrast-First Slate Rule",
+        "body": "Raw Slate Grey (#8999A6) is never used for readable body or caption text on Paper White; readable muted copy uses dark-shifted Slate (#56616B) so every text element exceeds WCAG 4.5:1 contrast.",
+        "section": "colors"
+      },
+      {
+        "name": "The Single-Boundary Rule",
+        "body": "Containers declare elevation once via a clean 1px border or surface fill—never a 1px border paired with an ambient box-shadow.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep Paper White (#F4F1EA) as the primary canvas and reserve Powder Blue (#B9D0E0) for focused accents, callouts, and interactive selections.",
+      "Do pair upright and italic words intentionally in Bodoni Moda display headlines (Every page holds a story.).",
+      "Do keep menu rows clean (name, sizes/prices, photo, optional Signature/Must Try pill) with tabular-nums price alignment."
+    ],
+    "donts": [
+      "Don't add eyebrow kickers above section headings, middle-dot meta strings, or text arrows inside buttons.",
+      "Don't flood entire screens with blue backgrounds or introduce unrelated warm/terracotta accent colors.",
+      "Don't stretch contact-sheet thumbnail assets beyond compact editorial row sizes without replacing them at high resolution."
+    ]
+  }
+}

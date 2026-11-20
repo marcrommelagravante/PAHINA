@@ -17,13 +17,13 @@ export function PageHeader({
   return (
     <section
       className={cn(
-        "border-b border-soft bg-paper pt-12 pb-12 sm:pt-16 sm:pb-16",
+        "border-b border-soft bg-paper pt-10 pb-12 sm:pt-14 sm:pb-16",
         className
       )}
     >
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-end">
-          <div className="lg:col-span-8">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-center">
+          <div className={aside ? "lg:col-span-7" : "lg:col-span-8"}>
             <h1 className="font-display text-4xl leading-[1.06] tracking-[-0.02em] text-ink sm:text-5xl lg:text-6xl">
               {title}
             </h1>
@@ -31,7 +31,7 @@ export function PageHeader({
               {description}
             </p>
           </div>
-          {aside && <div className="lg:col-span-4">{aside}</div>}
+          {aside && <div className="lg:col-span-5">{aside}</div>}
         </div>
       </div>
     </section>

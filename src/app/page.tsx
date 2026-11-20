@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { HomeHero } from "@/components/sections/HomeHero";
+import { AfterHoursHero } from "@/components/sections/after-hours/AfterHoursHero";
 import { AtmosphereGallery } from "@/components/sections/AtmosphereGallery";
+import { FeaturedMenuSection } from "@/components/sections/FeaturedMenuSection";
 import { VisitBanner } from "@/components/sections/VisitBanner";
-import { ImageFeature } from "@/components/ui/ImageFeature";
-import { MenuItem } from "@/components/ui/MenuItem";
+import {
+  BetweenPages3D,
+  HomeMiniShelf3D,
+} from "@/components/three/ReadingRoomScenes3D";
 import { PrimaryButton } from "@/components/ui/PrimaryButton";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -21,48 +24,54 @@ export default function HomePage() {
 
   return (
     <>
-      <HomeHero />
+      <AfterHoursHero />
 
-      {/* Brand introduction */}
+      {/* Brand introduction with interactive 3D open book & steaming cup */}
       <section
         aria-labelledby="between-pages-heading"
         className="border-b border-soft bg-surface-elevated py-16 sm:py-24"
       >
         <div className="mx-auto max-w-6xl px-5 sm:px-8">
           <Reveal>
-            <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
-              <div id="between-pages-heading" className="lg:col-span-5">
-                <SectionHeading
-                  title={
-                    <>
-                      A place{" "}
-                      <em className="font-normal italic">between pages.</em>
-                    </>
-                  }
-                />
+            <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12">
+              <div className="space-y-6 lg:col-span-6">
+                <div id="between-pages-heading">
+                  <SectionHeading
+                    title={
+                      <>
+                        A place{" "}
+                        <em className="font-normal italic">between pages.</em>
+                      </>
+                    }
+                  />
+                </div>
+                <div className="space-y-5 text-base leading-relaxed text-ink-muted sm:text-lg">
+                  <p>
+                    PAHINA brings together two ordinary pleasures that belong in
+                    the same room: thoughtfully made coffee and unhurried time
+                    with a good book.
+                  </p>
+                  <p>
+                    Shaped as a small neighborhood café rather than a bustling
+                    chain or crowded hall, the space leaves comfortable room at
+                    each table so you can drink slowly, read a chapter or three,
+                    and feel settled for as long as your cup lasts.
+                  </p>
+                  <p className="font-editorial text-2xl italic text-ink">
+                    “{SITE_INFO.supportingLines.meetsStories}”
+                  </p>
+                </div>
               </div>
-              <div className="space-y-5 text-base leading-relaxed text-ink-muted sm:text-lg lg:col-span-7">
-                <p>
-                  PAHINA brings together two ordinary pleasures that belong in
-                  the same room: thoughtfully made coffee and unhurried time
-                  with a good book.
-                </p>
-                <p>
-                  Shaped as a small neighborhood café rather than a bustling
-                  chain or crowded hall, the space leaves comfortable room at
-                  each table so you can drink slowly, read a chapter or three,
-                  and feel settled for as long as your cup lasts.
-                </p>
-                <p className="font-editorial text-2xl italic text-ink">
-                  “{SITE_INFO.supportingLines.meetsStories}”
-                </p>
+
+              <div className="lg:col-span-6">
+                <BetweenPages3D />
               </div>
             </div>
           </Reveal>
         </div>
       </section>
 
-      {/* Featured menu */}
+      {/* Featured menu with live 3D drink tasting pedestal */}
       <section
         aria-labelledby="featured-menu-heading"
         className="border-b border-soft bg-paper py-16 sm:py-24"
@@ -85,10 +94,8 @@ export default function HomePage() {
             </PrimaryButton>
           </div>
 
-          <Reveal className="mt-10 grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-5">
-            {featuredItems.map((item) => (
-              <MenuItem key={item.id} item={item} />
-            ))}
+          <Reveal>
+            <FeaturedMenuSection items={featuredItems} />
           </Reveal>
 
           <p className="mt-6 text-sm text-ink-muted">
@@ -105,23 +112,18 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Reading Room feature */}
+      {/* Reading Room feature with interactive 3D miniature 6-genre bookshelf */}
       <section
         aria-labelledby="reading-room-feature-heading"
         className="border-b border-soft bg-surface-elevated py-16 sm:py-24"
       >
         <div className="mx-auto max-w-6xl px-5 sm:px-8">
           <Reveal className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12">
-            <div className="lg:col-span-5">
-              <ImageFeature
-                src="/images/atmospheric/reading-room-nook.jpg"
-                alt="Open linen-bound book beside a porcelain cup of espresso on an oak café table with muted blue-grey wall paneling behind"
-                aspect="portrait"
-                sizes="(max-width: 1024px) 100vw, 42vw"
-              />
+            <div className="lg:col-span-6">
+              <HomeMiniShelf3D />
             </div>
 
-            <div className="space-y-6 lg:col-span-7">
+            <div className="space-y-6 lg:col-span-6">
               <div id="reading-room-feature-heading">
                 <SectionHeading
                   title={

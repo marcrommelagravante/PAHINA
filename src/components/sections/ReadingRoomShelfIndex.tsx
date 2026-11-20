@@ -4,6 +4,7 @@ import { useState } from "react";
 import { BookOpen } from "lucide-react";
 import { BOOK_GENRES } from "@/data/books";
 import { BookCategory } from "@/components/ui/BookCategory";
+import { GenreShelfStage3D } from "@/components/three/ReadingRoomScenes3D";
 
 export function ReadingRoomShelfIndex() {
   const [selectedId, setSelectedId] = useState<string>(BOOK_GENRES[0].id);
@@ -27,28 +28,41 @@ export function ReadingRoomShelfIndex() {
       <aside
         aria-live="polite"
         aria-label="Selected shelf reading note"
-        className="rounded-2xl border border-powder bg-powder-soft p-6 sm:p-8 lg:col-span-5 lg:sticky lg:top-28"
+        className="rounded-2xl border border-powder bg-powder-soft p-6 sm:p-7 lg:col-span-5 lg:sticky lg:top-24"
       >
-        <div className="flex items-center gap-3 text-ink">
-          <BookOpen className="h-5 w-5 shrink-0" strokeWidth={1.5} aria-hidden="true" />
-          <span className="text-sm font-medium text-ink-muted">
-            Selected shelf mood
+        <div className="flex items-center justify-between gap-3 text-ink">
+          <div className="flex items-center gap-2.5">
+            <BookOpen
+              className="h-5 w-5 shrink-0"
+              strokeWidth={1.5}
+              aria-hidden="true"
+            />
+            <span className="text-sm font-medium text-ink-muted">
+              Selected shelf in 3D
+            </span>
+          </div>
+          <span className="font-display text-2xl text-ink">
+            {selectedGenre.name}
           </span>
         </div>
 
-        <h3 className="mt-4 font-display text-3xl text-ink">
-          {selectedGenre.name}
-        </h3>
+        <div className="mt-4">
+          <GenreShelfStage3D
+            selectedGenre={selectedGenre}
+            onSelectGenre={setSelectedId}
+            className="h-[235px] w-full rounded-xl border border-powder bg-paper sm:h-[255px]"
+          />
+        </div>
 
         <p className="mt-4 text-base leading-relaxed text-ink">
           {selectedGenre.readingMoodNote}
         </p>
 
-        <p className="mt-5 border-t border-ink/15 pt-4 font-editorial text-xl italic text-ink">
+        <p className="mt-4 border-t border-ink/15 pt-4 font-editorial text-xl italic text-ink">
           {selectedGenre.quietPairing}
         </p>
 
-        <p className="mt-5 text-xs leading-relaxed text-ink-muted">
+        <p className="mt-4 text-xs leading-relaxed text-ink-muted">
           Curated titles rotate organically on our shelves and are strictly for
           reading inside PAHINA. Ask our staff anytime for a shelf suggestion.
         </p>

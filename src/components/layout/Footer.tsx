@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { NAV_ITEMS, SITE_INFO, VISIT_CTA_LINK } from "@/data/site";
+import { PahinaEmblem } from "@/components/ui/PahinaEmblem";
 
 export function Footer() {
   const allLinks = [...NAV_ITEMS, VISIT_CTA_LINK];
@@ -11,9 +12,12 @@ export function Footer() {
           <div className="md:col-span-5 space-y-4">
             <Link
               href="/"
-              className="inline-block font-display text-3xl tracking-[0.22em] text-ink uppercase"
+              className="inline-flex items-center gap-3.5 text-ink transition-opacity duration-150 hover:opacity-80"
             >
-              {SITE_INFO.name}
+              <PahinaEmblem size={40} showRingText />
+              <span className="font-display text-3xl tracking-[0.22em] uppercase">
+                {SITE_INFO.name}
+              </span>
             </Link>
             <p className="text-sm font-medium text-ink-muted">
               {SITE_INFO.descriptor}

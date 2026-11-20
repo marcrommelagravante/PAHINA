@@ -5,7 +5,9 @@ import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ReadingRoomShelfIndex } from "@/components/sections/ReadingRoomShelfIndex";
 import { VisitBanner } from "@/components/sections/VisitBanner";
-import { READING_ROOM_GUIDELINES, READING_ROOM_STEPS } from "@/data/books";
+import { ReadingRoomHeader3D } from "@/components/three/PageHeaders3D";
+import { ReadingRoomSteps3D } from "@/components/three/ReadingRoomScenes3D";
+import { READING_ROOM_GUIDELINES } from "@/data/books";
 
 export const metadata: Metadata = {
   title: "Reading Room",
@@ -24,6 +26,7 @@ export default function ReadingRoomPage() {
           </>
         }
         description="Our shelves are gathered for comfortable in-café reading—never rushed, never crowded, and open to anyone sharing a cup inside PAHINA."
+        aside={<ReadingRoomHeader3D />}
       />
 
       {/* Atmospheric hero feature */}
@@ -40,7 +43,7 @@ export default function ReadingRoomPage() {
         </div>
       </section>
 
-      {/* Curated collection & interactive category index */}
+      {/* Curated collection & interactive 3D category index */}
       <section
         aria-labelledby="shelf-index-heading"
         className="border-b border-soft bg-surface-elevated py-16 sm:py-24"
@@ -54,7 +57,7 @@ export default function ReadingRoomPage() {
                   <em className="font-normal italic">by mood and curiosity.</em>
                 </>
               }
-              description="Select any shelf below to preview the reading mood each category brings to your table. Titles rotate in the café and stay on the premises."
+              description="Select any shelf below to preview the reading mood and 3D volume pairing each category brings to your table. Titles rotate in the café and stay on the premises."
             />
           </div>
 
@@ -64,7 +67,7 @@ export default function ReadingRoomPage() {
         </div>
       </section>
 
-      {/* How it works — genuine 4-step sequence */}
+      {/* How it works — interactive 4-step 3D sequence */}
       <section
         aria-labelledby="how-it-works-heading"
         className="border-b border-soft bg-paper py-16 sm:py-24"
@@ -82,23 +85,8 @@ export default function ReadingRoomPage() {
             />
           </div>
 
-          <Reveal className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {READING_ROOM_STEPS.map((step) => (
-              <article
-                key={step.stepNumber}
-                className="rounded-xl border border-soft bg-surface-elevated p-6"
-              >
-                <span className="font-display text-3xl text-ink tabular-nums">
-                  {step.stepNumber}
-                </span>
-                <h3 className="mt-4 font-display text-xl text-ink">
-                  {step.title}
-                </h3>
-                <p className="mt-2.5 text-sm leading-relaxed text-ink-muted">
-                  {step.description}
-                </p>
-              </article>
-            ))}
+          <Reveal>
+            <ReadingRoomSteps3D />
           </Reveal>
         </div>
       </section>

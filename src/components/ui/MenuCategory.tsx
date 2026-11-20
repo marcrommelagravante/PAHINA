@@ -5,9 +5,16 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 interface MenuCategoryProps {
   category: MenuCategoryMeta;
   items: MenuItemData[];
+  selectedItemId?: string;
+  onSelectItem?: (item: MenuItemData) => void;
 }
 
-export function MenuCategory({ category, items }: MenuCategoryProps) {
+export function MenuCategory({
+  category,
+  items,
+  selectedItemId,
+  onSelectItem,
+}: MenuCategoryProps) {
   const subcategories = Array.from(
     new Set(items.map((item) => item.subcategory).filter(Boolean))
   ) as string[];
@@ -40,7 +47,12 @@ export function MenuCategory({ category, items }: MenuCategoryProps) {
                 </h3>
                 <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-5">
                   {groupItems.map((item) => (
-                    <MenuItem key={item.id} item={item} />
+                    <MenuItem
+                      key={item.id}
+                      item={item}
+                      isSelected={item.id === selectedItemId}
+                      onSelect={onSelectItem}
+                    />
                   ))}
                 </div>
               </div>
@@ -50,7 +62,12 @@ export function MenuCategory({ category, items }: MenuCategoryProps) {
       ) : (
         <div className="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-5">
           {items.map((item) => (
-            <MenuItem key={item.id} item={item} />
+            <MenuItem
+              key={item.id}
+              item={item}
+              isSelected={item.id === selectedItemId}
+              onSelect={onSelectItem}
+            />
           ))}
         </div>
       )}

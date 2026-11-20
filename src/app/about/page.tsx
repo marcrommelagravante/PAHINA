@@ -4,6 +4,8 @@ import { PageHeader } from "@/components/ui/PageHeader";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { VisitBanner } from "@/components/sections/VisitBanner";
+import { AboutHeader3D } from "@/components/three/PageHeaders3D";
+import { MaterialStudy3D } from "@/components/three/MaterialStudy3D";
 import { SITE_INFO } from "@/data/site";
 
 export const metadata: Metadata = {
@@ -23,9 +25,10 @@ export default function AboutPage() {
           </>
         }
         description="PAHINA began with a modest idea: a neighborhood room small enough to feel calm, warm enough for good conversation, and unhurried enough to finish a chapter."
+        aside={<AboutHeader3D />}
       />
 
-      {/* Brand story & inspiration */}
+      {/* Brand story & inspiration (keeps existing interior photograph) */}
       <section className="border-b border-soft bg-paper py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-5 sm:px-8">
           <Reveal className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12">
@@ -133,17 +136,12 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Interior atmosphere */}
+      {/* Interior atmosphere & interactive 3D Material Study Swatch Board */}
       <section className="border-b border-soft bg-paper py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-5 sm:px-8">
           <Reveal className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12">
             <div className="lg:col-span-7">
-              <ImageFeature
-                src="/images/atmospheric/reading-room-hero.jpg"
-                alt="Warm wood table beside tall arched glass windows and recessed pastel blue-grey bookcases inside PAHINA"
-                aspect="landscape"
-                sizes="(max-width: 1024px) 100vw, 56vw"
-              />
+              <MaterialStudy3D />
             </div>
 
             <div className="space-y-5 lg:col-span-5">

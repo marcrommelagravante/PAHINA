@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <defs>
+    <path
+      id="pahina-ring-top"
+      d="M 14,60 A 46,46 0 1,1 106,60"
+    />
+    <path
+      id="pahina-ring-bottom"
+      d="M 106,60 A 46,46 0 1,1 14,60"
+    />
+  </defs>
+
+  <!-- Outer engraved ring -->
+  <circle cx="60" cy="60" r="56.5" stroke="#41474D" stroke-width="1.4" opacity="0.92" />
+  <!-- Inner engraved ring -->
+  <circle cx="60" cy="60" r="37.5" stroke="#41474D" stroke-width="1.1" opacity="0.72" />
+
+  <!-- Circular engraved lettering -->
+  <text
+    fill="#41474D"
+    font-family="Manrope, -apple-system, BlinkMacSystemFont, sans-serif"
+    font-size="6.4"
+    font-weight="500"
+    letter-spacing="2.4"
+    opacity="0.9"
+  >
+    <textPath href="#pahina-ring-top" startOffset="50%" text-anchor="middle">
+      COFFEE &amp; READING ROOM
+    </textPath>
+  </text>
+
+  <text
+    fill="#41474D"
+    font-family="Bodoni Moda, Georgia, serif"
+    font-size="6.8"
+    font-weight="400"
+    letter-spacing="3.6"
+    opacity="0.86"
+  >
+    <textPath href="#pahina-ring-bottom" startOffset="50%" text-anchor="middle">
+      PAHINA
+    </textPath>
+  </text>
+
+  <!-- Open book glyph with central spine rising into a single steam curl -->
+  <g stroke="#41474D" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 60 74 C 53 70.5 45 70 39 71.5 L 39 54.5 C 45 53 53 53.5 60 57.5" />
+    <path d="M 60 74 C 67 70.5 75 70 81 71.5 L 81 54.5 C 75 53 67 53.5 60 57.5" />
+    <path d="M 43 74.8 C 48.5 73.8 54.5 74.2 60 77.2 C 65.5 74.2 71.5 73.8 77 74.8" stroke-width="1.2" opacity="0.7" />
+    <path d="M 60 74 L 60 57.5 C 60 51.5 55.8 49.5 56.5 45 C 57.2 40.5 63.5 39.5 63 34.5 C 62.7 31.8 60.5 30 59.2 28.8" />
+  </g>
+</svg>

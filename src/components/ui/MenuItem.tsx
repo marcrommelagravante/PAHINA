@@ -4,11 +4,27 @@ import { cn } from "@/lib/utils";
 
 interface MenuItemProps {
   item: MenuItemData;
+  isSelected?: boolean;
+  onSelect?: (item: MenuItemData) => void;
 }
 
-export function MenuItem({ item }: MenuItemProps) {
+export function MenuItem({
+  item,
+  isSelected = false,
+  onSelect,
+}: MenuItemProps) {
   return (
-    <article className="group flex items-start gap-4 rounded-xl border border-soft bg-surface-elevated p-4 transition-colors duration-150 hover:border-powder sm:gap-5 sm:p-5">
+    <article
+      onClick={onSelect ? () => onSelect(item) : undefined}
+      onMouseEnter={onSelect ? () => onSelect(item) : undefined}
+      className={cn(
+        "group flex items-start gap-4 rounded-xl border p-4 transition-colors duration-150 sm:gap-5 sm:p-5",
+        onSelect && "cursor-pointer",
+        isSelected
+          ? "border-ink bg-powder-soft/45"
+          : "border-soft bg-surface-elevated hover:border-powder"
+      )}
+    >
       <div className="relative aspect-[4/5] w-24 shrink-0 overflow-hidden rounded-lg bg-soft sm:w-[104px]">
         <Image
           src={item.image}
@@ -24,16 +40,23 @@ export function MenuItem({ item }: MenuItemProps) {
           <h3 className="font-display text-lg leading-snug text-ink sm:text-xl">
             {item.name}
           </h3>
-          {item.badge && (
-            <span
-              className={cn(
-                "inline-flex shrink-0 items-center rounded-full px-2.5 py-0.5 text-xs font-medium text-ink",
-                item.badge === "Must Try" ? "bg-powder" : "bg-powder-soft"
-              )}
-            >
-              {item.badge}
-            </span>
-          )}
+          <div className="flex items-center gap-1.5">
+            {item.badge && (
+              <span
+                className={cn(
+                  "inline-flex shrink-0 items-center rounded-full px-2.5 py-0.5 text-xs font-medium text-ink",
+                  item.badge === "Must Try" ? "bg-powder" : "bg-powder-soft"
+                )}
+              >
+                {item.badge}
+              </span>
+            )}
+            {isSelected && (
+              <span className="inline-flex shrink-0 items-center rounded-full bg-ink px-2 py-0.5 text-[11px] font-medium text-paper">
+                In 3D
+              </span>
+            )}
+          </div>
         </div>
 
         {item.sizes && (

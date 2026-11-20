@@ -6,6 +6,7 @@ import { X } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { NAV_ITEMS, SITE_INFO, VISIT_CTA_LINK } from "@/data/site";
 import { cn } from "@/lib/utils";
+import { PahinaEmblem } from "@/components/ui/PahinaEmblem";
 
 interface MobileNavigationProps {
   isOpen: boolean;
@@ -54,15 +55,18 @@ export function MobileNavigation({
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: prefersReducedMotion ? 0 : -8 }}
           transition={{ duration: 0.24, ease: [0.32, 0.72, 0, 1] }}
-          className="fixed inset-0 z-50 flex flex-col bg-paper px-6 pt-5 pb-10 md:hidden"
+          className="fixed inset-0 z-50 flex flex-col bg-paper px-6 pt-5 pb-10 text-ink md:hidden"
         >
           <div className="flex items-center justify-between border-b border-soft pb-4">
             <Link
               href="/"
               onClick={onClose}
-              className="font-display text-2xl tracking-[0.22em] text-ink uppercase"
+              className="inline-flex items-center gap-3 text-ink"
             >
-              {SITE_INFO.name}
+              <PahinaEmblem size={34} showRingText />
+              <span className="font-display text-2xl tracking-[0.22em] uppercase">
+                {SITE_INFO.name}
+              </span>
             </Link>
             <button
               ref={closeButtonRef}
@@ -101,7 +105,10 @@ export function MobileNavigation({
                     >
                       <span>{item.label}</span>
                       {isActive && (
-                        <span className="h-2 w-2 rounded-full bg-ink" aria-hidden="true" />
+                        <span
+                          className="h-2 w-2 rounded-full bg-ink"
+                          aria-hidden="true"
+                        />
                       )}
                     </Link>
                   </li>

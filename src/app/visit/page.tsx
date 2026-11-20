@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { VisitInformation } from "@/components/sections/VisitInformation";
+import { VisitHeader3D } from "@/components/three/PageHeaders3D";
 
 export const metadata: Metadata = {
   title: "Visit Us",
@@ -18,6 +19,7 @@ export default function VisitPage() {
           </>
         }
         description="PAHINA is currently an editorial café portfolio concept. The structured visit placeholders below are ready to be updated once a real street address, opening schedule, and contact lines are confirmed."
+        aside={<VisitHeader3D />}
       />
 
       <VisitInformation />

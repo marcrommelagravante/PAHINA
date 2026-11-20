@@ -165,3 +165,24 @@ PAHINA is **flat and hairline-divided by default**. Hierarchy comes from paper s
 - **Don't** add eyebrow kickers above section headings, middle-dot meta strings, or text arrows (`→`) inside buttons.
 - **Don't** flood entire screens with blue backgrounds or introduce unrelated warm/terracotta accent colors.
 - **Don't** stretch contact-sheet thumbnail assets beyond compact editorial row sizes without replacing them at high resolution.
+
+---
+
+## Cinematic Daylight Hero & Brand Emblem (`/`)
+
+The top of the homepage (`/`) translates a three-act scroll-scrubbed 3D gallery choreography strictly into **PAHINA's original Paper White, Deep Ink Grey, and Powder Blue palette**, flowing seamlessly into the lower homepage sections and all connected routes (`/menu`, `/reading-room`, `/about`, `/visit`) with zero theme break.
+
+### Three-Act Daylight Choreography
+- **Act 1 (Sunlit Plinth Gallery):** Opens looking up at a recessed overhead gallery skylight panel before tilting down into honed Paper White (`#F4F1EA`) Carrara marble walls, an Elevated Paper (`#FAF8F3`) architectural plinth accented with a hairline Powder Blue (`#B9D0E0`) reveal, and a closed Deep Ink Grey (`#41474D`) linen-bound PAHINA hardcover book catching raking morning light.
+- **Act 2 (Crema Horizon & Frosted Paper Chips):** The gallery rises cleanly into open Paper White air as a rotating espresso crema dome rises from the bottom third, outlined by a Powder Blue atmospheric rim and kissed by a slender descending skylight meridian beam; three frosted Elevated Paper glass chips (`Espresso Pulled`, `Window Seat Free`, `Book Returned to Shelf`) drift gently at staggered depths.
+- **Act 3 (3D Daylight Exhibition Corridor):** PAHINA's own sunlit café, reading-room, and menu photographs (`4px` radius, hairline Soft Grey edge) glide past on both sides out of soft Paper White mist into full natural colour while the centered Deep Ink Grey hardcover book turns 180° scrubbed to scroll to reveal `"Every page holds a story."` on its back cover.
+
+### Brand Emblem
+- A circular double-ring engraved emblem (`PahinaEmblem` / `public/images/after-hours/pahina-emblem.svg`) containing an open-book glyph whose central spine rises into a single steam curl, framed by `COFFEE & READING ROOM` and `PAHINA` along the ring.
+- Anchors both the primary navigation and site footer alongside the uppercase Bodoni Moda `PAHINA` wordmark across all five routes, and appears blind-debossed on the 3D hardcover book cover.
+
+### Motion & Accessibility Rules
+- **Motion Character:** Slow, weighted gallery camera choreography (`cubic-bezier(0.65, 0, 0.35, 1)`) and damped scroll scrubbing—never fast, playful, or bouncy.
+- **Reduced Motion & Non-WebGL Fallback:** Users with `prefers-reduced-motion: reduce` or devices without WebGL receive three static daylight Paper White gallery stills (`still-act1-plinth-light.jpg`, `still-act2-crema-light.jpg`, `still-act3-gallery-light.jpg`) with identical copy, static glass chips, and zero tilt, scroll scrubbing, or drift.
+
+

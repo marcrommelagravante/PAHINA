@@ -7,9 +7,12 @@ import { Menu } from "lucide-react";
 import { NAV_ITEMS, SITE_INFO, VISIT_CTA_LINK } from "@/data/site";
 import { cn } from "@/lib/utils";
 import { MobileNavigation } from "@/components/layout/MobileNavigation";
+import { PahinaEmblem } from "@/components/ui/PahinaEmblem";
 
 export function Navbar() {
   const pathname = usePathname();
+  const isHome = pathname === "/";
+
   const [scrolled, setScrolled] = useState(false);
   const [openForPathname, setOpenForPathname] = useState<string | null>(null);
   const mobileOpen = openForPathname === pathname;
@@ -25,23 +28,30 @@ export function Navbar() {
   }, []);
 
   const isVisitActive = pathname.startsWith(VISIT_CTA_LINK.href);
+  const floatingHeroNav = isHome && !scrolled;
 
   return (
     <>
       <header
         className={cn(
-          "sticky top-0 z-40 w-full border-b transition-[background-color,border-color] duration-200 ease-[var(--ease-out)]",
-          scrolled
-            ? "border-soft bg-paper/92 backdrop-blur-md"
-            : "border-soft/80 bg-paper"
+          "z-40 w-full border-b transition-[background-color,border-color,backdrop-filter] duration-300 ease-[var(--ease-cinematic)]",
+          isHome ? "fixed top-0 inset-x-0" : "sticky top-0",
+          floatingHeroNav
+            ? "border-transparent bg-transparent"
+            : scrolled
+              ? "border-soft bg-paper/92 backdrop-blur-md"
+              : "border-soft/80 bg-paper"
         )}
       >
         <div className="mx-auto flex h-18 max-w-6xl items-center justify-between px-5 sm:px-8">
           <Link
             href="/"
-            className="font-display text-2xl tracking-[0.22em] text-ink uppercase transition-opacity duration-150 hover:opacity-80"
+            className="inline-flex items-center gap-3 text-ink transition-opacity duration-150 hover:opacity-80"
           >
-            {SITE_INFO.name}
+            <PahinaEmblem size={36} showRingText />
+            <span className="font-display text-2xl tracking-[0.22em] uppercase">
+              {SITE_INFO.name}
+            </span>
           </Link>
 
           <nav
@@ -61,9 +71,7 @@ export function Navbar() {
                   aria-current={isActive ? "page" : undefined}
                   className={cn(
                     "relative py-2 text-sm font-medium tracking-[0.02em] transition-colors duration-150",
-                    isActive
-                      ? "text-ink"
-                      : "text-ink-muted hover:text-ink"
+                    isActive ? "text-ink" : "text-ink-muted hover:text-ink"
                   )}
                 >
                   <span>{item.label}</span>
@@ -71,9 +79,7 @@ export function Navbar() {
                     aria-hidden="true"
                     className={cn(
                       "absolute inset-x-0 bottom-0 h-[2px] rounded-full transition-transform duration-200 ease-[var(--ease-out)] origin-left",
-                      isActive
-                        ? "scale-x-100 bg-ink"
-                        : "scale-x-0 bg-powder"
+                      isActive ? "scale-x-100 bg-ink" : "scale-x-0 bg-powder"
                     )}
                   />
                 </Link>
@@ -81,12 +87,12 @@ export function Navbar() {
             })}
           </nav>
 
-          <div className="hidden md:flex items-center">
+          <div className="hidden items-center md:flex">
             <Link
               href={VISIT_CTA_LINK.href}
               aria-current={isVisitActive ? "page" : undefined}
               className={cn(
-                "inline-flex min-h-[40px] items-center justify-center rounded-full px-5 py-2 text-sm font-medium tracking-[0.02em] transition-[background-color,color,transform] duration-150 ease-[var(--ease-out)] active:scale-[0.97]",
+                "inline-flex min-h-[42px] items-center justify-center rounded-full px-5 py-2 text-sm font-medium tracking-[0.02em] transition-[background-color,color,transform] duration-150 ease-[var(--ease-out)] active:scale-[0.97]",
                 isVisitActive
                   ? "bg-ink text-paper"
                   : "bg-powder text-ink hover:bg-[#A6C2D6]"
@@ -102,7 +108,7 @@ export function Navbar() {
             aria-expanded={mobileOpen}
             aria-controls="mobile-navigation-drawer"
             aria-label="Open navigation menu"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-soft text-ink transition-[background-color,transform] duration-150 active:scale-[0.97] hover:bg-soft/70 md:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-soft bg-paper/70 text-ink backdrop-blur-sm transition-[background-color,transform] duration-150 active:scale-[0.97] hover:bg-soft/70 md:hidden"
           >
             <Menu className="h-5 w-5" strokeWidth={1.6} aria-hidden="true" />
           </button>

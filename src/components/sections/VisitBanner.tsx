@@ -1,6 +1,6 @@
 import { PrimaryButton } from "@/components/ui/PrimaryButton";
 import { Reveal } from "@/components/ui/Reveal";
-import { VisitHeader3D } from "@/components/three/PageHeaders3D";
+import { PahinaEmblem } from "@/components/ui/PahinaEmblem";
 import { cn } from "@/lib/utils";
 
 interface VisitBannerProps {
@@ -30,9 +30,9 @@ export function VisitBanner({
     <section className={cn("bg-paper py-16 sm:py-24", className)}>
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <Reveal>
-          <div className="rounded-3xl border border-powder bg-powder-soft/75 px-6 py-10 text-center sm:px-12 sm:py-14">
-            <div className="mb-4">
-              <VisitHeader3D compact />
+          <div className="rounded-3xl border border-powder bg-powder-soft/75 px-6 py-12 text-center sm:px-12 sm:py-16">
+            <div className="mb-5 flex justify-center">
+              <PahinaEmblem size={44} showRingText />
             </div>
             <h2 className="font-display text-3xl leading-[1.1] tracking-[-0.02em] text-ink sm:text-5xl">
               {heading}

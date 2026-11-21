@@ -40,8 +40,8 @@ A boutique, neighborhood-scale book café—never a crowded commercial library, 
   - Drink pricing, `(Hot)`/`(Iced)` size labels, and signature/`Must Try` highlights follow the supplied menu reference (`unnamed.webp`).
   - Food prices (Pasta, Pizza, Fries) are unconfirmed and displayed quietly as *"Price to be confirmed"*.
   - Zero fabricated business facts (address, hours, phone, email, social handles, map coordinates, founder biographies, book titles, collection counts, ingredients, or allergen claims).
-- **Menu browsing:** Sticky category filter bar defaulting to **All** with optional category filters, displaying clean item cards (name, sizes/prices, badge if applicable, and 4:5 photo only).
-- **Reading Room:** Interactive 6-category shelf index (`Fiction`, `Romance`, `Mystery`, `Philosophy`, `Poetry`, `Nonfiction`) showing quiet reading-mood pairing notes alongside the 4-step workflow and in-café-only guidelines.
+- **Menu browsing:** Sticky category filter bar defaulting to **All** with optional category filters; each category opens with up to 3 standout showcase items (badged first) followed by a printed hairline ledger for remaining items (name, sizes/prices, badge if applicable, and compact 4:5 photo only).
+- **Reading Room:** Open-book hero table of contents jumping directly to 6 alternating editorial shelf spreads (`Fiction`, `Romance`, `Mystery`, `Philosophy`, `Poetry`, `Nonfiction`), followed by a wide daylight banner, numbered 4-step workflow, and hairline in-café guidelines.
 
 ## Brand Commitments
 
@@ -49,7 +49,7 @@ A boutique, neighborhood-scale book café—never a crowded commercial library, 
 - **Lines:** *"Every page holds a story."*, *"A quiet place for curious minds."*, *"Brew a cup. Turn a page."*, *"Where coffee meets stories."*
 - **Confirmed Palette:** Paper White `#F4F1EA`, Deep Ink Grey `#41474D`, Powder Blue `#B9D0E0`, Slate Grey `#8999A6`, Soft Grey `#E8E8E4`.
 - **Confirmed Typography:** `Bodoni Moda` (display, intentional upright + italic), `Instrument Serif` (selective editorial pull quotes), `Manrope` (body & UI).
-- **Photography:** High-resolution bespoke atmospheric scenes and regenerated 4:5 menu photography stored under `public/images/`.
+- **Photography:** High-resolution daylight atmospheric scenes, overhead editorial spreads (`public/images/editorial/`), and phased high-res 4:5 menu photography stored under `public/images/pahina-menu-assets/` (mapped centrally in `src/data/editorialImages.ts`).
 
 ## Evidence on Hand
 

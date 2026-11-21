@@ -146,13 +146,15 @@ PAHINA is **flat and hairline-divided by default**. Hierarchy comes from paper s
 - **Powder Accent:** Powder Blue fill (`#B9D0E0`) with Deep Ink Grey text (`#41474D`).
 - **Secondary:** Transparent fill with subtle Ink outline (`25%` opacity) transitioning to solid Ink border on hover.
 
-### Menu Item Card
-- **Corner Style:** `12px` radius (`rounded-xl`).
-- **Background:** `#FAF8F3` with `1px` `#E8E8E4` border shifting to `#B9D0E0` on hover.
-- **Structure:** Fixed `96–104px` `4:5` portrait photo beside Bodoni Moda item title, optional `Signature` (`#DCE7EF`) or `Must Try` (`#B9D0E0`) badge, and `tabular-nums` size/price table (`SMOL 12oz Hot`, `MOYEN 16oz Iced`, `GRANDE 22oz Iced`).
+### Menu Item Row
+- **Style:** Flat printed-menu ledger row on Paper White (`border-b border-soft py-5`), never boxed cards with shadows.
+- **Structure:** Compact `76–80px` `4:5` portrait thumbnail (`rounded-lg`) beside Bodoni Moda item title, optional `Signature` (`#DCE7EF`) or `Must Try` (`#B9D0E0`) pill, and `tabular-nums` size/price table (`SMOL 12oz Hot`, `MOYEN 16oz Iced`, `GRANDE 22oz Iced`).
+- **Category Intros:** Each category opens with an editorial heading, a `MarginNote` serving note, and a staggered `DrinkShowcase` (up to 3 standout items, badged first) before the hairline ledger.
 
-### Navigation
-- Sticky Paper White header (`h-18`) with `backdrop-blur-md` on scroll, centered links carrying a left-origin `2px` underline on the active route, and a full-screen mobile drawer (`cubic-bezier(0.32, 0.72, 0, 1)`) with `Escape` key support.
+### Navigation & Footer Bookends
+- Fixed transparent header (`h-18`) floating over the honed-marble hero backdrop at scroll `0` across all five routes, transitioning smoothly to a frosted Paper White bar (`bg-paper/95 backdrop-blur-md border-soft`) after `10px` of scroll.
+- Centered `13px` links (`tracking-[0.04em]`) carry a left-origin `1px` hairline active underline; `Visit Us` pill anchors the right edge; full-screen mobile drawer (`cubic-bezier(0.32, 0.72, 0, 1)`) supports `Escape` close.
+- Site footer mirrors the opening marble stage as a matching bookend: a Paper White editorial sheet (`rounded-[6px] border border-soft`) resting on `paper-marble.jpg`.
 
 ## Do's and Don'ts
 
@@ -168,21 +170,35 @@ PAHINA is **flat and hairline-divided by default**. Hierarchy comes from paper s
 
 ---
 
-## Cinematic Daylight Hero & Brand Emblem (`/`)
+## Editorial Page-Card Hero & Shared Editorial Grammar
 
-The top of the homepage (`/`) translates a three-act scroll-scrubbed 3D gallery choreography strictly into **PAHINA's original Paper White, Deep Ink Grey, and Powder Blue palette**, flowing seamlessly into the lower homepage sections and all connected routes (`/menu`, `/reading-room`, `/about`, `/visit`) with zero theme break.
+All five routes (`/`, `/menu`, `/reading-room`, `/about`, `/visit`) open with a **Paper White (`#F4F1EA`) editorial sheet** resting on honed daylight marble (`public/images/editorial/paper-marble.jpg`), shaped around each route's specific purpose while sharing the exact same typographic, photographic, and spacing vocabulary.
 
-### Three-Act Daylight Choreography
-- **Act 1 (Sunlit Plinth Gallery):** Opens looking up at a recessed overhead gallery skylight panel before tilting down into honed Paper White (`#F4F1EA`) Carrara marble walls, an Elevated Paper (`#FAF8F3`) architectural plinth accented with a hairline Powder Blue (`#B9D0E0`) reveal, and a closed Deep Ink Grey (`#41474D`) linen-bound PAHINA hardcover book catching raking morning light.
-- **Act 2 (Crema Horizon & Frosted Paper Chips):** The gallery rises cleanly into open Paper White air as a rotating espresso crema dome rises from the bottom third, outlined by a Powder Blue atmospheric rim and kissed by a slender descending skylight meridian beam; three frosted Elevated Paper glass chips (`Espresso Pulled`, `Window Seat Free`, `Book Returned to Shelf`) drift gently at staggered depths.
-- **Act 3 (3D Daylight Exhibition Corridor):** PAHINA's own sunlit café, reading-room, and menu photographs (`4px` radius, hairline Soft Grey edge) glide past on both sides out of soft Paper White mist into full natural colour while the centered Deep Ink Grey hardcover book turns 180° scrubbed to scroll to reveal `"Every page holds a story."` on its back cover.
+### Route-Specific Hero Sheets
+- **Home (`HeroPageCard`):** The site's single choreographed signature moment. On load, a tilted Paper White page card (`-4°`, `y: 48px`) settles straight onto the marble ground over `1.2s` (`cubic-bezier(0.65, 0, 0.35, 1)`). As the visitor scrolls past, `useScroll` + `useTransform` lifts and tilts the page away (`0° → 3°`, `y: 0 → -80px`, `scale: 1 → 0.94`, `opacity: 1 → 0.6`).
+- **Menu (`MarbleSheet`):** Printed menu sheet featuring the 6-category jumpable table of contents alongside a floating overhead drinks photo and true-fact margin notes.
+- **Reading Room (`MarbleSheet`):** Open-book two-page spread divided by a hairline center spine—title and honest shelf facts on the left page, 6-genre jumpable table of contents on the right page.
+- **About (`MarbleSheet`):** Centered magazine opener with a large overhead flat-lay photograph directly beneath the serif headline.
+- **Visit (`MarbleSheet`):** Two-panel calling card / postcard—wordmark, emblem, and greeting on the front; printed hairline directory of all 6 honest `[placeholder]` fields on the back.
+
+### Shared Editorial Building Blocks (`src/components/editorial/`)
+- **`MarginNote`:** Hairline-topped small annotation (`12px` Manrope muted label over `15px` Bodoni value) restricted strictly to verifiable PAHINA facts (`Menu: 39 items`, `Shelves: 6 genres`, `Sizes: 12 / 16 / 22 oz`, `Books: Read in, return before leaving`, `Drinks: Hot or iced`, `Food prices: To be confirmed`).
+- **`FloatingPhoto`:** Borderless seamless photography on Paper White (or clean `rounded-2xl` framed photography for full-bleed café scenes) with a restrained scroll-linked `±2–4px` drift.
+- **`EditorialBanner`:** Full-width horizontal daylight spread paired with a centered Bodoni Moda statement beneath.
+- **`DrinkShowcase`:** Staggered editorial showcase (`md:translate-y-0 / 12 / 0`) displaying real sizes, `Signature`/`Must Try` pills, and `tabular-nums` prices; unregenerated low-res food crops render inside unstretched native-size specimen plates so no image is ever stretched blurry.
 
 ### Brand Emblem
-- A circular double-ring engraved emblem (`PahinaEmblem` / `public/images/after-hours/pahina-emblem.svg`) containing an open-book glyph whose central spine rises into a single steam curl, framed by `COFFEE & READING ROOM` and `PAHINA` along the ring.
-- Anchors both the primary navigation and site footer alongside the uppercase Bodoni Moda `PAHINA` wordmark across all five routes, and appears blind-debossed on the 3D hardcover book cover.
+- A circular double-ring engraved emblem (`PahinaEmblem` / `public/images/brand/pahina-emblem.svg`) containing an open-book glyph whose central spine rises into a single steam curl, framed by `COFFEE & READING ROOM` and `PAHINA` along the ring.
+- Anchors the primary navigation, closing `VisitBanner`, Visit calling card, and site footer alongside the uppercase Bodoni Moda `PAHINA` wordmark across all five routes.
 
-### Motion & Accessibility Rules
-- **Motion Character:** Slow, weighted gallery camera choreography (`cubic-bezier(0.65, 0, 0.35, 1)`) and damped scroll scrubbing—never fast, playful, or bouncy.
-- **Reduced Motion & Non-WebGL Fallback:** Users with `prefers-reduced-motion: reduce` or devices without WebGL receive three static daylight Paper White gallery stills (`still-act1-plinth-light.jpg`, `still-act2-crema-light.jpg`, `still-act3-gallery-light.jpg`) with identical copy, static glass chips, and zero tilt, scroll scrubbing, or drift.
+### Motion & Interaction Rules
+- **Scroll Choreography:** Weighted editorial spring physics (`useSpring` damping on `useScroll`/`useTransform`) across `HeroPageCard` lift/tilt, opposing floating photo parallax (`±22–34px`, subtle `±1.2°–2°` scroll rotation, `0.975 → 1.015` scale breathing), masked line-by-line Bodoni headline reveals (`MaskedHeading`), hairline Powder Blue reading progress bar (`ScrollProgressBar`), and smooth GPU-only route transitions (`src/app/template.tsx`).
+- **Desktop Pointer Physics:** On `(hover: hover) and (pointer: fine)` devices only, `FloatingPhoto` responds to cursor position with a gentle `±4°` spring tilt and `-6px` lift, and `PrimaryButton` carries a subtle `±3px` magnetic pull.
+- **Route-Specific Tactile Interactions:**
+  - **Home & Menu:** Inline `SMOL / MOYEN / GRANDE` size-pill switcher with animated `₱` price readout, click-to-open Paper White `TastingSheetModal` for all 39 items, `layoutId` gliding filter tabs + `House Picks` (`Signature` & `Must Try`) toggle, and click-to-inspect `AtmosphereGallery` editorial lightbox (`Prev`/`Next`/`Escape`).
+  - **Reading Room:** Open-book `ReadingRoomBookHero` live Bookmark Preview synced to TOC hover/click + clickable `01–04` `ReadingRoomSteps` with sliding `layoutId` indicator.
+  - **About:** Clickable 4-swatch `MaterialSwatchInspector` with sliding `layoutId` selection ring + pointer-tilt principle plates.
+  - **Visit:** 3D CSS `FlippableCallingCard` (Front emblem ↔ Back concept stamp) paired beside the always-visible 6-placeholder directory.
+- **Reduced Motion:** Under `prefers-reduced-motion: reduce`, parallax, scroll tilts, pointer tilts, magnetic pulls, 3D flips, and route slides degrade cleanly to static or instant crossfade states.
 
 

@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
-import { ImageFeature } from "@/components/ui/ImageFeature";
-import { PageHeader } from "@/components/ui/PageHeader";
+import { EditorialBanner } from "@/components/editorial/EditorialBanner";
+import { FloatingPhoto } from "@/components/editorial/FloatingPhoto";
+import { MarginNote } from "@/components/editorial/MarginNote";
+import { MaskedHeading } from "@/components/editorial/MaskedHeading";
+import { ReadingRoomBookHero } from "@/components/editorial/ReadingRoomBookHero";
+import { ReadingRoomSteps } from "@/components/editorial/ReadingRoomSteps";
+import { VisitBanner } from "@/components/sections/VisitBanner";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { ReadingRoomShelfIndex } from "@/components/sections/ReadingRoomShelfIndex";
-import { VisitBanner } from "@/components/sections/VisitBanner";
-import { ReadingRoomHeader3D } from "@/components/three/PageHeaders3D";
-import { ReadingRoomSteps3D } from "@/components/three/ReadingRoomScenes3D";
-import { READING_ROOM_GUIDELINES } from "@/data/books";
+import { BOOK_GENRES, READING_ROOM_GUIDELINES } from "@/data/books";
+import { EDITORIAL_IMAGES } from "@/data/editorialImages";
+import { SITE_INFO } from "@/data/site";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Reading Room",
@@ -15,59 +19,123 @@ export const metadata: Metadata = {
     "Learn how PAHINA's in-café Reading Room works—browse Fiction, Romance, Mystery, Philosophy, Poetry, and Nonfiction at your table.",
 };
 
+const GENRE_IMAGE_ALT: Record<string, string> = {
+  fiction:
+    "Open linen-bound book resting beside an espresso cup on a warm oak café table",
+  romance:
+    "Warm stoneware cup of Café Latte with microfoam rosetta in soft afternoon window light",
+  mystery:
+    "Chilled glass of Café Americano with crisp dark crema on a quiet oak reading table",
+  philosophy:
+    "Overhead flat-lay of an open blank hardcover book beside a stoneware latte and powder-blue linen napkin",
+  poetry:
+    "Velvety stoneware Cappuccino resting on an oak café table bathed in soft morning daylight",
+  nonfiction:
+    "Sunlit corner of PAHINA's pastel blue-grey walls, oak tables, and recessed wooden bookshelves",
+};
+
 export default function ReadingRoomPage() {
   return (
     <>
-      <PageHeader
-        title={
+      {/* Open-book hero spread with live Bookmark Preview synced to TOC */}
+      <ReadingRoomBookHero />
+
+      {/* Six alternating shelf spreads */}
+      <div className="divide-y divide-soft border-b border-soft bg-paper">
+        {BOOK_GENRES.map((genre, index) => {
+          const isEven = index % 2 === 0;
+          const photoSrc =
+            EDITORIAL_IMAGES.genreMoods[
+              genre.id as keyof typeof EDITORIAL_IMAGES.genreMoods
+            ];
+          const isFlatlayCutout = genre.id === "philosophy";
+
+          return (
+            <section
+              key={genre.id}
+              id={`shelf-${genre.id}`}
+              aria-labelledby={`shelf-heading-${genre.id}`}
+              className={cn(
+                "scroll-mt-24 py-16 sm:py-24",
+                isEven ? "bg-paper" : "bg-surface-elevated"
+              )}
+            >
+              <div className="mx-auto max-w-6xl px-5 sm:px-8">
+                <Reveal>
+                  <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14">
+                    <div
+                      className={cn(
+                        "lg:col-span-5",
+                        !isEven && "lg:order-2"
+                      )}
+                    >
+                      <FloatingPhoto
+                        src={photoSrc}
+                        alt={
+                          GENRE_IMAGE_ALT[genre.id] ??
+                          `${genre.name} reading mood inside PAHINA`
+                        }
+                        aspect={isFlatlayCutout ? "landscape" : "portrait"}
+                        drift={isEven ? 28 : -28}
+                        scrollTilt={isEven ? 1.8 : -1.8}
+                        tiltOnHover
+                        framed={!isFlatlayCutout}
+                        sizes="(max-width: 1024px) 92vw, 40vw"
+                        className="mx-auto max-w-[400px] lg:max-w-none"
+                      />
+                    </div>
+
+                    <div
+                      className={cn(
+                        "space-y-6 lg:col-span-7",
+                        !isEven && "lg:order-1"
+                      )}
+                    >
+                      <MaskedHeading
+                        id={`shelf-heading-${genre.id}`}
+                        lines={[genre.name]}
+                        className="font-display text-4xl leading-[1.08] tracking-[-0.02em] text-ink sm:text-5xl"
+                      />
+
+                      <p className="max-w-xl font-editorial text-2xl leading-snug italic text-ink">
+                        {genre.shelfSummary}
+                      </p>
+
+                      <p className="max-w-xl text-base leading-relaxed text-ink-muted sm:text-lg">
+                        {genre.readingMoodNote}
+                      </p>
+
+                      <div className="max-w-md pt-2">
+                        <MarginNote
+                          label="Pairs with"
+                          value={genre.quietPairing}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </Reveal>
+              </div>
+            </section>
+          );
+        })}
+      </div>
+
+      {/* Wide daylight Reading Room banner */}
+      <EditorialBanner
+        headingId="reading-room-banner-heading"
+        surface="elevated"
+        src={EDITORIAL_IMAGES.readingRoomBanner}
+        alt="Sunlit corner reading table beside tall arched windows inside PAHINA with an open cloth-bound book, ceramic cup, and wooden bookshelves"
+        heading={
           <>
-            A quiet room{" "}
-            <em className="font-normal italic">of curated pages.</em>
+            Brew a cup.{" "}
+            <em className="font-normal italic">Turn a page.</em>
           </>
         }
-        description="Our shelves are gathered for comfortable in-café reading—never rushed, never crowded, and open to anyone sharing a cup inside PAHINA."
-        aside={<ReadingRoomHeader3D />}
+        description={SITE_INFO.supportingLines.curiousMinds}
       />
 
-      {/* Atmospheric hero feature */}
-      <section className="border-b border-soft bg-paper py-12 sm:py-16">
-        <div className="mx-auto max-w-6xl px-5 sm:px-8">
-          <ImageFeature
-            src="/images/atmospheric/reading-room-hero.jpg"
-            alt="Sunlit corner reading table beside tall arched windows inside PAHINA with an open cloth-bound book, ceramic cup, and wooden bookshelves"
-            caption="Natural window light beside selected shelves—built for lingering rather than rushing."
-            aspect="landscape"
-            priority
-            sizes="(max-width: 1200px) 100vw, 1152px"
-          />
-        </div>
-      </section>
-
-      {/* Curated collection & interactive 3D category index */}
-      <section
-        aria-labelledby="shelf-index-heading"
-        className="border-b border-soft bg-surface-elevated py-16 sm:py-24"
-      >
-        <div className="mx-auto max-w-6xl px-5 sm:px-8">
-          <div id="shelf-index-heading">
-            <SectionHeading
-              title={
-                <>
-                  Curated{" "}
-                  <em className="font-normal italic">by mood and curiosity.</em>
-                </>
-              }
-              description="Select any shelf below to preview the reading mood and 3D volume pairing each category brings to your table. Titles rotate in the café and stay on the premises."
-            />
-          </div>
-
-          <div className="mt-10">
-            <ReadingRoomShelfIndex />
-          </div>
-        </div>
-      </section>
-
-      {/* How it works — interactive 4-step 3D sequence */}
+      {/* How it works — clickable numbered 4-step editorial sequence */}
       <section
         aria-labelledby="how-it-works-heading"
         className="border-b border-soft bg-paper py-16 sm:py-24"
@@ -81,23 +149,21 @@ export default function ReadingRoomPage() {
                   <em className="font-normal italic">works.</em>
                 </>
               }
-              description="No sign-up, library card, or take-home checkout—just four simple steps inside the café."
+              description="No sign-up, library card, or take-home checkout—just four simple steps inside the café. Select any step to highlight."
             />
           </div>
 
-          <Reveal>
-            <ReadingRoomSteps3D />
-          </Reveal>
+          <ReadingRoomSteps />
         </div>
       </section>
 
-      {/* Gentle guidelines */}
+      {/* Gentle table manners — hairline list */}
       <section
         aria-labelledby="guidelines-heading"
-        className="border-b border-soft bg-surface-elevated py-16 sm:py-20"
+        className="border-b border-soft bg-surface-elevated py-16 sm:py-24"
       >
         <div className="mx-auto max-w-6xl px-5 sm:px-8">
-          <Reveal className="grid grid-cols-1 gap-8 lg:grid-cols-12">
+          <Reveal className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
             <div id="guidelines-heading" className="lg:col-span-5">
               <SectionHeading
                 title={
@@ -110,11 +176,11 @@ export default function ReadingRoomPage() {
               />
             </div>
 
-            <ul className="space-y-4 lg:col-span-7">
+            <ul className="divide-y divide-soft border-y border-soft lg:col-span-7">
               {READING_ROOM_GUIDELINES.map((rule) => (
                 <li
                   key={rule}
-                  className="flex items-start gap-4 rounded-xl border border-soft bg-paper px-5 py-4 text-sm leading-relaxed text-ink sm:text-base"
+                  className="flex items-start gap-4 py-5 text-sm leading-relaxed text-ink sm:text-base"
                 >
                   <span
                     aria-hidden="true"

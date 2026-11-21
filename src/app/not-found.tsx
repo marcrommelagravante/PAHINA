@@ -1,10 +1,18 @@
+import { MarbleSheet } from "@/components/editorial/MarbleSheet";
 import { PrimaryButton } from "@/components/ui/PrimaryButton";
 
 export default function NotFound() {
   return (
-    <section className="flex min-h-[60vh] items-center justify-center bg-paper px-5 py-20 sm:px-8">
-      <div className="max-w-lg text-center">
-        <h1 className="font-display text-5xl text-ink sm:text-6xl">
+    <MarbleSheet
+      ariaLabelledBy="not-found-heading"
+      className="pt-28 pb-16 sm:pt-32 sm:pb-20"
+      sheetClassName="px-6 py-16 text-center sm:px-12 sm:py-24"
+    >
+      <div className="mx-auto max-w-lg">
+        <h1
+          id="not-found-heading"
+          className="font-display text-5xl text-ink sm:text-6xl"
+        >
           Page <em className="font-normal italic">turned too far.</em>
         </h1>
         <p className="mt-5 text-base leading-relaxed text-ink-muted">
@@ -20,6 +28,6 @@ export default function NotFound() {
           </PrimaryButton>
         </div>
       </div>
-    </section>
+    </MarbleSheet>
   );
 }

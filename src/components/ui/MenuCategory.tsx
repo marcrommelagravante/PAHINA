@@ -1,74 +1,99 @@
-import type { MenuCategoryMeta, MenuItemData } from "@/data/menu";
+import {
+  splitCategoryShowcase,
+  type MenuCategoryMeta,
+  type MenuItemData,
+} from "@/data/menu";
+import { DrinkShowcase } from "@/components/editorial/DrinkShowcase";
+import { MarginNote } from "@/components/editorial/MarginNote";
 import { MenuItem } from "@/components/ui/MenuItem";
+import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 interface MenuCategoryProps {
   category: MenuCategoryMeta;
   items: MenuItemData[];
-  selectedItemId?: string;
-  onSelectItem?: (item: MenuItemData) => void;
+  onInspectItem?: (item: MenuItemData) => void;
 }
 
 export function MenuCategory({
   category,
   items,
-  selectedItemId,
-  onSelectItem,
+  onInspectItem,
 }: MenuCategoryProps) {
-  const subcategories = Array.from(
-    new Set(items.map((item) => item.subcategory).filter(Boolean))
+  const { showcase, rest } = splitCategoryShowcase(category.id, items);
+
+  const restSubcategories = Array.from(
+    new Set(rest.map((item) => item.subcategory).filter(Boolean))
   ) as string[];
 
   return (
     <section
       id={`menu-${category.id}`}
       aria-labelledby={`heading-${category.id}`}
-      className="scroll-mt-36 border-b border-soft py-12 last:border-b-0 sm:py-16"
+      className="scroll-mt-36 border-b border-soft py-16 last:border-b-0 sm:py-20"
     >
-      <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-        <div id={`heading-${category.id}`}>
+      {/* Editorial category intro with margin price note */}
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
+        <div id={`heading-${category.id}`} className="lg:col-span-7">
           <SectionHeading title={category.heading} description={category.lead} />
         </div>
         {category.priceNote && (
-          <p className="max-w-md rounded-xl border border-soft bg-surface-elevated px-4 py-3 text-xs leading-relaxed text-ink-muted">
-            {category.priceNote}
-          </p>
+          <div className="lg:col-span-5 lg:pl-6">
+            <MarginNote label="Serving note" value={category.priceNote} />
+          </div>
         )}
       </div>
 
-      {subcategories.length > 0 ? (
-        <div className="mt-8 space-y-10">
-          {subcategories.map((sub) => {
-            const groupItems = items.filter((item) => item.subcategory === sub);
-            return (
-              <div key={sub} className="space-y-4">
-                <h3 className="border-b border-soft pb-2 font-editorial text-2xl italic text-ink">
-                  {sub}
-                </h3>
-                <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-5">
-                  {groupItems.map((item) => (
-                    <MenuItem
-                      key={item.id}
-                      item={item}
-                      isSelected={item.id === selectedItemId}
-                      onSelect={onSelectItem}
-                    />
-                  ))}
-                </div>
+      {/* Category mini-showcase (up to 3 standout items, badged first) */}
+      {showcase.length > 0 && (
+        <Reveal className="mt-12 md:pb-12">
+          <DrinkShowcase items={showcase} onInspectItem={onInspectItem} />
+        </Reveal>
+      )}
+
+      {/* Printed hairline ledger for the remaining items in this category */}
+      {rest.length > 0 && (
+        <div className="mt-12 border-t border-soft pt-10">
+          {restSubcategories.length > 0 ? (
+            <div className="space-y-12">
+              {restSubcategories.map((sub) => {
+                const groupItems = rest.filter(
+                  (item) => item.subcategory === sub
+                );
+                return (
+                  <div key={sub} className="space-y-2">
+                    <h3 className="border-b border-soft pb-2.5 font-editorial text-2xl italic text-ink">
+                      {sub}
+                    </h3>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-12">
+                      {groupItems.map((item) => (
+                        <MenuItem
+                          key={item.id}
+                          item={item}
+                          onInspect={onInspectItem}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div>
+              <h3 className="border-b border-soft pb-2.5 font-editorial text-2xl italic text-ink">
+                More from {category.label}
+              </h3>
+              <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-12">
+                {rest.map((item) => (
+                  <MenuItem
+                    key={item.id}
+                    item={item}
+                    onInspect={onInspectItem}
+                  />
+                ))}
               </div>
-            );
-          })}
-        </div>
-      ) : (
-        <div className="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-5">
-          {items.map((item) => (
-            <MenuItem
-              key={item.id}
-              item={item}
-              isSelected={item.id === selectedItemId}
-              onSelect={onSelectItem}
-            />
-          ))}
+            </div>
+          )}
         </div>
       )}
     </section>

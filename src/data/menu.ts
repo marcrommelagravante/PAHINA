@@ -23,7 +23,6 @@ export interface MenuItemData {
   singlePrice?: number;
   priceUnconfirmed?: boolean;
   badge?: "Signature" | "Must Try";
-  featured?: boolean;
 }
 
 export interface MenuCategoryMeta {
@@ -123,7 +122,6 @@ export const MENU_ITEMS: MenuItemData[] = [
     image: "/images/pahina-menu-assets/coffee/cafe-latte.jpg",
     alt: "Hot Café Latte with silky microfoam rosetta in a cream ceramic cup and saucer",
     sizes: CORE_COFFEE_STANDARD_SIZES,
-    featured: true,
   },
   {
     id: "cappuccino",
@@ -180,7 +178,6 @@ export const MENU_ITEMS: MenuItemData[] = [
     image: "/images/pahina-menu-assets/coffee/biscoff-latte.jpg",
     alt: "Iced Biscoff Latte topped with caramelized biscuit crumble and a crisp biscuit beside the glass",
     sizes: CORE_COFFEE_STANDARD_SIZES,
-    featured: true,
   },
   {
     id: "vanilla-latte",
@@ -199,7 +196,6 @@ export const MENU_ITEMS: MenuItemData[] = [
     image: "/images/pahina-menu-assets/coffee/white-chocolate-mocha.jpg",
     alt: "Iced White Chocolate Mocha with ivory milk base and espresso swirl in a fluted glass",
     sizes: CORE_COFFEE_STANDARD_SIZES,
-    featured: true,
   },
 
   // A. Coffee — Special Coffee (3)
@@ -302,7 +298,6 @@ export const MENU_ITEMS: MenuItemData[] = [
     alt: "Salted Caramel Oreo Frappe speckled with dark cookies, caramel drizzle, and a cookie garnish",
     sizes: FRAPPE_SIGNATURE_SIZES,
     badge: "Must Try",
-    featured: true,
   },
   {
     id: "lotus-biscoff-frappe",
@@ -478,6 +473,41 @@ export const MENU_ITEMS: MenuItemData[] = [
   },
 ];
 
-export function getFeaturedMenuItems(): MenuItemData[] {
-  return MENU_ITEMS.filter((item) => item.featured);
+export const HOME_SHOWCASE_ITEM_IDS = [
+  "caramel-macchiato",
+  "spanish-latte",
+  "signature-chocolate",
+] as const;
+
+export const CATEGORY_SHOWCASE_IDS: Record<MenuCategoryId, readonly string[]> = {
+  coffee: ["caramel-macchiato", "spanish-latte", "biscoff-latte"],
+  "non-coffee": ["signature-chocolate", "strawberry-milk-latte"],
+  frappuccino: [
+    "salted-caramel-oreo-frappe",
+    "lotus-biscoff-frappe",
+    "mocha-frappe",
+  ],
+  pasta: ["aglio-olio", "creamy-carbonara", "creamy-pesto"],
+  pizza: ["classic-cheese-pizza", "pepperoni-pizza", "four-cheese-pizza"],
+  fries: ["truffle-parmesan-fries", "cheese-fries", "classic-fries"],
+};
+
+export function getHomeShowcaseItems(): MenuItemData[] {
+  return HOME_SHOWCASE_ITEM_IDS.map((id) =>
+    MENU_ITEMS.find((item) => item.id === id)
+  ).filter((item): item is MenuItemData => Boolean(item));
+}
+
+export function splitCategoryShowcase(
+  categoryId: MenuCategoryId,
+  categoryItems: MenuItemData[]
+): { showcase: MenuItemData[]; rest: MenuItemData[] } {
+  const preferredIds = CATEGORY_SHOWCASE_IDS[categoryId] ?? [];
+  const showcase = preferredIds
+    .map((id) => categoryItems.find((item) => item.id === id))
+    .filter((item): item is MenuItemData => Boolean(item));
+
+  const showcaseSet = new Set(showcase.map((item) => item.id));
+  const rest = categoryItems.filter((item) => !showcaseSet.has(item.id));
+  return { showcase, rest };
 }

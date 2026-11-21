@@ -1,0 +1,290 @@
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
+import { X } from "lucide-react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import {
+  MENU_CATEGORIES,
+  type MenuCategoryId,
+  type MenuItemData,
+} from "@/data/menu";
+import { BOOK_GENRES } from "@/data/books";
+import { resolveShowcaseMenuImage } from "@/data/editorialImages";
+import { cn } from "@/lib/utils";
+
+interface TastingSheetModalProps {
+  item: MenuItemData | null;
+  onClose: () => void;
+}
+
+const CATEGORY_GENRE_MAP: Record<MenuCategoryId, string> = {
+  coffee: "fiction",
+  "non-coffee": "romance",
+  frappuccino: "poetry",
+  pasta: "nonfiction",
+  pizza: "fiction",
+  fries: "mystery",
+};
+
+export function TastingSheetModal({ item, onClose }: TastingSheetModalProps) {
+  const prefersReducedMotion = useReducedMotion();
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const [sizeState, setSizeState] = useState<{ itemId: string; index: number }>(
+    { itemId: "", index: 0 }
+  );
+
+  const activeSizeIdx =
+    item && sizeState.itemId === item.id ? sizeState.index : 0;
+
+  useEffect(() => {
+    if (!item) return;
+
+    closeRef.current?.focus();
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    };
+
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [item, onClose]);
+
+  const categoryMeta = item
+    ? MENU_CATEGORIES.find((cat) => cat.id === item.category)
+    : undefined;
+
+  const suggestedGenre = item
+    ? BOOK_GENRES.find((g) => g.id === CATEGORY_GENRE_MAP[item.category]) ??
+      BOOK_GENRES[0]
+    : undefined;
+
+  const resolvedImg = item
+    ? resolveShowcaseMenuImage(item.id, item.image)
+    : null;
+
+  const selectedSize =
+    item?.sizes && item.sizes[activeSizeIdx] ? item.sizes[activeSizeIdx] : null;
+
+  return (
+    <AnimatePresence>
+      {item && resolvedImg && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="tasting-sheet-title"
+        >
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.22 }}
+            onClick={onClose}
+            className="fixed inset-0 bg-ink/35 backdrop-blur-xs"
+            aria-hidden="true"
+          />
+
+          <motion.div
+            initial={
+              prefersReducedMotion
+                ? { opacity: 1 }
+                : { opacity: 0, y: 20, scale: 0.97 }
+            }
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={
+              prefersReducedMotion
+                ? { opacity: 0 }
+                : { opacity: 0, y: 14, scale: 0.98 }
+            }
+            transition={{ duration: 0.28, ease: [0.23, 1, 0.32, 1] }}
+            className="relative z-10 max-h-[90svh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-soft bg-paper p-6 text-ink sm:p-8"
+          >
+            <div className="flex items-start justify-between gap-4 border-b border-soft pb-4">
+              <div>
+                <p className="text-xs font-medium tracking-[0.04em] text-ink-muted">
+                  {categoryMeta?.label}
+                  {item.subcategory ? ` / ${item.subcategory}` : ""}
+                </p>
+                <h2
+                  id="tasting-sheet-title"
+                  className="mt-1 font-display text-3xl leading-tight text-ink sm:text-4xl"
+                >
+                  {item.name}
+                </h2>
+              </div>
+
+              <button
+                ref={closeRef}
+                type="button"
+                onClick={onClose}
+                aria-label="Close tasting sheet"
+                className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-soft bg-surface-elevated text-ink transition-[background-color,transform] duration-150 active:scale-[0.95] hover:border-ink"
+              >
+                <X className="h-4 w-4" strokeWidth={1.7} aria-hidden="true" />
+              </button>
+            </div>
+
+            <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-12 sm:items-start">
+              <div className="sm:col-span-5">
+                {resolvedImg.mode === "compact-specimen" ? (
+                  <div className="flex aspect-[4/5] flex-col items-center justify-center rounded-xl border border-soft bg-surface-elevated p-6">
+                    <div className="relative aspect-[4/5] w-28 overflow-hidden rounded-lg border border-soft bg-paper">
+                      <Image
+                        src={resolvedImg.src}
+                        alt={item.alt}
+                        fill
+                        sizes="112px"
+                        className="object-cover"
+                      />
+                    </div>
+                    <p className="mt-4 font-editorial text-base italic text-ink-muted">
+                      Kitchen plate
+                    </p>
+                  </div>
+                ) : (
+                  <div className="relative aspect-[4/5] w-full overflow-hidden rounded-xl border border-soft bg-surface-elevated">
+                    <Image
+                      src={resolvedImg.src}
+                      alt={item.alt}
+                      fill
+                      sizes="(max-width: 640px) 85vw, 240px"
+                      className="object-cover"
+                    />
+                  </div>
+                )}
+              </div>
+
+              <div className="space-y-5 sm:col-span-7">
+                {item.badge && (
+                  <span
+                    className={cn(
+                      "inline-flex items-center rounded-full px-3 py-1 text-xs font-medium text-ink",
+                      item.badge === "Must Try"
+                        ? "bg-powder"
+                        : "bg-powder-soft"
+                    )}
+                  >
+                    {item.badge}
+                  </span>
+                )}
+
+                {item.sizes && selectedSize && (
+                  <div className="space-y-4">
+                    <div
+                      role="group"
+                      aria-label={`Select size for ${item.name}`}
+                      className="flex flex-wrap gap-2"
+                    >
+                      {item.sizes.map((entry, idx) => {
+                        const isActive = idx === activeSizeIdx;
+                        return (
+                          <button
+                            key={entry.size}
+                            type="button"
+                            onClick={() =>
+                              setSizeState({ itemId: item.id, index: idx })
+                            }
+                            aria-pressed={isActive}
+                            className={cn(
+                              "relative rounded-full border px-3.5 py-1.5 text-xs font-medium transition-colors duration-150",
+                              isActive
+                                ? "border-ink bg-ink text-paper"
+                                : "border-soft bg-surface-elevated text-ink-muted hover:border-powder hover:text-ink"
+                            )}
+                          >
+                            {entry.size}
+                            {entry.note ? ` (${entry.note})` : ""}
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    <div className="flex items-baseline justify-between border-y border-soft py-3">
+                      <span className="text-sm text-ink-muted">
+                        Selected serving
+                      </span>
+                      <AnimatePresence mode="wait">
+                        <motion.span
+                          key={`${item.id}-${selectedSize.size}`}
+                          initial={
+                            prefersReducedMotion
+                              ? false
+                              : { opacity: 0, y: 6 }
+                          }
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={
+                            prefersReducedMotion
+                              ? { opacity: 0 }
+                              : { opacity: 0, y: -6 }
+                          }
+                          transition={{ duration: 0.18 }}
+                          className="font-display text-3xl tabular-nums text-ink"
+                        >
+                          ₱{selectedSize.price}
+                        </motion.span>
+                      </AnimatePresence>
+                    </div>
+                  </div>
+                )}
+
+                {item.singlePrice !== undefined && (
+                  <div className="flex items-baseline justify-between border-y border-soft py-3">
+                    <span className="text-sm text-ink-muted">
+                      Single serving
+                    </span>
+                    <span className="font-display text-3xl tabular-nums text-ink">
+                      ₱{item.singlePrice}
+                    </span>
+                  </div>
+                )}
+
+                {item.priceUnconfirmed && (
+                  <p className="border-y border-soft py-3 font-editorial text-xl italic text-ink-muted">
+                    Price to be confirmed
+                  </p>
+                )}
+
+                {categoryMeta?.priceNote && (
+                  <p className="text-sm leading-relaxed text-ink-muted">
+                    {categoryMeta.priceNote}
+                  </p>
+                )}
+
+                {suggestedGenre && (
+                  <div className="rounded-xl border border-powder bg-powder-soft/55 p-4">
+                    <p className="text-xs font-medium tracking-[0.04em] text-ink-muted">
+                      Reading Room pairing
+                    </p>
+                    <p className="mt-1 font-display text-lg text-ink">
+                      {suggestedGenre.name} shelf
+                    </p>
+                    <p className="mt-1 font-editorial text-base italic text-ink-muted">
+                      {suggestedGenre.quietPairing}
+                    </p>
+                    <Link
+                      href={`/reading-room#shelf-${suggestedGenre.id}`}
+                      onClick={onClose}
+                      className="mt-3 inline-block text-xs font-medium text-ink underline decoration-ink/40 underline-offset-4 hover:decoration-ink"
+                    >
+                      Visit the {suggestedGenre.name} shelf
+                    </Link>
+                  </div>
+                )}
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
+  );
+}

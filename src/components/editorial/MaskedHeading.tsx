@@ -1,7 +1,7 @@
 "use client";
 
-import type { ReactNode } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { useRef, type ReactNode } from "react";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface MaskedHeadingProps {
@@ -14,8 +14,10 @@ interface MaskedHeadingProps {
 }
 
 /**
- * Editorial masked line-by-line serif reveal: each line rises cleanly from
- * behind its own baseline clip, staying static under prefers-reduced-motion.
+ * Editorial masked line-by-line serif reveal.
+ * Observes the unclipped outer heading element via useInView so lines never
+ * stall invisible when offset inside overflow-hidden wrappers, with generous
+ * descender padding so tall Bodoni tails ('y', 'g', 'p') never clip.
  */
 export function MaskedHeading({
   lines,
@@ -26,6 +28,8 @@ export function MaskedHeading({
   delay = 0,
 }: MaskedHeadingProps) {
   const prefersReducedMotion = useReducedMotion();
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const isInView = useInView(headingRef, { once: true, amount: 0.15 });
   const HeadingTag = as;
 
   if (prefersReducedMotion) {
@@ -40,22 +44,21 @@ export function MaskedHeading({
     );
   }
 
+  const shouldReveal = immediate || isInView;
+
   return (
-    <HeadingTag id={id} className={cn(className)}>
+    <HeadingTag ref={headingRef} id={id} className={cn(className)}>
       {lines.map((line, idx) => (
         <span
           key={idx}
-          className="block overflow-hidden pb-[0.06em] -mb-[0.06em]"
+          className="block overflow-hidden pt-[0.04em] -mt-[0.04em] pb-[0.2em] -mb-[0.2em]"
         >
           <motion.span
             className="block will-change-transform"
             initial={{ y: "105%", opacity: 0 }}
-            {...(immediate
-              ? { animate: { y: "0%", opacity: 1 } }
-              : {
-                  whileInView: { y: "0%", opacity: 1 },
-                  viewport: { once: true, amount: 0.35 },
-                })}
+            animate={
+              shouldReveal ? { y: "0%", opacity: 1 } : { y: "105%", opacity: 0 }
+            }
             transition={{
               duration: 0.72,
               delay: delay + idx * 0.1,

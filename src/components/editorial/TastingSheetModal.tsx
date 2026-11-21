@@ -2,8 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState, useSyncExternalStore } from "react";
+import { createPortal } from "react-dom";
 import { X } from "lucide-react";
+
+const emptySubscribe = () => () => {};
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
   MENU_CATEGORIES,
@@ -12,6 +15,7 @@ import {
 } from "@/data/menu";
 import { BOOK_GENRES } from "@/data/books";
 import { resolveShowcaseMenuImage } from "@/data/editorialImages";
+import { useDialogA11y } from "@/lib/useDialogA11y";
 import { cn } from "@/lib/utils";
 
 interface TastingSheetModalProps {
@@ -29,7 +33,13 @@ const CATEGORY_GENRE_MAP: Record<MenuCategoryId, string> = {
 };
 
 export function TastingSheetModal({ item, onClose }: TastingSheetModalProps) {
+  const isClient = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
   const prefersReducedMotion = useReducedMotion();
+  const dialogRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const [sizeState, setSizeState] = useState<{ itemId: string; index: number }>(
     { itemId: "", index: 0 }
@@ -38,26 +48,12 @@ export function TastingSheetModal({ item, onClose }: TastingSheetModalProps) {
   const activeSizeIdx =
     item && sizeState.itemId === item.id ? sizeState.index : 0;
 
-  useEffect(() => {
-    if (!item) return;
-
-    closeRef.current?.focus();
-
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        onClose();
-      }
-    };
-
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", onKeyDown);
-
-    return () => {
-      document.body.style.overflow = prevOverflow;
-      window.removeEventListener("keydown", onKeyDown);
-    };
-  }, [item, onClose]);
+  useDialogA11y({
+    isOpen: Boolean(item),
+    onClose,
+    containerRef: dialogRef,
+    initialFocusRef: closeRef,
+  });
 
   const categoryMeta = item
     ? MENU_CATEGORIES.find((cat) => cat.id === item.category)
@@ -75,7 +71,7 @@ export function TastingSheetModal({ item, onClose }: TastingSheetModalProps) {
   const selectedSize =
     item?.sizes && item.sizes[activeSizeIdx] ? item.sizes[activeSizeIdx] : null;
 
-  return (
+  const modalContent = (
     <AnimatePresence>
       {item && resolvedImg && (
         <div
@@ -95,6 +91,7 @@ export function TastingSheetModal({ item, onClose }: TastingSheetModalProps) {
           />
 
           <motion.div
+            ref={dialogRef}
             initial={
               prefersReducedMotion
                 ? { opacity: 1 }
@@ -287,4 +284,10 @@ export function TastingSheetModal({ item, onClose }: TastingSheetModalProps) {
       )}
     </AnimatePresence>
   );
+
+  if (!isClient) {
+    return null;
+  }
+
+  return createPortal(modalContent, document.body);
 }

@@ -1,33 +1,31 @@
-import { MarbleSheet } from "@/components/editorial/MarbleSheet";
-import { PrimaryButton } from "@/components/ui/PrimaryButton";
+import { EditorialButton } from "@/components/home/EditorialButton";
 
 export default function NotFound() {
   return (
-    <MarbleSheet
-      ariaLabelledBy="not-found-heading"
-      className="pt-28 pb-16 sm:pt-32 sm:pb-20"
-      sheetClassName="px-6 py-16 text-center sm:px-12 sm:py-24"
+    <section
+      aria-labelledby="not-found-heading"
+      className="flex min-h-[78svh] items-center justify-center bg-paper px-5 pt-28 pb-20 sm:px-8"
     >
-      <div className="mx-auto max-w-lg">
+      <div className="max-w-lg text-center">
         <h1
           id="not-found-heading"
-          className="font-display text-5xl text-ink sm:text-6xl"
+          className="font-display text-5xl leading-[1.04] tracking-[-0.025em] text-ink sm:text-6xl"
         >
           Page <em className="font-normal italic">turned too far.</em>
         </h1>
-        <p className="mt-5 text-base leading-relaxed text-ink-muted">
+        <p className="mx-auto mt-5 max-w-sm text-[13px] leading-[1.7] text-ink-muted">
           The page you are looking for is not on these shelves. Head back to our
           front room or browse the café menu instead.
         </p>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3.5">
-          <PrimaryButton href="/" variant="primary">
+        <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
+          <EditorialButton href="/" variant="solid">
             Return Home
-          </PrimaryButton>
-          <PrimaryButton href="/menu" variant="secondary">
-            Explore Our Menu
-          </PrimaryButton>
+          </EditorialButton>
+          <EditorialButton href="/menu" variant="outline">
+            Explore Menu
+          </EditorialButton>
         </div>
       </div>
-    </MarbleSheet>
+    </section>
   );
 }

@@ -11,9 +11,15 @@ import { MobileNavigation } from "@/components/layout/MobileNavigation";
 import { ScrollProgressBar } from "@/components/editorial/ScrollProgressBar";
 import { PahinaEmblem } from "@/components/ui/PahinaEmblem";
 
+const ALL_NAV_LINKS = [
+  ...NAV_ITEMS,
+  { label: "Visit", href: VISIT_CTA_LINK.href },
+];
+
 export function Navbar() {
   const pathname = usePathname();
   const prefersReducedMotion = useReducedMotion();
+  const isMenuRoute = pathname.startsWith("/menu");
 
   const [scrolled, setScrolled] = useState(false);
   const [openForPathname, setOpenForPathname] = useState<string | null>(null);
@@ -29,87 +35,95 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const isVisitActive = pathname.startsWith(VISIT_CTA_LINK.href);
-
   return (
     <>
+      <ScrollProgressBar />
+
       <header
         className={cn(
-          "fixed inset-x-0 top-0 z-40 w-full border-b transition-[background-color,border-color] duration-200 ease-[var(--ease-cinematic)]",
-          scrolled
-            ? "border-soft bg-paper"
-            : "border-transparent bg-transparent"
+          "fixed inset-x-0 top-0 z-40 w-full transition-[background-color,border-color] duration-200 ease-[var(--ease-cinematic)]",
+          isMenuRoute && scrolled
+            ? "border-b border-soft bg-paper"
+            : scrolled
+              ? "bg-gradient-to-b from-paper via-paper/82 to-transparent pb-3"
+              : "bg-transparent"
         )}
       >
-        <div className="mx-auto flex h-18 max-w-6xl items-center justify-between px-5 sm:px-8">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-3 text-ink transition-opacity duration-150 hover:opacity-80"
+        <div className="mx-auto flex h-18 max-w-6xl items-center justify-between gap-8 px-5 sm:px-8">
+          <motion.div
+            initial={prefersReducedMotion ? false : { opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
+            className="shrink-0"
           >
-            <PahinaEmblem size={36} showRingText />
-            <span className="font-display text-2xl tracking-[0.22em] uppercase">
-              {SITE_INFO.name}
-            </span>
-          </Link>
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2.5 text-ink transition-opacity duration-150 hover:opacity-75"
+            >
+              <PahinaEmblem size={28} showRingText={false} />
+              <span className="font-display text-lg tracking-[0.24em] uppercase sm:text-xl">
+                {SITE_INFO.name}
+              </span>
+            </Link>
+          </motion.div>
 
           <LayoutGroup id="primary-navbar">
             <nav
               aria-label="Primary Navigation"
-              className="hidden items-center gap-9 md:flex"
+              className="hidden flex-1 items-center justify-between pl-8 md:flex lg:pl-16"
             >
-              {NAV_ITEMS.map((item) => {
+              {ALL_NAV_LINKS.map((item, idx) => {
                 const isActive =
                   item.href === "/"
                     ? pathname === "/"
                     : pathname.startsWith(item.href);
 
                 return (
-                  <Link
+                  <motion.div
                     key={item.href}
-                    href={item.href}
-                    aria-current={isActive ? "page" : undefined}
-                    className={cn(
-                      "relative py-2 text-[13px] font-medium tracking-[0.04em] transition-colors duration-150",
-                      isActive ? "text-ink" : "text-ink-muted hover:text-ink"
-                    )}
+                    initial={
+                      prefersReducedMotion ? false : { opacity: 0, y: -6 }
+                    }
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      duration: 0.5,
+                      delay: prefersReducedMotion ? 0 : 0.08 + idx * 0.06,
+                      ease: [0.23, 1, 0.32, 1],
+                    }}
                   >
-                    <span>{item.label}</span>
-                    {isActive && (
-                      <motion.span
-                        layoutId={
-                          prefersReducedMotion
-                            ? undefined
-                            : "nav-active-underline"
-                        }
-                        aria-hidden="true"
-                        transition={{
-                          type: "spring",
-                          stiffness: 420,
-                          damping: 34,
-                        }}
-                        className="absolute inset-x-0 bottom-0 h-px bg-ink"
-                      />
-                    )}
-                  </Link>
+                    <Link
+                      href={item.href}
+                      aria-current={isActive ? "page" : undefined}
+                      className={cn(
+                        "relative py-2 font-editorial text-xl italic tracking-[0.01em] transition-colors duration-150",
+                        isActive
+                          ? "text-ink"
+                          : "text-ink-muted hover:text-ink"
+                      )}
+                    >
+                      <span>{item.label}</span>
+                      {isActive && (
+                        <motion.span
+                          layoutId={
+                            prefersReducedMotion
+                              ? undefined
+                              : "nav-active-underline"
+                          }
+                          aria-hidden="true"
+                          transition={{
+                            type: "spring",
+                            stiffness: 420,
+                            damping: 34,
+                          }}
+                          className="absolute inset-x-0 bottom-0.5 h-px bg-ink"
+                        />
+                      )}
+                    </Link>
+                  </motion.div>
                 );
               })}
             </nav>
           </LayoutGroup>
-
-          <div className="hidden items-center md:flex">
-            <Link
-              href={VISIT_CTA_LINK.href}
-              aria-current={isVisitActive ? "page" : undefined}
-              className={cn(
-                "inline-flex min-h-[42px] items-center justify-center rounded-full px-5 py-2 text-[13px] font-medium tracking-[0.04em] transition-[background-color,color,transform] duration-150 ease-[var(--ease-out)] active:scale-[0.97]",
-                isVisitActive
-                  ? "bg-ink text-paper"
-                  : "bg-powder text-ink hover:bg-[#A6C2D6]"
-              )}
-            >
-              {VISIT_CTA_LINK.label}
-            </Link>
-          </div>
 
           <button
             type="button"
@@ -117,13 +131,11 @@ export function Navbar() {
             aria-expanded={mobileOpen}
             aria-controls="mobile-navigation-drawer"
             aria-label="Open navigation menu"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-soft bg-paper/80 text-ink backdrop-blur-sm transition-[background-color,transform] duration-150 active:scale-[0.97] hover:bg-soft/70 md:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-[2px] border border-ink/25 bg-paper/85 text-ink backdrop-blur-xs transition-[background-color,border-color,transform] duration-150 active:scale-[0.97] hover:border-ink md:hidden"
           >
-            <Menu className="h-5 w-5" strokeWidth={1.6} aria-hidden="true" />
+            <Menu className="h-5 w-5" strokeWidth={1.5} aria-hidden="true" />
           </button>
         </div>
-
-        <ScrollProgressBar />
       </header>
 
       <MobileNavigation

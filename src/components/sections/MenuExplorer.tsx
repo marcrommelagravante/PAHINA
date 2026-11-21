@@ -48,14 +48,14 @@ export function MenuExplorer({ categories, items }: MenuExplorerProps) {
   ];
 
   return (
-    <div>
-      <div className="sticky top-18 z-30 border-b border-soft bg-paper">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-5 py-3.5 sm:px-8">
+    <div className="bg-paper">
+      <div className="sticky top-18 z-30 border-y border-soft bg-paper">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-5 py-3 sm:px-8">
           <LayoutGroup id="menu-category-filter">
             <div
               role="group"
               aria-label="Filter menu by category"
-              className="flex flex-wrap items-center gap-2"
+              className="flex flex-wrap items-center gap-x-6 gap-y-2"
             >
               {tabs.map((tab) => {
                 const isActive = selectedCategory === tab.id;
@@ -66,60 +66,60 @@ export function MenuExplorer({ categories, items }: MenuExplorerProps) {
                     onClick={() => setSelectedCategory(tab.id)}
                     aria-pressed={isActive}
                     className={cn(
-                      "relative inline-flex min-h-[38px] items-center rounded-full border px-4 py-1.5 text-sm font-medium transition-colors duration-150 active:scale-[0.97]",
+                      "relative py-1.5 font-editorial text-lg italic transition-colors duration-150 sm:text-xl",
                       isActive
-                        ? "border-ink text-paper"
-                        : "border-soft bg-surface-elevated text-ink-muted hover:border-powder hover:text-ink"
+                        ? "text-ink"
+                        : "text-ink-muted hover:text-ink"
                     )}
                   >
+                    <span>{tab.label}</span>
                     {isActive && (
                       <motion.span
                         layoutId={
-                          prefersReducedMotion ? undefined : "menu-filter-pill"
+                          prefersReducedMotion ? undefined : "menu-filter-line"
                         }
                         transition={{
                           type: "spring",
                           stiffness: 420,
                           damping: 32,
                         }}
-                        className="absolute inset-0 rounded-full bg-ink"
+                        className="absolute inset-x-0 bottom-0 h-px bg-ink"
                         aria-hidden="true"
                       />
                     )}
-                    <span className="relative z-10">{tab.label}</span>
                   </button>
                 );
               })}
             </div>
           </LayoutGroup>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             <button
               type="button"
               onClick={() => setHousePicksOnly((prev) => !prev)}
               aria-pressed={housePicksOnly}
               className={cn(
-                "inline-flex min-h-[38px] items-center rounded-full border px-4 py-1.5 text-xs font-medium tracking-[0.03em] transition-[background-color,border-color,color,transform] duration-150 active:scale-[0.97]",
+                "inline-flex min-h-[34px] items-center rounded-[2px] border px-3.5 py-1 text-[11px] font-medium tracking-[0.06em] transition-[background-color,border-color,color] duration-150",
                 housePicksOnly
-                  ? "border-ink bg-powder text-ink"
-                  : "border-powder bg-powder-soft/60 text-ink hover:bg-powder/70"
+                  ? "border-ink bg-ink text-paper"
+                  : "border-ink/30 bg-transparent text-ink hover:border-ink"
               )}
             >
               House Picks
             </button>
-            <span className="text-xs font-medium tabular-nums text-ink-muted">
-              {visibleItemCount} of {items.length}
+            <span className="text-[11px] font-medium tabular-nums tracking-[0.08em] text-ink-muted">
+              {visibleItemCount} / {items.length}
             </span>
           </div>
         </div>
       </div>
 
       {visibleCategories.length === 0 ? (
-        <div className="mx-auto max-w-6xl px-5 py-20 text-center sm:px-8">
-          <p className="font-display text-2xl text-ink">
+        <div className="mx-auto max-w-6xl px-5 py-24 text-center sm:px-8">
+          <p className="font-display text-3xl text-ink">
             No House Picks in this category.
           </p>
-          <p className="mt-2 text-sm text-ink-muted">
+          <p className="mt-2 text-[13px] text-ink-muted">
             Signature and Must Try badges live across Coffee, Non-Coffee, and
             Frappuccino.
           </p>
@@ -129,7 +129,7 @@ export function MenuExplorer({ categories, items }: MenuExplorerProps) {
               setHousePicksOnly(false);
               setSelectedCategory("all");
             }}
-            className="mt-6 inline-flex min-h-[42px] items-center rounded-full bg-ink px-5 py-2 text-sm font-medium text-paper transition-transform duration-150 active:scale-[0.97]"
+            className="mt-6 inline-flex min-h-[42px] items-center rounded-[2px] border border-ink bg-ink px-6 py-2 text-xs font-medium tracking-[0.06em] text-paper transition-opacity duration-150 hover:opacity-85"
           >
             Show all 39 items
           </button>
@@ -149,7 +149,6 @@ export function MenuExplorer({ categories, items }: MenuExplorerProps) {
               {showKitchenInterlude && (
                 <EditorialBanner
                   headingId="menu-kitchen-banner"
-                  surface="elevated"
                   src={EDITORIAL_IMAGES.menuFoodBanner}
                   alt="Overhead café table with a bowl of Aglio Olio, iced coffee, espresso cup, and open cloth-bound book in soft daylight"
                   heading={

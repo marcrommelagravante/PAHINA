@@ -1,7 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, LayoutGroup, motion, useReducedMotion } from "framer-motion";
+import {
+  AnimatePresence,
+  LayoutGroup,
+  motion,
+  useReducedMotion,
+} from "framer-motion";
 import { cn } from "@/lib/utils";
 
 const MATERIAL_SWATCHES = [
@@ -65,7 +70,7 @@ export function MaterialSwatchInspector() {
                 aria-pressed={isActive}
                 className="group flex flex-col items-start text-left"
               >
-                <span className="relative inline-flex h-12 w-12 items-center justify-center">
+                <span className="relative inline-flex h-11 w-11 items-center justify-center">
                   {isActive && (
                     <motion.span
                       layoutId={
@@ -77,26 +82,26 @@ export function MaterialSwatchInspector() {
                         stiffness: 420,
                         damping: 32,
                       }}
-                      className="absolute inset-0 rounded-full border-2 border-ink"
+                      className="absolute inset-0 rounded-full border border-ink"
                     />
                   )}
                   <span
                     aria-hidden="true"
-                    className="h-9 w-9 rounded-full border border-ink/15 transition-transform duration-150 group-hover:scale-105"
+                    className="h-8 w-8 rounded-full border border-ink/15 transition-transform duration-150 group-hover:scale-105"
                     style={{ backgroundColor: item.token }}
                   />
                 </span>
                 <span
                   className={cn(
-                    "mt-2.5 font-display text-base transition-colors duration-150",
+                    "mt-2 font-display text-base transition-colors duration-150",
                     isActive
-                      ? "text-ink italic"
+                      ? "italic text-ink"
                       : "text-ink-muted group-hover:text-ink"
                   )}
                 >
                   {item.name}
                 </span>
-                <span className="mt-0.5 text-xs leading-snug text-ink-muted">
+                <span className="mt-0.5 text-[11px] leading-snug text-ink-muted">
                   {item.role}
                 </span>
               </button>
@@ -105,10 +110,7 @@ export function MaterialSwatchInspector() {
         </div>
       </LayoutGroup>
 
-      <div
-        aria-live="polite"
-        className="rounded-xl border border-soft bg-paper p-5"
-      >
+      <div aria-live="polite" className="border-y border-soft py-5">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeSwatch.id}
@@ -125,17 +127,17 @@ export function MaterialSwatchInspector() {
                 <h3 className="font-display text-2xl text-ink">
                   {activeSwatch.name}
                 </h3>
-                <span className="text-xs font-medium tabular-nums tracking-[0.06em] text-ink-muted">
+                <span className="text-[11px] font-medium tabular-nums tracking-[0.08em] text-ink-muted">
                   {activeSwatch.token}
                 </span>
               </div>
-              <p className="max-w-lg text-sm leading-relaxed text-ink-muted">
+              <p className="max-w-lg text-[12.5px] leading-[1.65] text-ink-muted">
                 {activeSwatch.detail}
               </p>
             </div>
             <span
               aria-hidden="true"
-              className="h-14 w-14 shrink-0 rounded-xl border border-ink/15"
+              className="h-12 w-12 shrink-0 rounded-[2px] border border-ink/15"
               style={{ backgroundColor: activeSwatch.token }}
             />
           </motion.div>

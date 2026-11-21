@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { X } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { NAV_ITEMS, SITE_INFO, VISIT_CTA_LINK } from "@/data/site";
 import { cn } from "@/lib/utils";
+import { useDialogA11y } from "@/lib/useDialogA11y";
 import { PahinaEmblem } from "@/components/ui/PahinaEmblem";
 
 interface MobileNavigationProps {
@@ -20,33 +21,21 @@ export function MobileNavigation({
   pathname,
 }: MobileNavigationProps) {
   const prefersReducedMotion = useReducedMotion();
+  const drawerRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
-  useEffect(() => {
-    if (!isOpen) return;
-
-    closeButtonRef.current?.focus();
-
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        onClose();
-      }
-    };
-
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", onKeyDown);
-
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", onKeyDown);
-    };
-  }, [isOpen, onClose]);
+  useDialogA11y({
+    isOpen,
+    onClose,
+    containerRef: drawerRef,
+    initialFocusRef: closeButtonRef,
+  });
 
   return (
     <AnimatePresence>
       {isOpen && (
         <motion.div
+          ref={drawerRef}
           id="mobile-navigation-drawer"
           role="dialog"
           aria-modal="true"

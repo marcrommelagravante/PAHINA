@@ -31,8 +31,8 @@ function ShowcaseCard({
 
   const { src, mode } = resolveShowcaseMenuImage(item.id, item.image);
   const isMiddleStagger = !isTwoUp && index === 1;
-  const drift = index === 1 ? -26 : 26;
-  const scrollTilt = index === 1 ? -1.8 : 1.8;
+  const drift = index === 1 ? -24 : 24;
+  const scrollTilt = index === 1 ? -1.6 : 1.6;
 
   const activeSize =
     item.sizes && item.sizes[selectedSizeIndex]
@@ -47,11 +47,11 @@ function ShowcaseCard({
         type="button"
         onClick={() => onInspect(item)}
         aria-label={`Open tasting sheet for ${item.name}`}
-        className="group block w-full text-left focus-visible:rounded-2xl"
+        className="group block w-full text-left focus-visible:rounded-xl"
       >
         {mode === "compact-specimen" ? (
-          <div className="mx-auto flex aspect-[4/5] w-full max-w-[300px] flex-col items-center justify-center rounded-2xl border border-soft bg-surface-elevated p-8 transition-[border-color,transform] duration-200 ease-[var(--ease-out)] group-hover:-translate-y-1 group-hover:border-powder md:max-w-none">
-            <div className="relative aspect-[4/5] w-28 overflow-hidden rounded-lg border border-soft bg-paper">
+          <div className="mx-auto flex aspect-[4/5] w-full max-w-[290px] flex-col items-center justify-center border border-soft/90 bg-paper p-8 transition-[border-color,transform] duration-200 ease-[var(--ease-out)] group-hover:-translate-y-1 group-hover:border-ink/40 md:max-w-none">
+            <div className="relative aspect-[4/5] w-28 overflow-hidden rounded-[2px] bg-soft">
               <Image
                 src={src}
                 alt={item.alt}
@@ -72,18 +72,18 @@ function ShowcaseCard({
             drift={drift}
             scrollTilt={scrollTilt}
             tiltOnHover
-            framed={mode === "high-res"}
+            feather={mode === "cutout" ? "tight" : "oval"}
             sizes={
               isTwoUp
-                ? "(max-width: 768px) 88vw, 42vw"
-                : "(max-width: 768px) 88vw, 29vw"
+                ? "(max-width: 768px) 84vw, 40vw"
+                : "(max-width: 768px) 84vw, 28vw"
             }
-            className="mx-auto w-full max-w-[300px] md:max-w-none"
+            className="mx-auto w-full max-w-[290px] md:max-w-none"
           />
         )}
       </button>
 
-      <div className="mt-6 space-y-3">
+      <div className="mt-5 space-y-3">
         <div className="flex flex-wrap items-baseline justify-between gap-2">
           <button
             type="button"
@@ -93,19 +93,14 @@ function ShowcaseCard({
             {item.name}
           </button>
           {item.badge && (
-            <span
-              className={cn(
-                "inline-flex shrink-0 items-center rounded-full px-2.5 py-0.5 text-xs font-medium text-ink",
-                item.badge === "Must Try" ? "bg-powder" : "bg-powder-soft"
-              )}
-            >
+            <span className="text-[10px] font-medium tracking-[0.12em] uppercase text-ink-muted">
               {item.badge}
             </span>
           )}
         </div>
 
         {item.sizes && activeSize && (
-          <div className="space-y-3 border-t border-soft pt-3">
+          <div className="space-y-2.5 border-t border-soft pt-3">
             <div className="flex items-center justify-between gap-2">
               <div
                 role="group"
@@ -121,10 +116,10 @@ function ShowcaseCard({
                       onClick={() => setSelectedSizeIndex(idx)}
                       aria-pressed={isActive}
                       className={cn(
-                        "relative inline-flex min-h-[34px] items-center rounded-full border px-3 py-1.5 text-[11px] font-medium tracking-[0.03em] transition-colors duration-150",
+                        "relative inline-flex min-h-[32px] items-center rounded-[2px] border px-2.5 py-1 text-[10.5px] font-medium tracking-[0.06em] transition-colors duration-150",
                         isActive
                           ? "border-ink text-paper"
-                          : "border-soft bg-surface-elevated text-ink-muted hover:border-powder hover:text-ink"
+                          : "border-ink/20 bg-transparent text-ink-muted hover:border-ink hover:text-ink"
                       )}
                     >
                       {isActive && (
@@ -139,7 +134,7 @@ function ShowcaseCard({
                             stiffness: 440,
                             damping: 32,
                           }}
-                          className="absolute inset-0 rounded-full bg-ink"
+                          className="absolute inset-0 rounded-[1px] bg-ink"
                           aria-hidden="true"
                         />
                       )}
@@ -165,45 +160,48 @@ function ShowcaseCard({
               </AnimatePresence>
             </div>
 
-            <dl className="divide-y divide-soft/70 text-xs">
+            <ul className="divide-y divide-soft/70 text-[11.5px]">
               {item.sizes.map((entry, idx) => {
                 const isActive = idx === selectedSizeIndex;
                 return (
-                  <div
-                    key={entry.size}
-                    onClick={() => setSelectedSizeIndex(idx)}
-                    className={cn(
-                      "flex cursor-pointer items-baseline justify-between gap-3 py-1.5 transition-colors duration-150",
-                      isActive ? "text-ink" : "text-ink-muted hover:text-ink"
-                    )}
-                  >
-                    <dt>
-                      <span className={cn(isActive && "font-semibold")}>
-                        {entry.size}
-                      </span>
-                      {entry.note && (
-                        <span className="ml-1.5 text-ink-muted">
-                          ({entry.note})
-                        </span>
-                      )}
-                    </dt>
-                    <dd
+                  <li key={entry.size}>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedSizeIndex(idx)}
+                      aria-pressed={isActive}
                       className={cn(
-                        "tabular-nums",
-                        isActive ? "font-semibold text-ink" : "font-medium"
+                        "flex w-full items-baseline justify-between gap-3 py-1.5 text-left transition-colors duration-150",
+                        isActive ? "text-ink" : "text-ink-muted hover:text-ink"
                       )}
                     >
-                      ₱{entry.price}
-                    </dd>
-                  </div>
+                      <span>
+                        <span className={cn(isActive && "font-semibold")}>
+                          {entry.size}
+                        </span>
+                        {entry.note && (
+                          <span className="ml-1.5 text-ink-muted">
+                            ({entry.note})
+                          </span>
+                        )}
+                      </span>
+                      <span
+                        className={cn(
+                          "tabular-nums",
+                          isActive ? "font-semibold text-ink" : "font-medium"
+                        )}
+                      >
+                        ₱{entry.price}
+                      </span>
+                    </button>
+                  </li>
                 );
               })}
-            </dl>
+            </ul>
           </div>
         )}
 
         {item.singlePrice !== undefined && (
-          <dl className="border-t border-soft pt-2 text-sm">
+          <dl className="border-t border-soft pt-2 text-xs">
             <div className="flex items-baseline justify-between gap-3">
               <dt className="text-ink-muted">Single serving</dt>
               <dd className="font-medium tabular-nums text-ink">
@@ -219,11 +217,11 @@ function ShowcaseCard({
           </p>
         )}
 
-        <div className="pt-1">
+        <div className="pt-0.5">
           <button
             type="button"
             onClick={() => onInspect(item)}
-            className="text-xs font-medium tracking-[0.03em] text-ink-muted underline decoration-powder decoration-2 underline-offset-4 transition-colors duration-150 hover:text-ink hover:decoration-ink"
+            className="text-[11px] font-medium tracking-[0.06em] text-ink-muted underline decoration-ink/30 underline-offset-4 transition-colors duration-150 hover:text-ink hover:decoration-ink"
           >
             Open tasting sheet
           </button>
@@ -253,7 +251,7 @@ export function DrinkShowcase({
     <>
       <div
         className={cn(
-          "grid grid-cols-1 gap-12 sm:gap-14",
+          "grid grid-cols-1 gap-14 sm:gap-16",
           isTwoUp
             ? "md:mx-auto md:max-w-4xl md:grid-cols-2 md:gap-12"
             : "md:grid-cols-3 md:gap-8 lg:gap-12",

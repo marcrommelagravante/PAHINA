@@ -10,12 +10,13 @@ export default function Template({ children }: { children: ReactNode }) {
     return <>{children}</>;
   }
 
+  // Opacity-only route fade avoids creating a transform containing block
+  // that would trap fixed modals or sticky toolbars inside descendant pages.
   return (
     <motion.div
-      initial={{ opacity: 0.35, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.38, ease: [0.23, 1, 0.32, 1] }}
-      className="will-change-transform"
+      initial={{ opacity: 0.35 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
     >
       {children}
     </motion.div>

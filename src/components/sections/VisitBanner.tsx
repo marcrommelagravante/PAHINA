@@ -1,5 +1,5 @@
-import { PrimaryButton } from "@/components/ui/PrimaryButton";
-import { Reveal } from "@/components/ui/Reveal";
+import { EditorialButton } from "@/components/home/EditorialButton";
+import { MaskedHeading } from "@/components/editorial/MaskedHeading";
 import { PahinaEmblem } from "@/components/ui/PahinaEmblem";
 import { cn } from "@/lib/utils";
 
@@ -22,36 +22,33 @@ export function VisitBanner({
   description = "Find our neighborhood location placeholders, concept hours, and contact notes before your next unhurried afternoon.",
   ctaLabel = "Visit Us",
   ctaHref = "/visit",
-  secondaryLabel = "Explore Our Menu",
+  secondaryLabel = "Explore Menu",
   secondaryHref = "/menu",
   className,
 }: VisitBannerProps) {
   return (
-    <section className={cn("bg-paper py-16 sm:py-24", className)}>
-      <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <Reveal>
-          <div className="rounded-3xl border border-powder bg-powder-soft/75 px-6 py-12 text-center sm:px-12 sm:py-16">
-            <div className="mb-5 flex justify-center">
-              <PahinaEmblem size={44} showRingText />
-            </div>
-            <h2 className="font-display text-3xl leading-[1.1] tracking-[-0.02em] text-ink sm:text-5xl">
-              {heading}
-            </h2>
-            <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-ink-muted sm:text-lg">
-              {description}
-            </p>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-3.5">
-              <PrimaryButton href={ctaHref} variant="primary">
-                {ctaLabel}
-              </PrimaryButton>
-              {secondaryLabel && secondaryHref && (
-                <PrimaryButton href={secondaryHref} variant="secondary">
-                  {secondaryLabel}
-                </PrimaryButton>
-              )}
-            </div>
-          </div>
-        </Reveal>
+    <section className={cn("bg-paper pt-16 pb-24 sm:pt-24 sm:pb-32", className)}>
+      <div className="mx-auto max-w-3xl px-5 text-center sm:px-8">
+        <div className="mb-6 flex justify-center">
+          <PahinaEmblem size={36} showRingText={false} />
+        </div>
+        <MaskedHeading
+          lines={[heading]}
+          className="font-display text-4xl leading-[1.06] tracking-[-0.025em] text-ink sm:text-5xl lg:text-6xl"
+        />
+        <p className="mx-auto mt-5 max-w-md text-[13px] leading-[1.7] text-ink-muted">
+          {description}
+        </p>
+        <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
+          <EditorialButton href={ctaHref} variant="solid">
+            {ctaLabel}
+          </EditorialButton>
+          {secondaryLabel && secondaryHref && (
+            <EditorialButton href={secondaryHref} variant="outline">
+              {secondaryLabel}
+            </EditorialButton>
+          )}
+        </div>
       </div>
     </section>
   );

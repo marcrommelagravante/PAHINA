@@ -18,12 +18,11 @@ interface FloatingPhotoProps {
   aspect?: "portrait" | "landscape" | "square" | "wide";
   sizes?: string;
   priority?: boolean;
-  /** Vertical scroll parallax distance in px (positive = glides up, negative = counter-drifts down). */
   drift?: number;
-  /** Subtle scroll-linked rotation amplitude in degrees. */
   scrollTilt?: number;
-  /** Enables subtle ±4° cursor-reactive tilt & lift on fine pointer devices. */
   tiltOnHover?: boolean;
+  /** Inscribed radial edge feathering into Paper White (#F4F1EA). */
+  feather?: "none" | "oval" | "tight" | "wide";
   framed?: boolean;
   className?: string;
   imgClassName?: string;
@@ -41,6 +40,7 @@ export function FloatingPhoto({
   drift = 28,
   scrollTilt = 1.6,
   tiltOnHover = true,
+  feather = "oval",
   framed = false,
   className,
   imgClassName,
@@ -111,6 +111,15 @@ export function FloatingPhoto({
           ? "aspect-square"
           : "aspect-[4/5]";
 
+  const featherClass =
+    framed || feather === "none"
+      ? ""
+      : feather === "tight"
+        ? "feather-tight"
+        : feather === "wide"
+          ? "feather-wide"
+          : "feather-oval";
+
   const frameClass = framed
     ? "overflow-hidden rounded-2xl border border-soft bg-soft"
     : "overflow-hidden bg-transparent";
@@ -151,7 +160,8 @@ export function FloatingPhoto({
           className={cn(
             "relative w-full will-change-transform",
             aspectClass,
-            frameClass
+            frameClass,
+            featherClass
           )}
         >
           <Image

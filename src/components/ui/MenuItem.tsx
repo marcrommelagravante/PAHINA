@@ -9,21 +9,21 @@ interface MenuItemProps {
 
 export function MenuItem({ item, onInspect }: MenuItemProps) {
   return (
-    <article className="border-b border-soft">
+    <article className="border-b border-soft/90">
       <button
         type="button"
         onClick={onInspect ? () => onInspect(item) : undefined}
         className={cn(
-          "group flex w-full items-start gap-4 py-5 text-left transition-colors duration-150 sm:gap-5",
-          onInspect && "cursor-pointer hover:bg-surface-elevated/80 sm:px-3 sm:-mx-3 sm:rounded-xl"
+          "group flex w-full items-start gap-4 py-5 text-left transition-opacity duration-150 sm:gap-5",
+          onInspect && "cursor-pointer hover:opacity-85"
         )}
       >
-        <div className="relative aspect-[4/5] w-[76px] shrink-0 overflow-hidden rounded-lg bg-soft sm:w-20">
+        <div className="relative aspect-[4/5] w-[72px] shrink-0 overflow-hidden rounded-[2px] bg-soft sm:w-[78px]">
           <Image
             src={item.image}
             alt={item.alt}
             fill
-            sizes="80px"
+            sizes="78px"
             className="object-cover hover-image-zoom"
           />
         </div>
@@ -33,19 +33,14 @@ export function MenuItem({ item, onInspect }: MenuItemProps) {
             <h4 className="font-display text-lg leading-snug text-ink underline-offset-4 group-hover:underline sm:text-xl">
               {item.name}
             </h4>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               {item.badge && (
-                <span
-                  className={cn(
-                    "inline-flex shrink-0 items-center rounded-full px-2.5 py-0.5 text-xs font-medium text-ink",
-                    item.badge === "Must Try" ? "bg-powder" : "bg-powder-soft"
-                  )}
-                >
+                <span className="text-[10px] font-medium tracking-[0.12em] uppercase text-ink-muted">
                   {item.badge}
                 </span>
               )}
               {onInspect && (
-                <span className="hidden text-[11px] font-medium text-ink-muted opacity-0 transition-opacity duration-150 group-hover:opacity-100 sm:inline">
+                <span className="hidden font-editorial text-sm italic text-ink-muted opacity-0 transition-opacity duration-150 group-hover:opacity-100 sm:inline">
                   Inspect
                 </span>
               )}
@@ -53,7 +48,7 @@ export function MenuItem({ item, onInspect }: MenuItemProps) {
           </div>
 
           {item.sizes && (
-            <dl className="mt-2.5 space-y-1 text-sm">
+            <dl className="mt-2.5 space-y-1 text-xs">
               {item.sizes.map((entry) => (
                 <div
                   key={entry.size}
@@ -62,7 +57,7 @@ export function MenuItem({ item, onInspect }: MenuItemProps) {
                   <dt className="text-ink-muted">
                     <span className="font-medium text-ink">{entry.size}</span>
                     {entry.note && (
-                      <span className="ml-1.5 text-xs text-ink-muted">
+                      <span className="ml-1.5 text-ink-muted">
                         ({entry.note})
                       </span>
                     )}
@@ -76,7 +71,7 @@ export function MenuItem({ item, onInspect }: MenuItemProps) {
           )}
 
           {item.singlePrice !== undefined && (
-            <dl className="mt-2.5 text-sm">
+            <dl className="mt-2.5 text-xs">
               <div className="flex items-baseline justify-between gap-3">
                 <dt className="text-ink-muted">Single serving</dt>
                 <dd className="font-medium tabular-nums text-ink">

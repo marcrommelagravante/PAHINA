@@ -94,6 +94,52 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* Inscribed radial edge masks (<= 49% radii) so photos reach 0% alpha BEFORE box edges */
+.feather-oval {
+  -webkit-mask-image: radial-gradient(
+    ellipse 48% 48% at 50% 50%,
+    #000 50%,
+    rgba(0, 0, 0, 0.78) 72%,
+    transparent 98%
+  );
+  mask-image: radial-gradient(
+    ellipse 48% 48% at 50% 50%,
+    #000 50%,
+    rgba(0, 0, 0, 0.78) 72%,
+    transparent 98%
+  );
+}
+
+.feather-tight {
+  -webkit-mask-image: radial-gradient(
+    ellipse 49% 49% at 50% 50%,
+    #000 62%,
+    rgba(0, 0, 0, 0.82) 80%,
+    transparent 99%
+  );
+  mask-image: radial-gradient(
+    ellipse 49% 49% at 50% 50%,
+    #000 62%,
+    rgba(0, 0, 0, 0.82) 80%,
+    transparent 99%
+  );
+}
+
+.feather-wide {
+  -webkit-mask-image: radial-gradient(
+    ellipse 49% 48% at 50% 50%,
+    #000 48%,
+    rgba(0, 0, 0, 0.74) 72%,
+    transparent 98%
+  );
+  mask-image: radial-gradient(
+    ellipse 49% 48% at 50% 50%,
+    #000 48%,
+    rgba(0, 0, 0, 0.74) 72%,
+    transparent 98%
+  );
+}
+
 @media (hover: hover) and (pointer: fine) {
   .hover-image-zoom {
     transition: transform 650ms var(--ease-out);

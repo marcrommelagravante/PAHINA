@@ -17,7 +17,7 @@ export function ScrollProgressBar() {
     <motion.div
       aria-hidden="true"
       style={{ scaleX }}
-      className="pointer-events-none absolute inset-x-0 bottom-[-1px] h-[2px] origin-left bg-powder will-change-transform"
+      className="pointer-events-none fixed inset-x-0 top-0 z-50 h-[2px] origin-left bg-powder will-change-transform"
     />
   );
 }

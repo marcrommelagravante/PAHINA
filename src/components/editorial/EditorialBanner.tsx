@@ -9,6 +9,7 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
+import { MaskedHeading } from "@/components/editorial/MaskedHeading";
 import { cn } from "@/lib/utils";
 
 interface EditorialBannerProps {
@@ -18,10 +19,9 @@ interface EditorialBannerProps {
   description?: string;
   headingId?: string;
   className?: string;
-  surface?: "paper" | "elevated";
 }
 
-const BANNER_SPRING = { stiffness: 120, damping: 26, mass: 0.4 };
+const BANNER_SPRING = { stiffness: 110, damping: 24, mass: 0.4 };
 
 export function EditorialBanner({
   src,
@@ -30,7 +30,6 @@ export function EditorialBanner({
   description,
   headingId,
   className,
-  surface = "paper",
 }: EditorialBannerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
@@ -41,57 +40,44 @@ export function EditorialBanner({
   });
 
   const smoothProgress = useSpring(scrollYProgress, BANNER_SPRING);
-  const imageY = useTransform(smoothProgress, [0, 1], [-22, 22]);
-  const imageScale = useTransform(smoothProgress, [0, 0.5, 1], [1.08, 1.04, 1.08]);
+  const imageY = useTransform(smoothProgress, [0, 1], [30, -30]);
+  const imageScale = useTransform(smoothProgress, [0, 0.5, 1], [0.97, 1.02, 0.98]);
 
   return (
     <section
       aria-labelledby={headingId}
-      className={cn(
-        "border-b border-soft py-16 sm:py-24",
-        surface === "elevated" ? "bg-surface-elevated" : "bg-paper",
-        className
-      )}
+      className={cn("overflow-x-clip bg-paper py-20 sm:py-28 lg:py-32", className)}
     >
-      <div ref={containerRef} className="mx-auto max-w-6xl px-5 sm:px-8">
-        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-soft bg-soft sm:aspect-[21/10]">
-          <motion.div
-            style={
-              prefersReducedMotion
-                ? undefined
-                : { y: imageY, scale: imageScale }
-            }
-            className="relative h-full w-full will-change-transform"
-          >
-            <Image
-              src={src}
-              alt={alt}
-              fill
-              sizes="(max-width: 1200px) 100vw, 1152px"
-              className="object-cover"
-            />
-          </motion.div>
-        </div>
-
+      <div ref={containerRef} className="mx-auto max-w-5xl px-5 sm:px-8">
         <motion.div
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.35 }}
-          transition={{ duration: 0.65, ease: [0.23, 1, 0.32, 1] }}
-          className="mx-auto mt-10 max-w-2xl text-center sm:mt-14"
+          style={
+            prefersReducedMotion
+              ? undefined
+              : { y: imageY, scale: imageScale }
+          }
+          className="feather-wide relative mx-auto aspect-[16/9] w-full max-w-4xl overflow-hidden will-change-transform"
         >
-          <h2
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            sizes="(max-width: 1024px) 96vw, 896px"
+            className="object-cover"
+          />
+        </motion.div>
+
+        <div className="mx-auto mt-10 max-w-2xl text-center sm:mt-14">
+          <MaskedHeading
             id={headingId}
-            className="font-display text-3xl leading-[1.1] tracking-[-0.02em] text-ink sm:text-5xl"
-          >
-            {heading}
-          </h2>
+            lines={[heading]}
+            className="font-display text-3xl leading-[1.08] tracking-[-0.025em] text-ink sm:text-5xl lg:text-[3.35rem]"
+          />
           {description && (
-            <p className="mt-4 text-base leading-relaxed text-ink-muted sm:text-lg">
+            <p className="mx-auto mt-4 max-w-md text-[13px] leading-[1.7] text-ink-muted">
               {description}
             </p>
           )}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

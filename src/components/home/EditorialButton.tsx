@@ -10,21 +10,25 @@ import {
 } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-interface PrimaryButtonProps {
+interface EditorialButtonProps {
   href: string;
   children: ReactNode;
-  variant?: "primary" | "secondary" | "powder";
+  variant?: "outline" | "solid";
   className?: string;
 }
 
 const MAGNETIC_SPRING = { stiffness: 320, damping: 24, mass: 0.35 };
 
-export function PrimaryButton({
+/**
+ * Razor-thin rectangular hairline editorial CTA matching the print-magazine
+ * `[ See more ]` proportion from the reference video.
+ */
+export function EditorialButton({
   href,
   children,
-  variant = "primary",
+  variant = "outline",
   className,
-}: PrimaryButtonProps) {
+}: EditorialButtonProps) {
   const prefersReducedMotion = useReducedMotion();
   const rawX = useMotionValue(0);
   const rawY = useMotionValue(0);
@@ -40,23 +44,14 @@ export function PrimaryButton({
       return;
     }
     const rect = event.currentTarget.getBoundingClientRect();
-    const offsetX = ((event.clientX - rect.left) / rect.width - 0.5) * 7;
-    const offsetY = ((event.clientY - rect.top) / rect.height - 0.5) * 6;
-    rawX.set(offsetX);
-    rawY.set(offsetY);
+    rawX.set(((event.clientX - rect.left) / rect.width - 0.5) * 6);
+    rawY.set(((event.clientY - rect.top) / rect.height - 0.5) * 5);
   };
 
   const handleMouseLeave = () => {
     rawX.set(0);
     rawY.set(0);
   };
-
-  const styles =
-    variant === "primary"
-      ? "bg-ink text-paper hover:bg-[#2F353A]"
-      : variant === "powder"
-        ? "bg-powder text-ink hover:bg-[#A6C2D6]"
-        : "border border-ink/25 bg-transparent text-ink hover:border-ink hover:bg-soft/60";
 
   return (
     <motion.div
@@ -68,8 +63,10 @@ export function PrimaryButton({
       <Link
         href={href}
         className={cn(
-          "inline-flex min-h-[44px] items-center justify-center rounded-full px-6 py-2.5 text-sm font-medium tracking-[0.02em] transition-[background-color,border-color,color,transform] duration-150 ease-[var(--ease-out)] active:scale-[0.97]",
-          styles,
+          "inline-flex min-h-[42px] items-center justify-center rounded-[2px] border px-7 py-2.5 text-xs font-medium tracking-[0.06em] transition-[background-color,border-color,color,transform] duration-200 ease-[var(--ease-out)] active:scale-[0.98]",
+          variant === "solid"
+            ? "border-ink bg-ink text-paper hover:bg-[#2F353A]"
+            : "border-ink/35 bg-transparent text-ink hover:border-ink hover:bg-ink hover:text-paper",
           className
         )}
       >

@@ -170,35 +170,25 @@ PAHINA is **flat and hairline-divided by default**. Hierarchy comes from paper s
 
 ---
 
-## Editorial Page-Card Hero & Shared Editorial Grammar
+## Borderless Print-Magazine Architecture (All Five Routes)
 
-All five routes (`/`, `/menu`, `/reading-room`, `/about`, `/visit`) open with a **Paper White (`#F4F1EA`) editorial sheet** resting on honed daylight marble (`public/images/editorial/paper-marble.jpg`), shaped around each route's specific purpose while sharing the exact same typographic, photographic, and spacing vocabulary.
+All five routes (`/`, `/menu`, `/reading-room`, `/about`, `/visit`) plus `/_not-found` share **one unbroken Paper White (`#F4F1EA`) canvas** inspired by editorial print spreads—removing boxed marble cards, alternating background stripes, and heavy horizontal section dividers.
 
-### Route-Specific Hero Sheets
-- **Home (`HeroPageCard`):** The site's single choreographed signature moment. On load, a tilted Paper White page card (`-4°`, `y: 48px`) settles straight onto the marble ground over `1.2s` (`cubic-bezier(0.65, 0, 0.35, 1)`). As the visitor scrolls past, `useScroll` + `useTransform` lifts and tilts the page away (`0° → 3°`, `y: 0 → -80px`, `scale: 1 → 0.94`, `opacity: 1 → 0.6`).
-- **Menu (`MarbleSheet`):** Printed menu sheet featuring the 6-category jumpable table of contents alongside a floating overhead drinks photo and true-fact margin notes.
-- **Reading Room (`MarbleSheet`):** Open-book two-page spread divided by a hairline center spine—title and honest shelf facts on the left page, 6-genre jumpable table of contents on the right page.
-- **About (`MarbleSheet`):** Centered magazine opener with a large overhead flat-lay photograph directly beneath the serif headline.
-- **Visit (`MarbleSheet`):** Two-panel calling card / postcard—wordmark, emblem, and greeting on the front; printed hairline directory of all 6 honest `[placeholder]` fields on the back.
+### Shared Visual & Typographic Grammar
+- **8:1 Editorial Scale Contrast:** Monumental stacked `Bodoni Moda` headlines (`clamp(3.2rem, 7.2vw, 6.35rem)`, `leading-[0.98]`, `tracking-[-0.03em]`) paired with narrow `12px–13px` micro-prose columns (`max-w-[250px–300px]`), whisper-quiet `10px` tracked uppercase margin facts (`MENU / 39 ITEMS`, `SHELVES / 6 GENRES`, `BOOKS / READ IN, RETURN BEFORE LEAVING`), and razor-thin `1px` rectangular buttons ([EditorialButton.tsx](file:///c:/Users/ezrxe/OneDrive/Documents/GitHub/PAHINA/src/components/home/EditorialButton.tsx), `rounded-[2px]`).
+- **Borderless Floating Photography:** Inscribed radial edge-feather masks (`.feather-oval`, `.feather-tight`, `.feather-wide` with `<= 49%` radii) dissolve studio flat-lays and cutouts smoothly into `#F4F1EA` before reaching their box boundaries.
+- **Floating Italic Navigation & Minimal Colophon Footer:** Understated `PAHINA` emblem + wordmark left with bare spaced italic `Instrument Serif` links (`Home`, `Menu`, `Reading Room`, `About`, `Visit`) carrying a gliding `1px` `layoutId` active underline, paired with a borderless single-hairline Paper White footer colophon.
 
-### Shared Editorial Building Blocks (`src/components/editorial/`)
-- **`MarginNote`:** Hairline-topped small annotation (`12px` Manrope muted label over `15px` Bodoni value) restricted strictly to verifiable PAHINA facts (`Menu: 39 items`, `Shelves: 6 genres`, `Sizes: 12 / 16 / 22 oz`, `Books: Read in, return before leaving`, `Drinks: Hot or iced`, `Food prices: To be confirmed`).
-- **`FloatingPhoto`:** Borderless seamless photography on Paper White (or clean `rounded-2xl` framed photography for full-bleed café scenes) with a restrained scroll-linked `±2–4px` drift.
-- **`EditorialBanner`:** Full-width horizontal daylight spread paired with a centered Bodoni Moda statement beneath.
-- **`DrinkShowcase`:** Staggered editorial showcase (`md:translate-y-0 / 12 / 0`) displaying real sizes, `Signature`/`Must Try` pills, and `tabular-nums` prices; unregenerated low-res food crops render inside unstretched native-size specimen plates so no image is ever stretched blurry.
+### Route Compositions
+- **Home (`/`):** Blank-canvas staggered entrance → angled borderless `HomeMagazineHero` → 4-corner wrap-around `HomeWrapStory` → borderless `HomeOverheadInterlude` → open-canvas asymmetric `ScatteredMenuSpread` (Caramel Macchiato, Spanish Latte, Signature Chocolate opening portaled `TastingSheetModal`) → `HomeReadingFinale`.
+- **Menu (`/menu`):** Borderless printed-menu hero with 6-category jump list → minimal italic sticky filter bar docked flush at `top-18` with `House Picks` toggle → staggered borderless category mini-showcases + `EditorialBanner` kitchen interlude + hairline printed-menu ledger for all 39 items.
+- **Reading Room (`/reading-room`):** Unbroken Paper White open-book spread (`ReadingRoomBookHero`) with hairline center spine and live Bookmark Preview → 6 alternating borderless shelf spreads → feathered wide banner → clickable `01–04` `ReadingRoomSteps` → hairline guidelines.
+- **About (`/about`):** Centered magazine opener → *"The name PAHINA."* wrap spread → feathered interior interlude → staggered 4-up borderless principles showcase → clickable 4-swatch `MaterialSwatchInspector`.
+- **Visit (`/visit`):** Razor-thin 3D `FlippableCallingCard` beside the 6-placeholder Visit Directory → Powder Blue hairline-framed concept notice → feathered *"Getting here."* spread → architectural dashed `[Map Location Placeholder]` frame → unboxed closing CTA.
 
-### Brand Emblem
-- A circular double-ring engraved emblem (`PahinaEmblem` / `public/images/brand/pahina-emblem.svg`) containing an open-book glyph whose central spine rises into a single steam curl, framed by `COFFEE & READING ROOM` and `PAHINA` along the ring.
-- Anchors the primary navigation, closing `VisitBanner`, Visit calling card, and site footer alongside the uppercase Bodoni Moda `PAHINA` wordmark across all five routes.
-
-### Motion & Interaction Rules
-- **Scroll Choreography:** Weighted editorial spring physics (`useSpring` damping on `useScroll`/`useTransform`) across `HeroPageCard` lift/tilt, opposing floating photo parallax (`±22–34px`, subtle `±1.2°–2°` scroll rotation, `0.975 → 1.015` scale breathing), masked line-by-line Bodoni headline reveals (`MaskedHeading`), hairline Powder Blue reading progress bar (`ScrollProgressBar`), and smooth GPU-only route transitions (`src/app/template.tsx`).
-- **Desktop Pointer Physics:** On `(hover: hover) and (pointer: fine)` devices only, `FloatingPhoto` responds to cursor position with a gentle `±4°` spring tilt and `-6px` lift, and `PrimaryButton` carries a subtle `±3px` magnetic pull.
-- **Route-Specific Tactile Interactions:**
-  - **Home & Menu:** Inline `SMOL / MOYEN / GRANDE` size-pill switcher with animated `₱` price readout, click-to-open Paper White `TastingSheetModal` for all 39 items, `layoutId` gliding filter tabs + `House Picks` (`Signature` & `Must Try`) toggle, and click-to-inspect `AtmosphereGallery` editorial lightbox (`Prev`/`Next`/`Escape`).
-  - **Reading Room:** Open-book `ReadingRoomBookHero` live Bookmark Preview synced to TOC hover/click + clickable `01–04` `ReadingRoomSteps` with sliding `layoutId` indicator.
-  - **About:** Clickable 4-swatch `MaterialSwatchInspector` with sliding `layoutId` selection ring + pointer-tilt principle plates.
-  - **Visit:** 3D CSS `FlippableCallingCard` (Front emblem ↔ Back concept stamp) paired beside the always-visible 6-placeholder directory.
-- **Reduced Motion:** Under `prefers-reduced-motion: reduce`, parallax, scroll tilts, pointer tilts, magnetic pulls, 3D flips, and route slides degrade cleanly to static or instant crossfade states.
+### Motion & Accessibility Rules
+- **Scroll Choreography:** Spring-damped Framer Motion scroll parallax (`useSpring` on `useScroll`/`useTransform`), opposing float drifts, outer-observed `MaskedHeading` line reveals with descender clearance (`pb-[0.2em]`), and opacity-only route transitions (`template.tsx`) so fixed portals/sticky bars never trap inside transform contexts.
+- **Dialog Accessibility:** `TastingSheetModal` and `MobileNavigation` mount cleanly with `useDialogA11y` (initial focus, strict `Tab`/`Shift+Tab` focus trap, `Escape` close, and return focus to trigger); `TastingSheetModal` renders via `createPortal` directly into `document.body`.
+- **Reduced Motion:** `useReducedMotion()` degrades parallax, scroll tilts, pointer tilts, magnetic pulls, and 3D card flips cleanly to static states.
 
 

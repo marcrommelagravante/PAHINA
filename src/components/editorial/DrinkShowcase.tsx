@@ -3,9 +3,8 @@
 import Image from "next/image";
 import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import type { MenuItemData } from "@/data/menu";
-import { resolveShowcaseMenuImage } from "@/data/editorialImages";
-import { FloatingPhoto } from "@/components/editorial/FloatingPhoto";
+import type { MenuCategoryId, MenuItemData } from "@/data/menu";
+import { resolveMenuShowcaseImage } from "@/data/editorialImages";
 import { TastingSheetModal } from "@/components/editorial/TastingSheetModal";
 import { cn } from "@/lib/utils";
 
@@ -14,6 +13,12 @@ interface DrinkShowcaseProps {
   className?: string;
   onInspectItem?: (item: MenuItemData) => void;
 }
+
+const DRINK_CATEGORIES = new Set<MenuCategoryId>([
+  "coffee",
+  "non-coffee",
+  "frappuccino",
+]);
 
 function ShowcaseCard({
   item,
@@ -29,10 +34,9 @@ function ShowcaseCard({
   const prefersReducedMotion = useReducedMotion();
   const [selectedSizeIndex, setSelectedSizeIndex] = useState(0);
 
-  const { src, mode } = resolveShowcaseMenuImage(item.id, item.image);
+  const { src, mode } = resolveMenuShowcaseImage(item.id, item.image);
   const isMiddleStagger = !isTwoUp && index === 1;
-  const drift = index === 1 ? -24 : 24;
-  const scrollTilt = index === 1 ? -1.6 : 1.6;
+  const isDrink = DRINK_CATEGORIES.has(item.category);
 
   const activeSize =
     item.sizes && item.sizes[selectedSizeIndex]
@@ -41,45 +45,43 @@ function ShowcaseCard({
 
   return (
     <article
-      className={cn("flex flex-col", isMiddleStagger && "md:translate-y-12")}
+      className={cn("flex flex-col", isMiddleStagger && "md:translate-y-10")}
     >
       <button
         type="button"
         onClick={() => onInspect(item)}
         aria-label={`Open tasting sheet for ${item.name}`}
-        className="group block w-full text-left focus-visible:rounded-xl"
+        className="group block w-full text-left focus-visible:rounded-[2px]"
       >
         {mode === "compact-specimen" ? (
-          <div className="mx-auto flex aspect-[4/5] w-full max-w-[290px] flex-col items-center justify-center border border-soft/90 bg-paper p-8 transition-[border-color,transform] duration-200 ease-[var(--ease-out)] group-hover:-translate-y-1 group-hover:border-ink/40 md:max-w-none">
-            <div className="relative aspect-[4/5] w-28 overflow-hidden rounded-[2px] bg-soft">
+          <div className="mx-auto flex aspect-[4/5] w-full max-w-[320px] flex-col items-center justify-center rounded-[2px] border border-soft bg-surface-elevated p-8 transition-colors duration-200 ease-[var(--ease-out)] group-hover:border-ink/40 md:max-w-none">
+            <div className="relative aspect-[4/5] w-32 overflow-hidden rounded-[2px] border border-soft bg-paper">
               <Image
                 src={src}
                 alt={item.alt}
                 fill
-                sizes="112px"
-                className="object-cover"
+                sizes="128px"
+                className="object-cover hover-image-zoom"
               />
             </div>
             <p className="mt-5 font-editorial text-base italic text-ink-muted">
-              From our kitchen
+              {isDrink ? "From our bar" : "From our kitchen"}
             </p>
           </div>
         ) : (
-          <FloatingPhoto
-            src={src}
-            alt={item.alt}
-            aspect="portrait"
-            drift={drift}
-            scrollTilt={scrollTilt}
-            tiltOnHover
-            feather={mode === "cutout" ? "tight" : "oval"}
-            sizes={
-              isTwoUp
-                ? "(max-width: 768px) 84vw, 40vw"
-                : "(max-width: 768px) 84vw, 28vw"
-            }
-            className="mx-auto w-full max-w-[290px] md:max-w-none"
-          />
+          <div className="relative mx-auto aspect-[4/5] w-full max-w-[320px] overflow-hidden rounded-[2px] border border-soft bg-surface-elevated transition-colors duration-200 ease-[var(--ease-out)] group-hover:border-ink/35 md:max-w-none">
+            <Image
+              src={src}
+              alt={item.alt}
+              fill
+              sizes={
+                isTwoUp
+                  ? "(max-width: 768px) 84vw, 40vw"
+                  : "(max-width: 768px) 84vw, 28vw"
+              }
+              className="object-cover hover-image-zoom"
+            />
+          </div>
         )}
       </button>
 

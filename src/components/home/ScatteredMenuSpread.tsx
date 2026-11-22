@@ -10,7 +10,7 @@ import {
   useTransform,
 } from "framer-motion";
 import type { MenuItemData } from "@/data/menu";
-import { resolveShowcaseMenuImage } from "@/data/editorialImages";
+import { resolveHomeShowcaseImage } from "@/data/editorialImages";
 import { TastingSheetModal } from "@/components/editorial/TastingSheetModal";
 import { EditorialButton } from "@/components/home/EditorialButton";
 import { cn } from "@/lib/utils";
@@ -65,7 +65,7 @@ export function ScatteredMenuSpread({ items }: ScatteredMenuSpreadProps) {
     }
   ) => {
     if (!item) return null;
-    const { src } = resolveShowcaseMenuImage(item.id, item.image);
+    const { src } = resolveHomeShowcaseImage(item.id, item.image);
     const [line1, line2] = splitTitleLines(item.name);
 
     return (

@@ -33,7 +33,7 @@ export function VisitBanner({
           <PahinaEmblem size={36} showRingText={false} />
         </div>
         <MaskedHeading
-          lines={[heading]}
+          lines={[<span key="l1">{heading}</span>]}
           className="font-display text-4xl leading-[1.06] tracking-[-0.025em] text-ink sm:text-5xl lg:text-6xl"
         />
         <p className="mx-auto mt-5 max-w-md text-[13px] leading-[1.7] text-ink-muted">

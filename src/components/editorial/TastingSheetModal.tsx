@@ -14,9 +14,15 @@ import {
   type MenuItemData,
 } from "@/data/menu";
 import { BOOK_GENRES } from "@/data/books";
-import { resolveShowcaseMenuImage } from "@/data/editorialImages";
+import { resolveMenuShowcaseImage } from "@/data/editorialImages";
 import { useDialogA11y } from "@/lib/useDialogA11y";
 import { cn } from "@/lib/utils";
+
+const DRINK_CATEGORIES = new Set<MenuCategoryId>([
+  "coffee",
+  "non-coffee",
+  "frappuccino",
+]);
 
 interface TastingSheetModalProps {
   item: MenuItemData | null;
@@ -65,7 +71,7 @@ export function TastingSheetModal({ item, onClose }: TastingSheetModalProps) {
     : undefined;
 
   const resolvedImg = item
-    ? resolveShowcaseMenuImage(item.id, item.image)
+    ? resolveMenuShowcaseImage(item.id, item.image)
     : null;
 
   const selectedSize =
@@ -145,7 +151,9 @@ export function TastingSheetModal({ item, onClose }: TastingSheetModalProps) {
                       />
                     </div>
                     <p className="mt-4 font-editorial text-base italic text-ink-muted">
-                      Kitchen plate
+                      {DRINK_CATEGORIES.has(item.category)
+                        ? "Bar pour"
+                        : "Kitchen plate"}
                     </p>
                   </div>
                 ) : (

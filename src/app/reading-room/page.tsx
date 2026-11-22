@@ -1,46 +1,33 @@
 import type { Metadata } from "next";
-import { EditorialBanner } from "@/components/editorial/EditorialBanner";
-import { FloatingPhoto } from "@/components/editorial/FloatingPhoto";
+import Image from "next/image";
 import { MaskedHeading } from "@/components/editorial/MaskedHeading";
 import { ReadingRoomBookHero } from "@/components/editorial/ReadingRoomBookHero";
+import { ReadingRoomShelfGuide } from "@/components/editorial/ReadingRoomShelfGuide";
 import { ReadingRoomSteps } from "@/components/editorial/ReadingRoomSteps";
 import { VisitBanner } from "@/components/sections/VisitBanner";
 import { BreadcrumbStructuredData } from "@/components/seo/StructuredData";
-import { BOOK_GENRES, READING_ROOM_GUIDELINES } from "@/data/books";
-import { EDITORIAL_IMAGES } from "@/data/editorialImages";
-import { SITE_INFO } from "@/data/site";
+import { Reveal } from "@/components/ui/Reveal";
+import {
+  READING_ROOM_GUIDELINES,
+  READING_ROOM_MOMENTS,
+} from "@/data/books";
 import { DEFAULT_OG_IMAGES } from "@/lib/siteUrl";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Reading Room",
   description:
-    "Learn how PAHINA's in-café Reading Room works—browse Fiction, Romance, Mystery, Philosophy, Poetry, and Nonfiction at your table.",
+    "See what reading inside PAHINA looks like—sunlit window two-tops, recessed wooden shelves across six genres, and an unhurried neighborhood atmosphere.",
   alternates: {
     canonical: "/reading-room",
   },
   openGraph: {
     title: "Reading Room | PAHINA",
     description:
-      "Curated in-café bookshelves across Fiction, Romance, Mystery, Philosophy, Poetry, and Nonfiction—read comfortably beside your cup.",
+      "See what reading inside PAHINA looks like—sunlit oak tables, recessed pastel-blue bookshelves, and six curated genres to read beside your cup.",
     url: "/reading-room",
     images: DEFAULT_OG_IMAGES,
   },
-};
-
-const GENRE_IMAGE_ALT: Record<string, string> = {
-  fiction:
-    "Open cream-paged book with a muted powder-blue ribbon bookmark beside iced coffee on warm paper",
-  romance:
-    "Matte cream stoneware cup of Café Latte with rosetta microfoam resting on a woven linen coaster",
-  mystery:
-    "Chilled glass of Café Americano with crisp dark crema on a quiet oak reading table",
-  philosophy:
-    "Overhead flat-lay of an open blank hardcover book beside a stoneware latte and powder-blue linen napkin",
-  poetry:
-    "Velvety stoneware Cappuccino resting on an oak café table bathed in soft morning daylight",
-  nonfiction:
-    "Open linen-bound book beside a porcelain cup of espresso against pastel blue-grey walls",
 };
 
 export default function ReadingRoomPage() {
@@ -51,105 +38,121 @@ export default function ReadingRoomPage() {
         currentPath="/reading-room"
       />
 
+      {/* Photographic split hero showing guests reading inside PAHINA */}
       <ReadingRoomBookHero />
 
-      {/* Six alternating borderless shelf spreads on unbroken Paper White */}
-      <div className="bg-paper">
-        {BOOK_GENRES.map((genre, index) => {
-          const isEven = index % 2 === 0;
-          const photoSrc =
-            EDITORIAL_IMAGES.genreMoods[
-              genre.id as keyof typeof EDITORIAL_IMAGES.genreMoods
-            ];
-          const isLandscape =
-            genre.id === "fiction" || genre.id === "philosophy";
-          const isCutout = genre.id === "fiction" || genre.id === "romance";
+      {/* Visual tour showing customers what reading inside PAHINA actually looks like */}
+      <section
+        id="inside-the-room"
+        aria-labelledby="inside-room-heading"
+        className="scroll-mt-24 bg-paper py-16 sm:py-24"
+      >
+        <div className="mx-auto max-w-6xl px-5 sm:px-8">
+          <div className="max-w-2xl space-y-4 border-t border-soft pt-12 sm:pt-16">
+            <MaskedHeading
+              id="inside-room-heading"
+              lines={[
+                <span key="l1">
+                  What reading here{" "}
+                  <em className="font-normal italic">looks like.</em>
+                </span>,
+              ]}
+              className="font-display text-4xl leading-[1.06] tracking-[-0.025em] text-ink sm:text-5xl"
+            />
+            <p className="max-w-lg text-[13.5px] leading-[1.72] text-ink-muted">
+              PAHINA is shaped for unhurried stays—combining two 5-layer wooden
+              bookshelves with many sets of warm oak tables, supportive chairs,
+              soft window daylight, and accessible power outlets across the
+              room.
+            </p>
+          </div>
 
-          return (
-            <section
-              key={genre.id}
-              id={`shelf-${genre.id}`}
-              aria-labelledby={`shelf-heading-${genre.id}`}
-              className="scroll-mt-24 overflow-x-clip bg-paper py-20 sm:py-28"
-            >
-              <div className="mx-auto max-w-6xl px-5 sm:px-8">
-                <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-14">
-                  <div
-                    className={cn(
-                      "lg:col-span-6",
-                      !isEven && "lg:order-2"
-                    )}
-                  >
-                    <FloatingPhoto
-                      src={photoSrc}
-                      alt={
-                        GENRE_IMAGE_ALT[genre.id] ??
-                        `${genre.name} reading mood inside PAHINA`
-                      }
-                      aspect={isLandscape ? "landscape" : "portrait"}
-                      drift={isEven ? 28 : -28}
-                      scrollTilt={isEven ? 1.6 : -1.6}
-                      tiltOnHover
-                      feather={isCutout ? "tight" : "oval"}
-                      sizes="(max-width: 1024px) 90vw, 440px"
-                      className="mx-auto max-w-[420px] lg:max-w-[460px]"
-                    />
-                  </div>
+          <div className="mt-14 space-y-20 sm:mt-20 sm:space-y-28">
+            {READING_ROOM_MOMENTS.map((moment, index) => {
+              const isReversed = index % 2 === 1;
+              const isLandscape = moment.aspect === "landscape";
 
-                  <div
-                    className={cn(
-                      "space-y-6 lg:col-span-6",
-                      !isEven && "lg:order-1"
-                    )}
-                  >
-                    <MaskedHeading
-                      id={`shelf-heading-${genre.id}`}
-                      lines={[genre.name]}
-                      className="font-display text-4xl leading-[1.04] tracking-[-0.025em] text-ink sm:text-5xl lg:text-[3.5rem]"
-                    />
-
-                    <p className="max-w-md font-editorial text-2xl leading-snug italic text-ink">
-                      {genre.shelfSummary}
-                    </p>
-
-                    <p className="max-w-[340px] text-[13px] leading-[1.7] text-ink-muted">
-                      {genre.readingMoodNote}
-                    </p>
-
-                    <div className="pt-2">
-                      <p className="text-[10px] font-medium tracking-[0.14em] uppercase text-ink-muted">
-                        Pairs with
-                      </p>
-                      <p className="mt-1 font-display text-base text-ink">
-                        {genre.quietPairing}
-                      </p>
+              return (
+                <Reveal key={moment.id}>
+                  <article className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14">
+                    <div
+                      className={cn(
+                        isLandscape ? "lg:col-span-7" : "lg:col-span-6",
+                        isReversed && "lg:order-2"
+                      )}
+                    >
+                      <div
+                        className={cn(
+                          "relative overflow-hidden rounded-[2px] border border-soft bg-surface-elevated",
+                          isLandscape
+                            ? "aspect-[4/3] w-full"
+                            : "mx-auto aspect-[4/5] w-full max-w-[460px] lg:mx-0"
+                        )}
+                      >
+                        <Image
+                          src={moment.image}
+                          alt={moment.alt}
+                          fill
+                          sizes={
+                            isLandscape
+                              ? "(max-width: 1024px) 94vw, 640px"
+                              : "(max-width: 1024px) 90vw, 460px"
+                          }
+                          className="object-cover"
+                        />
+                      </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-          );
-        })}
-      </div>
 
-      {/* Wide borderless Reading Room interlude */}
-      <EditorialBanner
-        headingId="reading-room-banner-heading"
-        src={EDITORIAL_IMAGES.readingRoomBanner}
-        alt="Sunlit corner reading table beside tall arched windows inside PAHINA with an open cloth-bound book, ceramic cup, and wooden bookshelves"
-        heading={
-          <>
-            Brew a cup.{" "}
-            <em className="font-normal italic">Turn a page.</em>
-          </>
-        }
-        description={SITE_INFO.supportingLines.curiousMinds}
-      />
+                    <div
+                      className={cn(
+                        "space-y-5",
+                        isLandscape ? "lg:col-span-5" : "lg:col-span-6",
+                        isReversed && "lg:order-1"
+                      )}
+                    >
+                      <h3 className="font-display text-3xl leading-[1.08] tracking-[-0.02em] text-ink sm:text-4xl">
+                        {moment.title}
+                      </h3>
+
+                      <p className="font-editorial text-2xl leading-snug italic text-ink">
+                        {moment.lead}
+                      </p>
+
+                      <p className="max-w-md text-[13.5px] leading-[1.72] text-ink-muted">
+                        {moment.description}
+                      </p>
+
+                      <dl className="grid grid-cols-2 gap-6 border-t border-soft pt-5 text-[10px] leading-[1.5] tracking-[0.14em] uppercase text-ink-muted">
+                        <div>
+                          <dt>{moment.settingLabel}</dt>
+                          <dd className="mt-1 font-sans text-xs font-medium tracking-normal normal-case text-ink">
+                            {moment.settingDetail}
+                          </dd>
+                        </div>
+                        <div>
+                          <dt>{moment.rhythmLabel}</dt>
+                          <dd className="mt-1 font-sans text-xs font-medium tracking-normal normal-case text-ink">
+                            {moment.rhythmDetail}
+                          </dd>
+                        </div>
+                      </dl>
+                    </div>
+                  </article>
+                </Reveal>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Compact interactive 6-genre shelf directory (preserves #shelf-<genre> deep links) */}
+      <ReadingRoomShelfGuide />
 
       {/* How it works — clickable numbered 4-step editorial sequence */}
       <section
+        id="how-it-works"
         aria-labelledby="how-it-works-heading"
-        className="bg-paper py-20 sm:py-28"
+        className="scroll-mt-24 bg-paper py-20 sm:py-28"
       >
         <div className="mx-auto max-w-6xl px-5 sm:px-8">
           <div className="max-w-xl space-y-4">

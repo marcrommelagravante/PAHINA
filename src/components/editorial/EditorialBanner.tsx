@@ -69,7 +69,7 @@ export function EditorialBanner({
         <div className="mx-auto mt-10 max-w-2xl text-center sm:mt-14">
           <MaskedHeading
             id={headingId}
-            lines={[heading]}
+            lines={[<span key="l1">{heading}</span>]}
             className="font-display text-3xl leading-[1.08] tracking-[-0.025em] text-ink sm:text-5xl lg:text-[3.35rem]"
           />
           {description && (

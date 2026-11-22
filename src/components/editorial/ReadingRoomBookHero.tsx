@@ -1,31 +1,36 @@
-"use client";
-
-import { useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { BOOK_GENRES } from "@/data/books";
+import Image from "next/image";
 import { MaskedHeading } from "@/components/editorial/MaskedHeading";
-import { cn } from "@/lib/utils";
+import { EDITORIAL_IMAGES } from "@/data/editorialImages";
+
+const HERO_JUMP_LINKS = [
+  {
+    href: "#inside-the-room",
+    label: "Inside the room",
+    meta: "Seating, daylight & spacing",
+  },
+  {
+    href: "#curated-shelves",
+    label: "Curated shelves",
+    meta: "6 genres",
+  },
+  {
+    href: "#how-it-works",
+    label: "How it works",
+    meta: "4 simple steps",
+  },
+] as const;
 
 export function ReadingRoomBookHero() {
-  const prefersReducedMotion = useReducedMotion();
-  const [activeGenreId, setActiveGenreId] = useState<string>(BOOK_GENRES[0].id);
-
-  const activeGenre =
-    BOOK_GENRES.find((genre) => genre.id === activeGenreId) ?? BOOK_GENRES[0];
-
   return (
     <section
       aria-labelledby="reading-room-hero-heading"
-      className="overflow-x-clip bg-paper pt-28 pb-20 sm:pt-36 sm:pb-24"
+      className="overflow-x-clip bg-paper pt-28 pb-16 sm:pt-36 sm:pb-24"
     >
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-0 lg:divide-x lg:divide-soft">
-          {/* Left page: monumental title + live Reading Bookmark Preview */}
-          <div className="flex flex-col justify-between space-y-10 lg:col-span-6 lg:pr-14">
-            <div className="space-y-5">
-              <p className="font-editorial text-lg italic text-ink-muted">
-                Left Page
-              </p>
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-12">
+          {/* Left column: editorial introduction & page index */}
+          <div className="space-y-8 lg:col-span-6">
+            <div className="space-y-6">
               <MaskedHeading
                 as="h1"
                 id="reading-room-hero-heading"
@@ -33,146 +38,76 @@ export function ReadingRoomBookHero() {
                 delay={0.2}
                 lines={[
                   "A quiet room",
-                  "of curated",
+                  "made for",
                   <em key="l3" className="font-normal italic">
-                    pages.
+                    slow pages.
                   </em>,
                 ]}
-                className="font-display text-[clamp(3.2rem,6vw,5.25rem)] leading-[0.98] tracking-[-0.03em] text-ink"
+                className="font-display text-[clamp(3.2rem,6vw,5.25rem)] leading-[1.03] tracking-[-0.03em] text-ink"
               />
-              <p className="max-w-[290px] text-[13px] leading-[1.7] text-ink-muted">
-                Our shelves are gathered for comfortable in-café reading—never
-                rushed, never crowded, and open to anyone sharing a cup inside
-                PAHINA.
+              <p className="max-w-md text-[13.5px] leading-[1.72] text-ink-muted">
+                Step inside a neighborhood reading room anchored by two 5-layer
+                wooden bookshelves, tall arched daylight windows, and many sets
+                of warm oak tables, upholstered chairs, and table-side power
+                outlets. Everything on our shelves is open to read beside your
+                cup—no library card or sign-up required.
               </p>
             </div>
 
-            {/* Delicate hairline Bookmark Preview synced to Right Page TOC */}
-            <div
-              aria-live="polite"
-              className="border-y border-powder py-6"
-            >
-              <div className="flex items-center justify-between gap-3">
-                <span className="text-[10px] font-medium tracking-[0.14em] uppercase text-ink-muted">
-                  Bookmark preview
-                </span>
-                <a
-                  href={`#shelf-${activeGenre.id}`}
-                  className="text-[11px] font-medium tracking-[0.04em] text-ink underline decoration-ink/35 underline-offset-4 hover:decoration-ink"
-                >
-                  Jump to {activeGenre.name}
-                </a>
-              </div>
+            {/* Clean hairline index of the Reading Room page */}
+            <nav aria-label="Reading Room sections" className="max-w-md">
+              <ul className="divide-y divide-soft border-y border-soft">
+                {HERO_JUMP_LINKS.map((item) => (
+                  <li key={item.href}>
+                    <a
+                      href={item.href}
+                      className="group flex items-baseline justify-between gap-4 py-3 text-ink transition-colors duration-150 hover:text-ink-muted"
+                    >
+                      <span className="font-display text-xl transition-transform duration-200 ease-[var(--ease-out)] group-hover:translate-x-1">
+                        {item.label}
+                      </span>
+                      <span className="text-[11px] font-medium tracking-[0.06em] text-ink-muted">
+                        {item.meta}
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
 
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeGenre.id}
-                  initial={prefersReducedMotion ? false : { opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={
-                    prefersReducedMotion
-                      ? { opacity: 0 }
-                      : { opacity: 0, y: -6 }
-                  }
-                  transition={{ duration: 0.22, ease: [0.23, 1, 0.32, 1] }}
-                  className="mt-3 space-y-2.5"
-                >
-                  <h2 className="font-display text-2xl text-ink">
-                    {activeGenre.name}
-                  </h2>
-                  <p className="max-w-md text-[12.5px] leading-[1.65] text-ink-muted">
-                    {activeGenre.readingMoodNote}
-                  </p>
-                  <p className="pt-1 font-editorial text-lg italic text-ink">
-                    {activeGenre.quietPairing}
-                  </p>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-
-            <div className="flex gap-10 text-[10px] leading-[1.5] tracking-[0.14em] uppercase text-ink-muted">
+            <div className="flex flex-wrap gap-10 text-[10px] leading-[1.5] tracking-[0.14em] uppercase text-ink-muted">
               <div>
                 <p>Shelves</p>
-                <p className="font-medium text-ink">6 Genres</p>
+                <p className="font-medium text-ink">
+                  Two 5-Layer Bookcases (6 Genres)
+                </p>
               </div>
               <div>
-                <p>Books</p>
+                <p>Seating & Power</p>
                 <p className="font-medium text-ink">
-                  Read in, return before leaving
+                  Tables, Chairs & Outlets
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Right page: interactive 6-genre Table of Contents */}
-          <div className="border-t border-soft pt-10 lg:col-span-6 lg:border-t-0 lg:pt-0 lg:pl-14">
-            <div className="flex items-baseline justify-between gap-4">
-              <p className="font-editorial text-lg italic text-ink-muted">
-                Table of Contents
-              </p>
-              <span className="text-[10px] tracking-[0.12em] uppercase text-ink-muted">
-                Select a shelf
-              </span>
+          {/* Right column: crisp architectural photograph showing guests reading inside PAHINA */}
+          <figure className="lg:col-span-6">
+            <div className="relative mx-auto aspect-[4/5] w-full max-w-[490px] overflow-hidden rounded-[2px] border border-soft bg-surface-elevated lg:ml-auto lg:mr-0">
+              <Image
+                src={EDITORIAL_IMAGES.readingRoomHero}
+                alt="Inside PAHINA's sunlit boutique Reading Room showing guests reading quietly at warm oak two-top tables beside tall arched glass windows, muted pastel blue-grey paneled walls, and recessed wooden bookshelves"
+                fill
+                priority
+                sizes="(max-width: 1024px) 92vw, 490px"
+                className="object-cover"
+              />
             </div>
-
-            <nav aria-label="Reading Room shelves" className="mt-5">
-              <ul className="divide-y divide-soft border-y border-soft">
-                {BOOK_GENRES.map((genre) => {
-                  const isActive = genre.id === activeGenre.id;
-                  return (
-                    <li key={genre.id} className="relative">
-                      {isActive && (
-                        <motion.span
-                          layoutId={
-                            prefersReducedMotion ? undefined : "toc-active-rule"
-                          }
-                          aria-hidden="true"
-                          transition={{
-                            type: "spring",
-                            stiffness: 420,
-                            damping: 34,
-                          }}
-                          className="absolute inset-y-2.5 -left-3 w-[1.5px] bg-ink"
-                        />
-                      )}
-                      <div
-                        onMouseEnter={() => setActiveGenreId(genre.id)}
-                        className={cn(
-                          "py-4 transition-opacity duration-150",
-                          isActive ? "opacity-100" : "opacity-75 hover:opacity-100"
-                        )}
-                      >
-                        <div className="flex items-baseline justify-between gap-4">
-                          <button
-                            type="button"
-                            onClick={() => setActiveGenreId(genre.id)}
-                            aria-pressed={isActive}
-                            className={cn(
-                              "text-left font-display text-2xl transition-transform duration-200 ease-[var(--ease-out)] sm:text-[1.75rem]",
-                              isActive
-                                ? "translate-x-1 italic text-ink"
-                                : "text-ink hover:translate-x-1"
-                            )}
-                          >
-                            {genre.name}
-                          </button>
-                          <a
-                            href={`#shelf-${genre.id}`}
-                            className="font-editorial text-base italic text-ink-muted underline-offset-4 hover:text-ink hover:underline"
-                          >
-                            Read spread
-                          </a>
-                        </div>
-                        <p className="mt-1 max-w-md text-[12px] leading-[1.6] text-ink-muted">
-                          {genre.shelfSummary}
-                        </p>
-                      </div>
-                    </li>
-                  );
-                })}
-              </ul>
-            </nav>
-          </div>
+            <figcaption className="mx-auto mt-3.5 max-w-[490px] font-editorial text-base italic text-ink-muted lg:ml-auto lg:mr-0">
+              Morning daylight across our arched windows, warm oak tables, and
+              recessed shelves—kept intentionally uncrowded so you can linger.
+            </figcaption>
+          </figure>
         </div>
       </div>
     </section>

@@ -147,7 +147,7 @@ export const MENU_ITEMS: MenuItemData[] = [
     category: "coffee",
     subcategory: "Core Coffee",
     image: "/images/pahina-menu-assets/coffee/hazelnut-latte.jpg",
-    alt: "Iced Hazelnut Latte layered with cold milk and espresso in clear glass",
+    alt: "Iced Hazelnut Latte layered with cold milk and espresso in a clear tall glass on a warm oak tabletop against muted pastel blue-grey café paneling",
     sizes: CORE_COFFEE_STANDARD_SIZES,
   },
   {
@@ -156,7 +156,7 @@ export const MENU_ITEMS: MenuItemData[] = [
     category: "coffee",
     subcategory: "Core Coffee",
     image: "/images/pahina-menu-assets/coffee/caramel-macchiato.jpg",
-    alt: "Iced Caramel Macchiato with layered espresso, cold milk, and amber caramel drizzle",
+    alt: "Iced Caramel Macchiato in a tall fluted glass with layered milk, espresso, cold foam, and golden caramel lattice on a sunlit oak café table",
     sizes: CORE_COFFEE_STANDARD_SIZES,
     badge: "Signature",
   },
@@ -166,7 +166,7 @@ export const MENU_ITEMS: MenuItemData[] = [
     category: "coffee",
     subcategory: "Core Coffee",
     image: "/images/pahina-menu-assets/coffee/spanish-latte.jpg",
-    alt: "Iced Spanish Latte showing sweetened milk beneath a golden espresso cascade in a clear glass",
+    alt: "Iced Spanish Latte showing creamy sweetened milk beneath a golden espresso cascade in a clear tall glass on a warm oak tabletop",
     sizes: CORE_COFFEE_STANDARD_SIZES,
     badge: "Signature",
   },
@@ -233,7 +233,7 @@ export const MENU_ITEMS: MenuItemData[] = [
     name: "Signature Chocolate",
     category: "non-coffee",
     image: "/images/pahina-menu-assets/non-coffee/signature-chocolate.jpg",
-    alt: "Iced Signature Chocolate served over clear ice in a minimalist café glass",
+    alt: "Iced Signature Chocolate served over clear ice in a tall fluted café glass on a warm oak tabletop with blurred bookshelves behind",
     sizes: CORE_COFFEE_STANDARD_SIZES,
     badge: "Signature",
   },
@@ -242,7 +242,7 @@ export const MENU_ITEMS: MenuItemData[] = [
     name: "Strawberry Milk Latte",
     category: "non-coffee",
     image: "/images/pahina-menu-assets/non-coffee/strawberry-milk-latte.jpg",
-    alt: "Iced Strawberry Milk Latte with ruby strawberry layer beneath creamy milk in clear glass",
+    alt: "Iced Strawberry Milk Latte in a tall fluted glass with ruby strawberry purée marbling through chilled milk and diced fresh strawberries on a sunlit oak table",
     sizes: CORE_COFFEE_STANDARD_SIZES,
     badge: "Signature",
   },
@@ -306,7 +306,7 @@ export const MENU_ITEMS: MenuItemData[] = [
     subcategory: "Espresso-Based",
     image:
       "/images/pahina-menu-assets/frappuccino/espresso-based/lotus-biscoff-frappe.jpg",
-    alt: "Lotus Biscoff Frappe finished with whipped cream, biscuit crumbs, and a caramelized biscuit",
+    alt: "Lotus Biscoff Frappe finished with whipped cream, spiced biscuit crumbs, and a caramelized biscuit on a folded linen napkin and oak table",
     sizes: FRAPPE_SIGNATURE_SIZES,
     badge: "Must Try",
   },
@@ -329,7 +329,7 @@ export const MENU_ITEMS: MenuItemData[] = [
     subcategory: "Cream-Based",
     image:
       "/images/pahina-menu-assets/frappuccino/cream-based/peanut-butter-cookie-frappe.jpg",
-    alt: "Peanut Butter Cookie Frappe topped with whipped cream and golden cookie crumble",
+    alt: "Peanut Butter Cookie Frappe crowned with whipped cream and golden cookie crumble in a tall clear glass on a folded linen napkin and warm oak table",
     sizes: FRAPPE_STANDARD_SIZES,
   },
   {
@@ -368,7 +368,7 @@ export const MENU_ITEMS: MenuItemData[] = [
     name: "Creamy Carbonara",
     category: "pasta",
     image: "/images/pahina-menu-assets/pasta/creamy-carbonara.jpg",
-    alt: "Creamy Carbonara plated neatly in a matte cream stoneware bowl on an oak table",
+    alt: "Creamy Carbonara spaghetti with crisp pancetta, cracked black pepper, and parsley in a speckled cream stoneware bowl beside a folded linen napkin and fork on warm oak",
     priceUnconfirmed: true,
   },
   {
@@ -384,7 +384,7 @@ export const MENU_ITEMS: MenuItemData[] = [
     name: "Creamy Pesto",
     category: "pasta",
     image: "/images/pahina-menu-assets/pasta/creamy-pesto.jpg",
-    alt: "Creamy Pesto pasta with bright green basil sauce in a ceramic bowl",
+    alt: "Creamy Pesto spaghetti with fresh basil, cherry tomatoes, and grated parmesan in a speckled cream stoneware bowl beside a linen napkin and fork on warm oak",
     priceUnconfirmed: true,
   },
   {
@@ -400,7 +400,7 @@ export const MENU_ITEMS: MenuItemData[] = [
     name: "Aglio Olio",
     category: "pasta",
     image: "/images/pahina-menu-assets/pasta/aglio-olio.jpg",
-    alt: "Aglio Olio spaghetti tossed with golden garlic oil, herbs, and chili flakes in a cream bowl",
+    alt: "Aglio Olio spaghetti tossed with golden toasted garlic slices, herbs, and chili flakes in a matte cream stoneware bowl beside a folded linen napkin and fork on warm oak",
     priceUnconfirmed: true,
   },
 
@@ -410,7 +410,7 @@ export const MENU_ITEMS: MenuItemData[] = [
     name: "Classic Cheese",
     category: "pizza",
     image: "/images/pahina-menu-assets/pizza/classic-cheese-pizza.jpg",
-    alt: "Classic Cheese pizza with golden blistered crust and melted mozzarella on a wooden board",
+    alt: "Classic Cheese pizza with blistered golden crust, melted mozzarella, and herb flecks served on a round oak board beside sunlit window light",
     priceUnconfirmed: true,
   },
   {
@@ -418,7 +418,7 @@ export const MENU_ITEMS: MenuItemData[] = [
     name: "Pepperoni",
     category: "pizza",
     image: "/images/pahina-menu-assets/pizza/pepperoni-pizza.jpg",
-    alt: "Pepperoni pizza with crisp edges served on an oak café serving board",
+    alt: "Pepperoni pizza with blistered crust, melted mozzarella, and crisp cupped pepperoni slices served on a round oak café board",
     priceUnconfirmed: true,
   },
   {
@@ -434,7 +434,7 @@ export const MENU_ITEMS: MenuItemData[] = [
     name: "Four Cheese",
     category: "pizza",
     image: "/images/pahina-menu-assets/pizza/four-cheese-pizza.jpg",
-    alt: "Four Cheese pizza baked golden brown on a warm wooden board",
+    alt: "Four Cheese pizza baked golden with bubbling mozzarella, creamy ricotta dollops, and herbs on a round oak board by the window",
     priceUnconfirmed: true,
   },
 
@@ -452,7 +452,7 @@ export const MENU_ITEMS: MenuItemData[] = [
     name: "Cheese Fries",
     category: "fries",
     image: "/images/pahina-menu-assets/fries/cheese-fries.jpg",
-    alt: "Crisp golden Cheese Fries drizzled with warm cheddar cheese sauce in a ceramic dish",
+    alt: "Crisp golden Cheese Fries drizzled with melted cheddar cheese sauce and chopped chives in a speckled stoneware bowl lined with parchment on warm oak",
     priceUnconfirmed: true,
   },
   {
@@ -468,7 +468,7 @@ export const MENU_ITEMS: MenuItemData[] = [
     name: "Truffle Parmesan Fries",
     category: "fries",
     image: "/images/pahina-menu-assets/fries/truffle-parmesan-fries.jpg",
-    alt: "Truffle Parmesan Fries topped with fine grated aged parmesan and herbs",
+    alt: "Truffle Parmesan Fries topped with finely grated aged parmesan and herbs in a speckled cream stoneware bowl lined with parchment on warm oak",
     priceUnconfirmed: true,
   },
 ];
@@ -489,7 +489,7 @@ export const CATEGORY_SHOWCASE_IDS: Record<MenuCategoryId, readonly string[]> = 
   ],
   pasta: ["aglio-olio", "creamy-carbonara", "creamy-pesto"],
   pizza: ["classic-cheese-pizza", "pepperoni-pizza", "four-cheese-pizza"],
-  fries: ["truffle-parmesan-fries", "cheese-fries", "classic-fries"],
+  fries: ["truffle-parmesan-fries", "cheese-fries"],
 };
 
 export function getHomeShowcaseItems(): MenuItemData[] {

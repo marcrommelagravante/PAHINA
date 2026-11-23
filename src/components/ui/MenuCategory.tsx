@@ -57,14 +57,14 @@ export function MenuCategory({
 
       {/* Category mini-showcase */}
       {showcase.length > 0 && (
-        <Reveal className="mt-14 md:pb-12">
+        <div className="mt-14 md:pb-12">
           <DrinkShowcase items={showcase} onInspectItem={onInspectItem} />
-        </Reveal>
+        </div>
       )}
 
       {/* Printed hairline ledger for remaining items */}
       {rest.length > 0 && (
-        <div className="mt-14 pt-6">
+        <Reveal className="mt-14 pt-6" y={12}>
           {restSubcategories.length > 0 ? (
             <div className="space-y-12">
               {restSubcategories.map((sub) => {
@@ -105,7 +105,7 @@ export function MenuCategory({
               </div>
             </div>
           )}
-        </div>
+        </Reveal>
       )}
     </section>
   );

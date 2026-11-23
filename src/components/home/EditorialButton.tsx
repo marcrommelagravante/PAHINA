@@ -58,7 +58,7 @@ export function EditorialButton({
       style={prefersReducedMotion ? undefined : { x, y }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="inline-block will-change-transform"
+      className="inline-block"
     >
       <Link
         href={href}

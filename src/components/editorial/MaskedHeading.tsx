@@ -32,19 +32,29 @@ export function MaskedHeading({
   const isInView = useInView(headingRef, { once: true, amount: 0.15 });
   const HeadingTag = as;
 
+  const shouldReveal = immediate || isInView;
+
   if (prefersReducedMotion) {
     return (
-      <HeadingTag id={id} className={className}>
+      <HeadingTag ref={headingRef} id={id} className={cn(className)}>
         {lines.map((line, idx) => (
-          <span key={idx} className="block">
+          <motion.span
+            key={idx}
+            className="block"
+            initial={{ opacity: 0 }}
+            animate={shouldReveal ? { opacity: 1 } : { opacity: 0 }}
+            transition={{
+              duration: 0.25,
+              delay: idx * 0.03,
+              ease: [0.23, 1, 0.32, 1],
+            }}
+          >
             {line}
-          </span>
+          </motion.span>
         ))}
       </HeadingTag>
     );
   }
-
-  const shouldReveal = immediate || isInView;
 
   return (
     <HeadingTag ref={headingRef} id={id} className={cn(className)}>
@@ -54,14 +64,14 @@ export function MaskedHeading({
           className="block overflow-hidden pt-[0.04em] -mt-[0.04em] pb-[0.2em] -mb-[0.2em]"
         >
           <motion.span
-            className="block will-change-transform"
+            className="block"
             initial={{ y: "105%", opacity: 0 }}
             animate={
               shouldReveal ? { y: "0%", opacity: 1 } : { y: "105%", opacity: 0 }
             }
             transition={{
-              duration: 0.72,
-              delay: delay + idx * 0.1,
+              duration: 0.68,
+              delay: delay + idx * 0.085,
               ease: [0.23, 1, 0.32, 1],
             }}
           >

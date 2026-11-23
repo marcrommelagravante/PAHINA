@@ -6,6 +6,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import type { MenuCategoryId, MenuItemData } from "@/data/menu";
 import { resolveMenuShowcaseImage } from "@/data/editorialImages";
 import { TastingSheetModal } from "@/components/editorial/TastingSheetModal";
+import { RevealGroup, RevealItem } from "@/components/ui/Reveal";
 import { cn } from "@/lib/utils";
 
 interface DrinkShowcaseProps {
@@ -118,7 +119,7 @@ function ShowcaseCard({
                       onClick={() => setSelectedSizeIndex(idx)}
                       aria-pressed={isActive}
                       className={cn(
-                        "relative inline-flex min-h-[32px] items-center rounded-[2px] border px-2.5 py-1 text-[10.5px] font-medium tracking-[0.06em] transition-colors duration-150",
+                        "relative inline-flex min-h-[32px] items-center rounded-[2px] border px-2.5 py-1 text-[10.5px] font-medium tracking-[0.06em] transition-[color,border-color,transform] duration-150 ease-[var(--ease-out)] active:scale-[0.97]",
                         isActive
                           ? "border-ink text-paper"
                           : "border-ink/20 bg-transparent text-ink-muted hover:border-ink hover:text-ink"
@@ -251,7 +252,8 @@ export function DrinkShowcase({
 
   return (
     <>
-      <div
+      <RevealGroup
+        stagger={0.075}
         className={cn(
           "grid grid-cols-1 gap-14 sm:gap-16",
           isTwoUp
@@ -261,15 +263,16 @@ export function DrinkShowcase({
         )}
       >
         {items.map((item, index) => (
-          <ShowcaseCard
-            key={item.id}
-            item={item}
-            index={index}
-            isTwoUp={isTwoUp}
-            onInspect={handleInspect}
-          />
+          <RevealItem key={item.id}>
+            <ShowcaseCard
+              item={item}
+              index={index}
+              isTwoUp={isTwoUp}
+              onInspect={handleInspect}
+            />
+          </RevealItem>
         ))}
-      </div>
+      </RevealGroup>
 
       {!onInspectItem && (
         <TastingSheetModal item={localItem} onClose={() => setLocalItem(null)} />

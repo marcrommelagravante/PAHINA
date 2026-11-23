@@ -55,7 +55,7 @@ export function EditorialBanner({
               ? undefined
               : { y: imageY, scale: imageScale }
           }
-          className="feather-wide relative mx-auto aspect-[16/9] w-full max-w-4xl overflow-hidden will-change-transform"
+          className="feather-wide relative mx-auto aspect-[16/9] w-full max-w-4xl overflow-hidden"
         >
           <Image
             src={src}

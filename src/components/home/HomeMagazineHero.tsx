@@ -67,7 +67,7 @@ export function HomeMagazineHero() {
           {/* Left monumental stacked editorial headline */}
           <motion.div
             style={prefersReducedMotion ? undefined : { y: textY }}
-            className="relative z-10 space-y-6 lg:col-span-5 will-change-transform"
+            className="relative z-10 space-y-6 lg:col-span-5"
           >
             <MaskedHeading
               as="h1"
@@ -112,7 +112,6 @@ export function HomeMagazineHero() {
                 delay: prefersReducedMotion ? 0 : 0.38,
                 ease: [0.23, 1, 0.32, 1],
               }}
-              className="will-change-transform"
             >
               <motion.div
                 style={
@@ -122,7 +121,7 @@ export function HomeMagazineHero() {
                 }
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
-                className="mx-auto w-full max-w-[660px] will-change-transform"
+                className="mx-auto w-full max-w-[660px]"
               >
                 <motion.div
                   style={
@@ -134,7 +133,7 @@ export function HomeMagazineHero() {
                           transformStyle: "preserve-3d",
                         }
                   }
-                  className="feather-oval relative aspect-[4/3] w-full overflow-hidden will-change-transform"
+                  className="feather-oval relative aspect-[4/3] w-full overflow-hidden"
                 >
                   <Image
                     src={EDITORIAL_IMAGES.homeHeroFlatlay}

@@ -6,7 +6,7 @@ import { ReadingRoomShelfGuide } from "@/components/editorial/ReadingRoomShelfGu
 import { ReadingRoomSteps } from "@/components/editorial/ReadingRoomSteps";
 import { VisitBanner } from "@/components/sections/VisitBanner";
 import { BreadcrumbStructuredData } from "@/components/seo/StructuredData";
-import { Reveal } from "@/components/ui/Reveal";
+import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
 import {
   READING_ROOM_GUIDELINES,
   READING_ROOM_MOMENTS,
@@ -83,7 +83,7 @@ export default function ReadingRoomPage() {
                     >
                       <div
                         className={cn(
-                          "relative overflow-hidden rounded-[2px] border border-soft bg-surface-elevated",
+                          "group relative overflow-hidden rounded-[2px] border border-soft bg-surface-elevated",
                           isLandscape
                             ? "aspect-[4/3] w-full"
                             : "mx-auto aspect-[4/5] w-full max-w-[460px] lg:mx-0"
@@ -98,7 +98,7 @@ export default function ReadingRoomPage() {
                               ? "(max-width: 1024px) 94vw, 640px"
                               : "(max-width: 1024px) 90vw, 460px"
                           }
-                          className="object-cover"
+                          className="hover-image-zoom object-cover"
                         />
                       </div>
                     </div>
@@ -200,10 +200,16 @@ export default function ReadingRoomPage() {
               </p>
             </div>
 
-            <ul className="divide-y divide-soft border-y border-soft lg:col-span-7">
+            <RevealGroup
+              as="ul"
+              stagger={0.055}
+              className="divide-y divide-soft border-y border-soft lg:col-span-7"
+            >
               {READING_ROOM_GUIDELINES.map((rule) => (
-                <li
+                <RevealItem
+                  as="li"
                   key={rule}
+                  y={10}
                   className="flex items-start gap-4 py-5 text-[13px] leading-[1.7] text-ink sm:text-sm"
                 >
                   <span
@@ -211,9 +217,9 @@ export default function ReadingRoomPage() {
                     className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-powder"
                   />
                   <span>{rule}</span>
-                </li>
+                </RevealItem>
               ))}
-            </ul>
+            </RevealGroup>
           </div>
         </div>
       </section>

@@ -14,8 +14,8 @@ export function MenuItem({ item, onInspect }: MenuItemProps) {
         type="button"
         onClick={onInspect ? () => onInspect(item) : undefined}
         className={cn(
-          "group flex w-full items-start gap-4 py-5 text-left transition-opacity duration-150 sm:gap-5",
-          onInspect && "cursor-pointer hover:opacity-85"
+          "group flex w-full items-start gap-4 py-5 text-left transition-[opacity,transform] duration-150 ease-[var(--ease-out)] sm:gap-5",
+          onInspect && "cursor-pointer hover:opacity-85 active:scale-[0.99]"
         )}
       >
         <div className="relative aspect-[4/5] w-[72px] shrink-0 overflow-hidden rounded-[2px] bg-soft sm:w-[78px]">

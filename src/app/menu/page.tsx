@@ -3,6 +3,7 @@ import { FloatingPhoto } from "@/components/editorial/FloatingPhoto";
 import { MaskedHeading } from "@/components/editorial/MaskedHeading";
 import { MenuExplorer } from "@/components/sections/MenuExplorer";
 import { VisitBanner } from "@/components/sections/VisitBanner";
+import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
 import {
   BreadcrumbStructuredData,
   MenuStructuredData,
@@ -55,50 +56,59 @@ export default function MenuPage() {
                   ]}
                   className="font-display text-[clamp(3.2rem,6.4vw,5.4rem)] leading-[0.98] tracking-[-0.03em] text-ink"
                 />
-                <p className="max-w-[290px] text-[13px] leading-[1.7] text-ink-muted">
-                  Espresso classics, cold pours, ice-blended frappes, and light
-                  savory dishes curated for calm reading tables. Select any item
-                  to open its tasting sheet.
-                </p>
+                <Reveal delay={0.34} y={12}>
+                  <p className="max-w-[290px] text-[13px] leading-[1.7] text-ink-muted">
+                    Espresso classics, cold pours, ice-blended frappes, and light
+                    savory dishes curated for calm reading tables. Select any item
+                    to open its tasting sheet.
+                  </p>
+                </Reveal>
               </div>
 
               {/* Hairline printed menu contents */}
               <nav aria-label="Menu contents" className="max-w-md">
-                <ul className="divide-y divide-soft border-y border-soft">
+                <RevealGroup
+                  as="ul"
+                  stagger={0.045}
+                  delayChildren={0.38}
+                  className="divide-y divide-soft border-y border-soft"
+                >
                   {MENU_CATEGORIES.map((category) => {
                     const count = MENU_ITEMS.filter(
                       (item) => item.category === category.id
                     ).length;
 
                     return (
-                      <li key={category.id}>
+                      <RevealItem as="li" key={category.id} y={8}>
                         <a
                           href={`#menu-${category.id}`}
-                          className="group flex items-baseline justify-between gap-4 py-2.5 text-ink transition-colors duration-150 hover:text-ink-muted"
+                          className="group flex items-baseline justify-between gap-4 py-2.5 text-ink transition-[color,transform] duration-150 ease-[var(--ease-out)] active:scale-[0.99] hover:text-ink-muted"
                         >
-                          <span className="font-display text-xl transition-transform duration-200 ease-[var(--ease-out)] group-hover:translate-x-1">
+                          <span className="hover-nudge-x font-display text-xl">
                             {category.label}
                           </span>
                           <span className="text-[11px] font-medium tabular-nums tracking-[0.06em] text-ink-muted">
                             {count} items
                           </span>
                         </a>
-                      </li>
+                      </RevealItem>
                     );
                   })}
-                </ul>
+                </RevealGroup>
               </nav>
 
-              <div className="flex gap-10 text-[10px] leading-[1.5] tracking-[0.14em] uppercase text-ink-muted">
-                <div>
-                  <p>Menu</p>
-                  <p className="font-medium text-ink">39 Items</p>
+              <Reveal delay={0.56} y={10}>
+                <div className="flex gap-10 text-[10px] leading-[1.5] tracking-[0.14em] uppercase text-ink-muted">
+                  <div>
+                    <p>Menu</p>
+                    <p className="font-medium text-ink">39 Items</p>
+                  </div>
+                  <div>
+                    <p>Food prices</p>
+                    <p className="font-medium text-ink">To Be Confirmed</p>
+                  </div>
                 </div>
-                <div>
-                  <p>Food prices</p>
-                  <p className="font-medium text-ink">To Be Confirmed</p>
-                </div>
-              </div>
+              </Reveal>
             </div>
 
             <div className="lg:col-span-6">

@@ -148,6 +148,22 @@
   .group:hover .hover-image-zoom {
     transform: scale(1.035);
   }
+
+  .hover-lift-plate {
+    transition: transform 450ms var(--ease-out);
+  }
+
+  .group:hover .hover-lift-plate {
+    transform: translateY(-5px) scale(1.018);
+  }
+
+  .hover-nudge-x {
+    transition: transform 200ms var(--ease-out);
+  }
+
+  .group:hover .hover-nudge-x {
+    transform: translateX(4px);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -155,11 +171,15 @@
     scroll-behavior: auto;
   }
 
-  .hover-image-zoom {
+  .hover-image-zoom,
+  .hover-lift-plate,
+  .hover-nudge-x {
     transition: none;
   }
 
-  .group:hover .hover-image-zoom {
+  .group:hover .hover-image-zoom,
+  .group:hover .hover-lift-plate,
+  .group:hover .hover-nudge-x {
     transform: none;
   }
 }

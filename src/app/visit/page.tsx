@@ -3,6 +3,7 @@ import { Clock, Compass, Globe, Mail, MapPin, Phone } from "lucide-react";
 import { FlippableCallingCard } from "@/components/editorial/FlippableCallingCard";
 import { VisitInformation } from "@/components/sections/VisitInformation";
 import { BreadcrumbStructuredData } from "@/components/seo/StructuredData";
+import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
 import { VISIT_PLACEHOLDERS } from "@/data/site";
 import { DEFAULT_OG_IMAGES } from "@/lib/siteUrl";
 
@@ -43,22 +44,30 @@ export default function VisitPage() {
       >
         <div className="mx-auto max-w-6xl px-5 sm:px-8">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-0 lg:divide-x lg:divide-soft">
-            <div className="lg:col-span-5 lg:pr-12">
+            <Reveal className="lg:col-span-5 lg:pr-12" y={14}>
               <FlippableCallingCard />
-            </div>
+            </Reveal>
 
             <div className="border-t border-soft pt-10 lg:col-span-7 lg:border-t-0 lg:pt-0 lg:pl-14">
-              <p className="font-editorial text-lg italic text-ink-muted">
-                Visit Directory
-              </p>
-              <dl className="mt-4 divide-y divide-soft border-y border-soft">
+              <Reveal delay={0.08} y={10}>
+                <p className="font-editorial text-lg italic text-ink-muted">
+                  Visit Directory
+                </p>
+              </Reveal>
+              <RevealGroup
+                as="dl"
+                stagger={0.055}
+                delayChildren={0.12}
+                className="mt-4 divide-y divide-soft border-y border-soft"
+              >
                 {VISIT_PLACEHOLDERS.map((item) => {
                   const Icon =
                     ICON_MAP[item.id as keyof typeof ICON_MAP] ?? MapPin;
 
                   return (
-                    <div
+                    <RevealItem
                       key={item.id}
+                      y={10}
                       className="grid grid-cols-1 gap-2 py-4 sm:grid-cols-12 sm:items-baseline sm:gap-4"
                     >
                       <dt className="flex items-center gap-2 text-[10.5px] font-medium tracking-[0.1em] uppercase text-ink-muted sm:col-span-4">
@@ -77,10 +86,10 @@ export default function VisitPage() {
                           {item.helperNote}
                         </p>
                       </dd>
-                    </div>
+                    </RevealItem>
                   );
                 })}
-              </dl>
+              </RevealGroup>
             </div>
           </div>
         </div>

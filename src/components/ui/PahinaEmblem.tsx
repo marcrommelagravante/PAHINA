@@ -1,4 +1,7 @@
+"use client";
+
 import { useId } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface PahinaEmblemProps {
@@ -20,6 +23,7 @@ export function PahinaEmblem({
   const uid = useId().replace(/:/g, "");
   const topArcId = `pahina-top-arc-${uid}`;
   const bottomArcId = `pahina-bottom-arc-${uid}`;
+  const prefersReducedMotion = useReducedMotion();
 
   return (
     <svg
@@ -105,7 +109,19 @@ export function PahinaEmblem({
           strokeWidth="1.6"
           opacity="0.72"
         />
-        <path d="M 60 75 L 60 57.2 C 60 51 55.6 49 56.4 44.4 C 57.1 39.8 63.6 38.8 63.1 33.8 C 62.8 31 60.6 29.2 59.2 28" />
+        <motion.path
+          d="M 60 75 L 60 57.2 C 60 51 55.6 49 56.4 44.4 C 57.1 39.8 63.6 38.8 63.1 33.8 C 62.8 31 60.6 29.2 59.2 28"
+          initial={
+            prefersReducedMotion ? false : { pathLength: 0, opacity: 0.3 }
+          }
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{
+            duration: 0.9,
+            delay: 0.15,
+            ease: [0.23, 1, 0.32, 1],
+          }}
+          className="transition-transform duration-300 ease-[var(--ease-out)] group-hover:-translate-y-[2px]"
+        />
       </g>
     </svg>
   );

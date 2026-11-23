@@ -5,7 +5,7 @@ import { MaskedHeading } from "@/components/editorial/MaskedHeading";
 import { MaterialSwatchInspector } from "@/components/editorial/MaterialSwatchInspector";
 import { VisitBanner } from "@/components/sections/VisitBanner";
 import { BreadcrumbStructuredData } from "@/components/seo/StructuredData";
-import { Reveal } from "@/components/ui/Reveal";
+import { RevealGroup, RevealItem } from "@/components/ui/Reveal";
 import { EDITORIAL_IMAGES } from "@/data/editorialImages";
 import { SITE_INFO } from "@/data/site";
 import { DEFAULT_OG_IMAGES } from "@/lib/siteUrl";
@@ -218,38 +218,40 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <Reveal className="mt-14 lg:pb-12">
-            <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
-              {ABOUT_PRINCIPLES.map((principle, index) => (
-                <article
-                  key={principle.id}
-                  className={cn(
-                    "flex flex-col",
-                    index % 2 === 1 && "lg:translate-y-10"
-                  )}
-                >
-                  <FloatingPhoto
-                    src={principle.src}
-                    alt={principle.alt}
-                    aspect="portrait"
-                    drift={index % 2 === 1 ? -22 : 22}
-                    scrollTilt={index % 2 === 1 ? -1.4 : 1.4}
-                    tiltOnHover
-                    feather={principle.feather}
-                    sizes="(max-width: 640px) 84vw, (max-width: 1024px) 44vw, 22vw"
-                  />
-                  <div className="mt-5 border-t border-soft pt-4">
-                    <h3 className="font-display text-xl leading-snug text-ink sm:text-2xl">
-                      {principle.title}
-                    </h3>
-                    <p className="mt-2.5 text-[12.5px] leading-[1.65] text-ink-muted">
-                      {principle.body}
-                    </p>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </Reveal>
+          <RevealGroup
+            stagger={0.075}
+            className="mt-14 grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8 lg:pb-12"
+          >
+            {ABOUT_PRINCIPLES.map((principle, index) => (
+              <RevealItem
+                as="article"
+                key={principle.id}
+                className={cn(
+                  "flex flex-col",
+                  index % 2 === 1 && "lg:translate-y-10"
+                )}
+              >
+                <FloatingPhoto
+                  src={principle.src}
+                  alt={principle.alt}
+                  aspect="portrait"
+                  drift={index % 2 === 1 ? -22 : 22}
+                  scrollTilt={index % 2 === 1 ? -1.4 : 1.4}
+                  tiltOnHover
+                  feather={principle.feather}
+                  sizes="(max-width: 640px) 84vw, (max-width: 1024px) 44vw, 22vw"
+                />
+                <div className="mt-5 border-t border-soft pt-4">
+                  <h3 className="font-display text-xl leading-snug text-ink sm:text-2xl">
+                    {principle.title}
+                  </h3>
+                  <p className="mt-2.5 text-[12.5px] leading-[1.65] text-ink-muted">
+                    {principle.body}
+                  </p>
+                </div>
+              </RevealItem>
+            ))}
+          </RevealGroup>
         </div>
       </section>
 

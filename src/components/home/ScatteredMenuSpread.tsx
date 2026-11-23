@@ -62,6 +62,7 @@ export function ScatteredMenuSpread({ items }: ScatteredMenuSpreadProps) {
       layout: "text-below" | "text-left" | "text-below-center";
       wrapperClassName: string;
       imgSizeClass: string;
+      entranceDelay: number;
     }
   ) => {
     if (!item) return null;
@@ -71,85 +72,96 @@ export function ScatteredMenuSpread({ items }: ScatteredMenuSpreadProps) {
     return (
       <motion.article
         style={prefersReducedMotion ? undefined : { y: opts.driftStyle }}
-        className={cn("relative will-change-transform", opts.wrapperClassName)}
+        className={cn("relative", opts.wrapperClassName)}
       >
-        <button
-          type="button"
-          onClick={() => setInspectedItem(item)}
-          aria-label={`Open tasting sheet for ${item.name}`}
-          className={cn(
-            "group block w-full text-left focus-visible:rounded-xl",
-            opts.layout === "text-left" &&
-              "flex flex-col-reverse gap-4 sm:flex-row sm:items-center sm:gap-2"
-          )}
+        <motion.div
+          initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.18 }}
+          transition={{
+            duration: 0.56,
+            delay: prefersReducedMotion ? 0 : opts.entranceDelay,
+            ease: [0.23, 1, 0.32, 1],
+          }}
         >
-          {opts.layout === "text-left" && (
-            <div className="relative z-10 space-y-2 sm:w-44 sm:-mr-6 sm:text-right">
-              <h3 className="font-display text-2xl leading-[1.06] tracking-[-0.02em] text-ink transition-opacity duration-200 group-hover:opacity-75 sm:text-[1.9rem]">
-                {line1}
-                {line2 && (
-                  <>
-                    <br />
-                    <em className="font-normal italic">{line2}</em>
-                  </>
-                )}
-              </h3>
-              {item.badge && (
-                <p className="text-[10px] font-medium tracking-[0.12em] uppercase text-ink-muted">
-                  {item.badge}
-                </p>
-              )}
-              <p className="text-[11.5px] leading-[1.55] tabular-nums text-ink-muted">
-                {formatMicroPrices(item)}
-              </p>
-            </div>
-          )}
-
-          <div
+          <button
+            type="button"
+            onClick={() => setInspectedItem(item)}
+            aria-label={`Open tasting sheet for ${item.name}`}
             className={cn(
-              "relative mx-auto overflow-hidden transition-transform duration-500 ease-[var(--ease-out)] group-hover:-translate-y-1.5 group-hover:scale-[1.02]",
-              opts.featherClass,
-              opts.imgSizeClass
+              "group block w-full text-left transition-transform duration-150 ease-[var(--ease-out)] active:scale-[0.985] focus-visible:rounded-xl",
+              opts.layout === "text-left" &&
+                "flex flex-col-reverse gap-4 sm:flex-row sm:items-center sm:gap-2"
             )}
           >
-            <Image
-              src={src}
-              alt={item.alt}
-              fill
-              sizes="(max-width: 768px) 78vw, 320px"
-              className="object-cover"
-            />
-          </div>
+            {opts.layout === "text-left" && (
+              <div className="relative z-10 space-y-2 sm:w-44 sm:-mr-6 sm:text-right">
+                <h3 className="font-display text-2xl leading-[1.06] tracking-[-0.02em] text-ink transition-opacity duration-200 group-hover:opacity-75 sm:text-[1.9rem]">
+                  {line1}
+                  {line2 && (
+                    <>
+                      <br />
+                      <em className="font-normal italic">{line2}</em>
+                    </>
+                  )}
+                </h3>
+                {item.badge && (
+                  <p className="text-[10px] font-medium tracking-[0.12em] uppercase text-ink-muted">
+                    {item.badge}
+                  </p>
+                )}
+                <p className="text-[11.5px] leading-[1.55] tabular-nums text-ink-muted">
+                  {formatMicroPrices(item)}
+                </p>
+              </div>
+            )}
 
-          {opts.layout !== "text-left" && (
             <div
               className={cn(
-                "relative z-10 mt-3 space-y-1.5",
-                opts.layout === "text-below-center"
-                  ? "mx-auto max-w-[260px] text-center sm:text-left"
-                  : "max-w-[240px]"
+                "hover-lift-plate relative mx-auto overflow-hidden",
+                opts.featherClass,
+                opts.imgSizeClass
               )}
             >
-              <h3 className="font-display text-2xl leading-[1.06] tracking-[-0.02em] text-ink transition-opacity duration-200 group-hover:opacity-75 sm:text-[1.9rem]">
-                {line1}
-                {line2 && (
-                  <>
-                    <br />
-                    <em className="font-normal italic">{line2}</em>
-                  </>
-                )}
-              </h3>
-              {item.badge && (
-                <p className="text-[10px] font-medium tracking-[0.12em] uppercase text-ink-muted">
-                  {item.badge}
-                </p>
-              )}
-              <p className="text-[11.5px] leading-[1.55] tabular-nums text-ink-muted">
-                {formatMicroPrices(item)}
-              </p>
+              <Image
+                src={src}
+                alt={item.alt}
+                fill
+                sizes="(max-width: 768px) 78vw, 320px"
+                className="object-cover"
+              />
             </div>
-          )}
-        </button>
+
+            {opts.layout !== "text-left" && (
+              <div
+                className={cn(
+                  "relative z-10 mt-3 space-y-1.5",
+                  opts.layout === "text-below-center"
+                    ? "mx-auto max-w-[260px] text-center sm:text-left"
+                    : "max-w-[240px]"
+                )}
+              >
+                <h3 className="font-display text-2xl leading-[1.06] tracking-[-0.02em] text-ink transition-opacity duration-200 group-hover:opacity-75 sm:text-[1.9rem]">
+                  {line1}
+                  {line2 && (
+                    <>
+                      <br />
+                      <em className="font-normal italic">{line2}</em>
+                    </>
+                  )}
+                </h3>
+                {item.badge && (
+                  <p className="text-[10px] font-medium tracking-[0.12em] uppercase text-ink-muted">
+                    {item.badge}
+                  </p>
+                )}
+                <p className="text-[11.5px] leading-[1.55] tabular-nums text-ink-muted">
+                  {formatMicroPrices(item)}
+                </p>
+              </div>
+            )}
+          </button>
+        </motion.div>
       </motion.article>
     );
   };
@@ -174,6 +186,7 @@ export function ScatteredMenuSpread({ items }: ScatteredMenuSpreadProps) {
             layout: "text-below",
             wrapperClassName: "lg:col-span-5 lg:pt-10",
             imgSizeClass: "aspect-[4/5] w-[260px] sm:w-[290px]",
+            entranceDelay: 0,
           })}
 
           {/* Top-right floating drink: Spanish Latte */}
@@ -183,6 +196,7 @@ export function ScatteredMenuSpread({ items }: ScatteredMenuSpreadProps) {
             layout: "text-left",
             wrapperClassName: "lg:col-span-6 lg:col-start-7 lg:-mt-8",
             imgSizeClass: "aspect-[4/5] w-[250px] sm:w-[295px] shrink-0",
+            entranceDelay: 0.09,
           })}
 
           {/* Bottom-center floating drink: Signature Chocolate */}
@@ -192,6 +206,7 @@ export function ScatteredMenuSpread({ items }: ScatteredMenuSpreadProps) {
             layout: "text-below-center",
             wrapperClassName: "lg:col-span-5 lg:col-start-4 lg:-mt-16",
             imgSizeClass: "aspect-[4/5] w-[250px] sm:w-[285px]",
+            entranceDelay: 0.18,
           })}
         </div>
 

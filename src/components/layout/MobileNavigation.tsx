@@ -72,7 +72,21 @@ export function MobileNavigation({
             aria-label="Primary Mobile Navigation"
             className="mt-10 flex flex-1 flex-col justify-between"
           >
-            <ul className="space-y-2">
+            <motion.ul
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: { opacity: 1 },
+                visible: {
+                  opacity: 1,
+                  transition: {
+                    staggerChildren: prefersReducedMotion ? 0.02 : 0.045,
+                    delayChildren: prefersReducedMotion ? 0 : 0.05,
+                  },
+                },
+              }}
+              className="space-y-2"
+            >
               {NAV_ITEMS.map((item) => {
                 const isActive =
                   item.href === "/"
@@ -80,13 +94,29 @@ export function MobileNavigation({
                     : pathname.startsWith(item.href);
 
                 return (
-                  <li key={item.href}>
+                  <motion.li
+                    key={item.href}
+                    variants={{
+                      hidden: {
+                        opacity: 0,
+                        y: prefersReducedMotion ? 0 : 10,
+                      },
+                      visible: {
+                        opacity: 1,
+                        y: 0,
+                        transition: {
+                          duration: 0.26,
+                          ease: [0.23, 1, 0.32, 1],
+                        },
+                      },
+                    }}
+                  >
                     <Link
                       href={item.href}
                       onClick={onClose}
                       aria-current={isActive ? "page" : undefined}
                       className={cn(
-                        "flex min-h-[52px] items-center justify-between rounded-xl px-4 font-display text-3xl tracking-tight transition-[background-color,color] duration-150",
+                        "flex min-h-[52px] items-center justify-between rounded-xl px-4 font-display text-3xl tracking-tight transition-[background-color,color,transform] duration-150 ease-[var(--ease-out)] active:scale-[0.98]",
                         isActive
                           ? "bg-powder-soft text-ink italic"
                           : "text-ink hover:bg-soft/60"
@@ -100,12 +130,21 @@ export function MobileNavigation({
                         />
                       )}
                     </Link>
-                  </li>
+                  </motion.li>
                 );
               })}
-            </ul>
+            </motion.ul>
 
-            <div className="space-y-5 border-t border-soft pt-6">
+            <motion.div
+              initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.28,
+                delay: prefersReducedMotion ? 0 : 0.22,
+                ease: [0.23, 1, 0.32, 1],
+              }}
+              className="space-y-5 border-t border-soft pt-6"
+            >
               <Link
                 href={VISIT_CTA_LINK.href}
                 onClick={onClose}
@@ -116,7 +155,7 @@ export function MobileNavigation({
               <p className="text-center font-editorial text-lg italic text-ink-muted">
                 {SITE_INFO.tagline}
               </p>
-            </div>
+            </motion.div>
           </nav>
         </motion.div>
       )}

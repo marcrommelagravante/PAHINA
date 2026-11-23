@@ -42,19 +42,27 @@ export function HomeWrapStory() {
           {/* TOP-LEFT CORNER: Opening statement + italic descriptor */}
           <motion.div
             style={prefersReducedMotion ? undefined : { y: cornerDriftDown }}
-            className="relative z-10 space-y-4 lg:col-span-4 lg:self-start will-change-transform"
+            className="relative z-10 lg:col-span-4 lg:self-start"
           >
-            <h2
-              id="between-pages-heading"
-              className="font-display text-4xl leading-[1.03] tracking-[-0.025em] text-ink sm:text-5xl lg:text-[3.35rem]"
+            <motion.div
+              initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.56, ease: [0.23, 1, 0.32, 1] }}
+              className="space-y-4"
             >
-              We believe
-              <br />
-              in the quiet
-            </h2>
-            <p className="font-editorial text-xl italic text-ink-muted sm:text-2xl">
-              ({SITE_INFO.descriptor})
-            </p>
+              <h2
+                id="between-pages-heading"
+                className="font-display text-4xl leading-[1.03] tracking-[-0.025em] text-ink sm:text-5xl lg:text-[3.35rem]"
+              >
+                We believe
+                <br />
+                in the quiet
+              </h2>
+              <p className="font-editorial text-xl italic text-ink-muted sm:text-2xl">
+                ({SITE_INFO.descriptor})
+              </p>
+            </motion.div>
           </motion.div>
 
           {/* CENTER FLOATING DRINKS (positioned dead-center on desktop, flows naturally on mobile) */}
@@ -65,81 +73,132 @@ export function HomeWrapStory() {
                   ? undefined
                   : { y: centerPhotoY, rotate: centerPhotoRotate }
               }
-              className="feather-oval relative aspect-[4/5] w-full lg:w-[430px] will-change-transform"
+              className="w-full lg:w-[430px]"
             >
-              <Image
-                src={EDITORIAL_IMAGES.homeStoryPours}
-                alt="Hot Café Latte in cream stoneware beside an iced Spanish Latte in a fluted glass and a charcoal cloth-bound book on warm paper"
-                fill
-                sizes="(max-width: 1024px) 84vw, 430px"
-                className="object-cover"
-              />
+              <motion.div
+                initial={{
+                  opacity: 0,
+                  scale: prefersReducedMotion ? 1 : 0.96,
+                }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{
+                  duration: 0.68,
+                  delay: prefersReducedMotion ? 0 : 0.08,
+                  ease: [0.23, 1, 0.32, 1],
+                }}
+                className="feather-oval relative aspect-[4/5] w-full"
+              >
+                <Image
+                  src={EDITORIAL_IMAGES.homeStoryPours}
+                  alt="Hot Café Latte in cream stoneware beside an iced Spanish Latte in a fluted glass and a charcoal cloth-bound book on warm paper"
+                  fill
+                  sizes="(max-width: 1024px) 84vw, 430px"
+                  className="object-cover"
+                />
+              </motion.div>
             </motion.div>
           </div>
 
           {/* TOP-RIGHT CORNER: Continuation phrase + whisper-quiet fact note */}
           <motion.div
             style={prefersReducedMotion ? undefined : { y: cornerDriftUp }}
-            className="relative z-10 flex flex-col justify-between gap-6 lg:col-span-4 lg:col-start-9 lg:items-end lg:self-start lg:text-right will-change-transform"
+            className="relative z-10 lg:col-span-4 lg:col-start-9 lg:self-start"
           >
-            <div className="text-[10px] leading-[1.5] tracking-[0.14em] uppercase text-ink-muted">
-              <p>Shelves</p>
-              <p className="font-medium text-ink">6 Genres</p>
-            </div>
-            <p
-              aria-hidden="true"
-              className="font-display text-4xl leading-[1.03] tracking-[-0.025em] text-ink sm:text-5xl lg:text-[3.35rem]"
+            <motion.div
+              initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{
+                duration: 0.56,
+                delay: prefersReducedMotion ? 0 : 0.1,
+                ease: [0.23, 1, 0.32, 1],
+              }}
+              className="flex flex-col justify-between gap-6 lg:items-end lg:text-right"
             >
-              of good
-              <br />
-              coffee
-            </p>
+              <div className="text-[10px] leading-[1.5] tracking-[0.14em] uppercase text-ink-muted">
+                <p>Shelves</p>
+                <p className="font-medium text-ink">6 Genres</p>
+              </div>
+              <p
+                aria-hidden="true"
+                className="font-display text-4xl leading-[1.03] tracking-[-0.025em] text-ink sm:text-5xl lg:text-[3.35rem]"
+              >
+                of good
+                <br />
+                coffee
+              </p>
+            </motion.div>
           </motion.div>
 
           {/* BOTTOM-LEFT CORNER: Narrow micro-prose column + hairline rectangular CTA */}
           <motion.div
             style={prefersReducedMotion ? undefined : { y: cornerDriftUp }}
-            className="relative z-10 space-y-6 lg:col-span-4 lg:self-end lg:pt-24 will-change-transform"
+            className="relative z-10 lg:col-span-4 lg:self-end lg:pt-24"
           >
-            <div className="max-w-[250px] space-y-3.5 text-[12.5px] leading-[1.7] text-ink-muted">
-              <p>
-                PAHINA brings together two ordinary pleasures that belong in the
-                same room: thoughtfully made coffee and unhurried time with a
-                good book.
-              </p>
-              <p>
-                Shaped as a small neighborhood café with sunlit oak tables and
-                muted blue-grey walls, the room leaves quiet breathing space so
-                you can stay for a chapter or three.
-              </p>
-            </div>
+            <motion.div
+              initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{
+                duration: 0.56,
+                delay: prefersReducedMotion ? 0 : 0.18,
+                ease: [0.23, 1, 0.32, 1],
+              }}
+              className="space-y-6"
+            >
+              <div className="max-w-[250px] space-y-3.5 text-[12.5px] leading-[1.7] text-ink-muted">
+                <p>
+                  PAHINA brings together two ordinary pleasures that belong in the
+                  same room: thoughtfully made coffee and unhurried time with a
+                  good book.
+                </p>
+                <p>
+                  Shaped as a small neighborhood café with sunlit oak tables and
+                  muted blue-grey walls, the room leaves quiet breathing space so
+                  you can stay for a chapter or three.
+                </p>
+              </div>
 
-            <EditorialButton href="/about">See more</EditorialButton>
+              <EditorialButton href="/about">See more</EditorialButton>
+            </motion.div>
           </motion.div>
 
           {/* BOTTOM-RIGHT CORNER: Closing phrase + micro fact note */}
           <motion.div
             style={prefersReducedMotion ? undefined : { y: cornerDriftDown }}
-            className="relative z-10 flex flex-col gap-6 lg:col-span-4 lg:col-start-9 lg:items-end lg:self-end lg:pt-24 lg:text-right will-change-transform"
+            className="relative z-10 lg:col-span-4 lg:col-start-9 lg:self-end lg:pt-24"
           >
-            <p
-              aria-hidden="true"
-              className="font-display text-4xl leading-[1.03] tracking-[-0.025em] text-ink sm:text-5xl lg:text-[3.35rem]"
+            <motion.div
+              initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{
+                duration: 0.56,
+                delay: prefersReducedMotion ? 0 : 0.25,
+                ease: [0.23, 1, 0.32, 1],
+              }}
+              className="flex flex-col gap-6 lg:items-end lg:text-right"
             >
-              and slow
-              <br />
-              <em className="font-normal italic">pages.</em>
-            </p>
-            <div className="flex gap-8 text-[10px] leading-[1.5] tracking-[0.14em] uppercase text-ink-muted">
-              <div>
-                <p>Drinks</p>
-                <p className="font-medium text-ink">Hot or Iced</p>
+              <p
+                aria-hidden="true"
+                className="font-display text-4xl leading-[1.03] tracking-[-0.025em] text-ink sm:text-5xl lg:text-[3.35rem]"
+              >
+                and slow
+                <br />
+                <em className="font-normal italic">pages.</em>
+              </p>
+              <div className="flex gap-8 text-[10px] leading-[1.5] tracking-[0.14em] uppercase text-ink-muted">
+                <div>
+                  <p>Drinks</p>
+                  <p className="font-medium text-ink">Hot or Iced</p>
+                </div>
+                <div>
+                  <p>Sizes</p>
+                  <p className="font-medium text-ink">12 / 16 / 22 oz</p>
+                </div>
               </div>
-              <div>
-                <p>Sizes</p>
-                <p className="font-medium text-ink">12 / 16 / 22 oz</p>
-              </div>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </div>

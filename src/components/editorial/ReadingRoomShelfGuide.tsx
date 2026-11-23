@@ -99,7 +99,7 @@ export function ReadingRoomShelfGuide() {
                         onClick={() => setActiveGenreId(genre.id)}
                         aria-pressed={isActive}
                         className={cn(
-                          "flex w-full items-baseline justify-between gap-4 py-4 pl-4 text-left transition-colors duration-150",
+                          "group flex w-full items-baseline justify-between gap-4 py-4 pl-4 text-left transition-[color,transform] duration-150 ease-[var(--ease-out)] active:scale-[0.99]",
                           isActive
                             ? "text-ink"
                             : "text-ink-muted hover:text-ink"
@@ -107,8 +107,8 @@ export function ReadingRoomShelfGuide() {
                       >
                         <span
                           className={cn(
-                            "font-display text-2xl transition-transform duration-200 ease-[var(--ease-out)] sm:text-[1.7rem]",
-                            isActive && "translate-x-0.5 italic text-ink"
+                            "hover-nudge-x font-display text-2xl transition-transform duration-200 ease-[var(--ease-out)] sm:text-[1.7rem]",
+                            isActive && "translate-x-1 italic text-ink"
                           )}
                         >
                           {genre.name}
@@ -125,11 +125,15 @@ export function ReadingRoomShelfGuide() {
           </LayoutGroup>
 
           {/* Right column: calm Elevated Paper reading sheet */}
-          <div
+          <motion.div
+            layout={!prefersReducedMotion}
+            transition={{
+              layout: { duration: 0.24, ease: [0.23, 1, 0.32, 1] },
+            }}
             aria-live="polite"
-            className="rounded-[2px] border border-soft bg-surface-elevated p-7 sm:p-10 lg:col-span-7"
+            className="overflow-hidden rounded-[2px] border border-soft bg-surface-elevated p-7 sm:p-10 lg:col-span-7"
           >
-            <AnimatePresence mode="wait">
+            <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={activeGenre.id}
                 initial={prefersReducedMotion ? false : { opacity: 0, y: 8 }}
@@ -139,7 +143,7 @@ export function ReadingRoomShelfGuide() {
                     ? { opacity: 0 }
                     : { opacity: 0, y: -6 }
                 }
-                transition={{ duration: 0.22, ease: [0.23, 1, 0.32, 1] }}
+                transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
                 className="space-y-6"
               >
                 <div className="space-y-3">
@@ -174,7 +178,7 @@ export function ReadingRoomShelfGuide() {
                 </div>
               </motion.div>
             </AnimatePresence>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

@@ -68,7 +68,7 @@ export function MaterialSwatchInspector() {
                 type="button"
                 onClick={() => setActiveId(item.id)}
                 aria-pressed={isActive}
-                className="group flex flex-col items-start text-left"
+                className="group flex flex-col items-start text-left transition-transform duration-150 ease-[var(--ease-out)] active:scale-[0.97]"
               >
                 <span className="relative inline-flex h-11 w-11 items-center justify-center">
                   {isActive && (
@@ -87,7 +87,7 @@ export function MaterialSwatchInspector() {
                   )}
                   <span
                     aria-hidden="true"
-                    className="h-8 w-8 rounded-full border border-ink/15 transition-transform duration-150 group-hover:scale-105"
+                    className="h-8 w-8 rounded-full border border-ink/15 transition-transform duration-200 ease-[var(--ease-out)] group-hover:scale-105"
                     style={{ backgroundColor: item.token }}
                   />
                 </span>
@@ -110,8 +110,11 @@ export function MaterialSwatchInspector() {
         </div>
       </LayoutGroup>
 
-      <div aria-live="polite" className="border-y border-soft py-5">
-        <AnimatePresence mode="wait">
+      <div
+        aria-live="polite"
+        className="flex flex-col gap-4 border-y border-soft py-5 sm:flex-row sm:items-center sm:justify-between"
+      >
+        <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={activeSwatch.id}
             initial={prefersReducedMotion ? false : { opacity: 0, y: 6 }}
@@ -119,29 +122,35 @@ export function MaterialSwatchInspector() {
             exit={
               prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: -6 }
             }
-            transition={{ duration: 0.2 }}
-            className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
+            transition={{ duration: 0.18, ease: [0.23, 1, 0.32, 1] }}
+            className="space-y-1.5"
           >
-            <div className="space-y-1.5">
-              <div className="flex items-baseline gap-3">
-                <h3 className="font-display text-2xl text-ink">
-                  {activeSwatch.name}
-                </h3>
-                <span className="text-[11px] font-medium tabular-nums tracking-[0.08em] text-ink-muted">
-                  {activeSwatch.token}
-                </span>
-              </div>
-              <p className="max-w-lg text-[12.5px] leading-[1.65] text-ink-muted">
-                {activeSwatch.detail}
-              </p>
+            <div className="flex items-baseline gap-3">
+              <h3 className="font-display text-2xl text-ink">
+                {activeSwatch.name}
+              </h3>
+              <span className="text-[11px] font-medium tabular-nums tracking-[0.08em] text-ink-muted">
+                {activeSwatch.token}
+              </span>
             </div>
-            <span
-              aria-hidden="true"
-              className="h-12 w-12 shrink-0 rounded-[2px] border border-ink/15"
-              style={{ backgroundColor: activeSwatch.token }}
-            />
+            <p className="max-w-lg text-[12.5px] leading-[1.65] text-ink-muted">
+              {activeSwatch.detail}
+            </p>
           </motion.div>
         </AnimatePresence>
+
+        <motion.span
+          key={`tile-${activeSwatch.id}`}
+          aria-hidden="true"
+          initial={prefersReducedMotion ? false : { scale: 0.92 }}
+          animate={{
+            scale: 1,
+            backgroundColor: activeSwatch.token,
+          }}
+          transition={{ duration: 0.24, ease: [0.23, 1, 0.32, 1] }}
+          className="h-12 w-12 shrink-0 rounded-[2px] border border-ink/15 transition-colors duration-300"
+          style={{ backgroundColor: activeSwatch.token }}
+        />
       </div>
     </div>
   );

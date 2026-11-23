@@ -13,7 +13,7 @@ export function Footer() {
             <div className="space-y-3 md:col-span-5">
               <Link
                 href="/"
-                className="inline-flex items-center gap-3 text-ink transition-opacity duration-150 hover:opacity-75"
+                className="group inline-flex items-center gap-3 text-ink transition-opacity duration-150 hover:opacity-80"
               >
                 <PahinaEmblem size={32} showRingText={false} />
                 <span className="font-display text-2xl tracking-[0.24em] uppercase">

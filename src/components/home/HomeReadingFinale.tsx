@@ -45,7 +45,7 @@ export function HomeReadingFinale() {
                     ? undefined
                     : { y: photoY, rotate: photoRotate }
                 }
-                className="feather-oval relative mx-auto aspect-[4/5] w-full max-w-[440px] overflow-hidden will-change-transform"
+                className="feather-oval relative mx-auto aspect-[4/5] w-full max-w-[440px] overflow-hidden"
               >
                 <Image
                   src={EDITORIAL_IMAGES.homeReadingFeature}

@@ -7,7 +7,12 @@ import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 
 const emptySubscribe = () => () => {};
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import {
+  AnimatePresence,
+  LayoutGroup,
+  motion,
+  useReducedMotion,
+} from "framer-motion";
 import {
   MENU_CATEGORIES,
   type MenuCategoryId,
@@ -89,8 +94,14 @@ export function TastingSheetModal({ item, onClose }: TastingSheetModalProps) {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: prefersReducedMotion ? 0 : 0.22 }}
+            exit={{
+              opacity: 0,
+              transition: { duration: prefersReducedMotion ? 0.12 : 0.18 },
+            }}
+            transition={{
+              duration: prefersReducedMotion ? 0.15 : 0.24,
+              ease: [0.23, 1, 0.32, 1],
+            }}
             onClick={onClose}
             className="fixed inset-0 bg-ink/35 backdrop-blur-xs"
             aria-hidden="true"
@@ -100,16 +111,21 @@ export function TastingSheetModal({ item, onClose }: TastingSheetModalProps) {
             ref={dialogRef}
             initial={
               prefersReducedMotion
-                ? { opacity: 1 }
-                : { opacity: 0, y: 20, scale: 0.97 }
+                ? { opacity: 0 }
+                : { opacity: 0, y: 18, scale: 0.96 }
             }
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={
               prefersReducedMotion
-                ? { opacity: 0 }
-                : { opacity: 0, y: 14, scale: 0.98 }
+                ? { opacity: 0, transition: { duration: 0.14 } }
+                : {
+                    opacity: 0,
+                    y: 12,
+                    scale: 0.975,
+                    transition: { duration: 0.18, ease: [0.23, 1, 0.32, 1] },
+                  }
             }
-            transition={{ duration: 0.28, ease: [0.23, 1, 0.32, 1] }}
+            transition={{ duration: 0.26, ease: [0.23, 1, 0.32, 1] }}
             className="relative z-10 max-h-[90svh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-soft bg-paper p-6 text-ink sm:p-8"
           >
             <div className="flex items-start justify-between gap-4 border-b border-soft pb-4">
@@ -131,14 +147,25 @@ export function TastingSheetModal({ item, onClose }: TastingSheetModalProps) {
                 type="button"
                 onClick={onClose}
                 aria-label="Close tasting sheet"
-                className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-soft bg-surface-elevated text-ink transition-[background-color,transform] duration-150 active:scale-[0.95] hover:border-ink"
+                className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-soft bg-surface-elevated text-ink transition-[background-color,border-color,transform] duration-150 ease-[var(--ease-out)] active:scale-[0.95] hover:border-ink"
               >
                 <X className="h-4 w-4" strokeWidth={1.7} aria-hidden="true" />
               </button>
             </div>
 
             <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-12 sm:items-start">
-              <div className="sm:col-span-5">
+              <motion.div
+                initial={
+                  prefersReducedMotion ? false : { opacity: 0, y: 10 }
+                }
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.32,
+                  delay: prefersReducedMotion ? 0 : 0.05,
+                  ease: [0.23, 1, 0.32, 1],
+                }}
+                className="sm:col-span-5"
+              >
                 {resolvedImg.mode === "compact-specimen" ? (
                   <div className="flex aspect-[4/5] flex-col items-center justify-center rounded-xl border border-soft bg-surface-elevated p-6">
                     <div className="relative aspect-[4/5] w-28 overflow-hidden rounded-lg border border-soft bg-paper">
@@ -167,9 +194,20 @@ export function TastingSheetModal({ item, onClose }: TastingSheetModalProps) {
                     />
                   </div>
                 )}
-              </div>
+              </motion.div>
 
-              <div className="space-y-5 sm:col-span-7">
+              <motion.div
+                initial={
+                  prefersReducedMotion ? false : { opacity: 0, y: 10 }
+                }
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.32,
+                  delay: prefersReducedMotion ? 0 : 0.09,
+                  ease: [0.23, 1, 0.32, 1],
+                }}
+                className="space-y-5 sm:col-span-7"
+              >
                 {item.badge && (
                   <span
                     className={cn(
@@ -185,34 +223,54 @@ export function TastingSheetModal({ item, onClose }: TastingSheetModalProps) {
 
                 {item.sizes && selectedSize && (
                   <div className="space-y-4">
-                    <div
-                      role="group"
-                      aria-label={`Select size for ${item.name}`}
-                      className="flex flex-wrap gap-2"
-                    >
-                      {item.sizes.map((entry, idx) => {
-                        const isActive = idx === activeSizeIdx;
-                        return (
-                          <button
-                            key={entry.size}
-                            type="button"
-                            onClick={() =>
-                              setSizeState({ itemId: item.id, index: idx })
-                            }
-                            aria-pressed={isActive}
-                            className={cn(
-                              "relative rounded-full border px-3.5 py-1.5 text-xs font-medium transition-colors duration-150",
-                              isActive
-                                ? "border-ink bg-ink text-paper"
-                                : "border-soft bg-surface-elevated text-ink-muted hover:border-powder hover:text-ink"
-                            )}
-                          >
-                            {entry.size}
-                            {entry.note ? ` (${entry.note})` : ""}
-                          </button>
-                        );
-                      })}
-                    </div>
+                    <LayoutGroup id={`tasting-modal-sizes-${item.id}`}>
+                      <div
+                        role="group"
+                        aria-label={`Select size for ${item.name}`}
+                        className="flex flex-wrap gap-2"
+                      >
+                        {item.sizes.map((entry, idx) => {
+                          const isActive = idx === activeSizeIdx;
+                          return (
+                            <button
+                              key={entry.size}
+                              type="button"
+                              onClick={() =>
+                                setSizeState({ itemId: item.id, index: idx })
+                              }
+                              aria-pressed={isActive}
+                              className={cn(
+                                "relative rounded-full border px-3.5 py-1.5 text-xs font-medium transition-[color,border-color,transform] duration-150 ease-[var(--ease-out)] active:scale-[0.97]",
+                                isActive
+                                  ? "border-ink text-paper"
+                                  : "border-soft bg-surface-elevated text-ink-muted hover:border-powder hover:text-ink"
+                              )}
+                            >
+                              {isActive && (
+                                <motion.span
+                                  layoutId={
+                                    prefersReducedMotion
+                                      ? undefined
+                                      : `modal-size-pill-${item.id}`
+                                  }
+                                  transition={{
+                                    type: "spring",
+                                    stiffness: 440,
+                                    damping: 32,
+                                  }}
+                                  className="absolute inset-0 rounded-full bg-ink"
+                                  aria-hidden="true"
+                                />
+                              )}
+                              <span className="relative z-10">
+                                {entry.size}
+                                {entry.note ? ` (${entry.note})` : ""}
+                              </span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </LayoutGroup>
 
                     <div className="flex items-baseline justify-between border-y border-soft py-3">
                       <span className="text-sm text-ink-muted">
@@ -232,7 +290,7 @@ export function TastingSheetModal({ item, onClose }: TastingSheetModalProps) {
                               ? { opacity: 0 }
                               : { opacity: 0, y: -6 }
                           }
-                          transition={{ duration: 0.18 }}
+                          transition={{ duration: 0.16, ease: [0.23, 1, 0.32, 1] }}
                           className="font-display text-3xl tabular-nums text-ink"
                         >
                           ₱{selectedSize.price}
@@ -266,7 +324,18 @@ export function TastingSheetModal({ item, onClose }: TastingSheetModalProps) {
                 )}
 
                 {suggestedGenre && (
-                  <div className="rounded-xl border border-powder bg-powder-soft/55 p-4">
+                  <motion.div
+                    initial={
+                      prefersReducedMotion ? false : { opacity: 0, y: 8 }
+                    }
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      duration: 0.3,
+                      delay: prefersReducedMotion ? 0 : 0.14,
+                      ease: [0.23, 1, 0.32, 1],
+                    }}
+                    className="rounded-xl border border-powder bg-powder-soft/55 p-4"
+                  >
                     <p className="text-xs font-medium tracking-[0.04em] text-ink-muted">
                       Reading Room pairing
                     </p>
@@ -283,9 +352,9 @@ export function TastingSheetModal({ item, onClose }: TastingSheetModalProps) {
                     >
                       Visit the {suggestedGenre.name} shelf
                     </Link>
-                  </div>
+                  </motion.div>
                 )}
-              </div>
+              </motion.div>
             </div>
           </motion.div>
         </div>

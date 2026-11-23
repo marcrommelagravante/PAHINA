@@ -1,7 +1,12 @@
 "use client";
 
 import { Fragment, useState } from "react";
-import { LayoutGroup, motion, useReducedMotion } from "framer-motion";
+import {
+  AnimatePresence,
+  LayoutGroup,
+  motion,
+  useReducedMotion,
+} from "framer-motion";
 import type {
   MenuCategoryId,
   MenuCategoryMeta,
@@ -47,6 +52,8 @@ export function MenuExplorer({ categories, items }: MenuExplorerProps) {
     ...categories.map((cat) => ({ id: cat.id, label: cat.label })),
   ];
 
+  const filterStateKey = `${selectedCategory}-${housePicksOnly ? "picks" : "all"}`;
+
   return (
     <div className="bg-paper">
       <div className="sticky top-18 z-30 border-y border-soft bg-paper">
@@ -66,7 +73,7 @@ export function MenuExplorer({ categories, items }: MenuExplorerProps) {
                     onClick={() => setSelectedCategory(tab.id)}
                     aria-pressed={isActive}
                     className={cn(
-                      "relative py-1.5 font-editorial text-lg italic transition-colors duration-150 sm:text-xl",
+                      "relative py-1.5 font-editorial text-lg italic transition-[color,transform] duration-150 ease-[var(--ease-out)] active:scale-[0.97] sm:text-xl",
                       isActive
                         ? "text-ink"
                         : "text-ink-muted hover:text-ink"
@@ -99,7 +106,7 @@ export function MenuExplorer({ categories, items }: MenuExplorerProps) {
               onClick={() => setHousePicksOnly((prev) => !prev)}
               aria-pressed={housePicksOnly}
               className={cn(
-                "inline-flex min-h-[34px] items-center rounded-[2px] border px-3.5 py-1 text-[11px] font-medium tracking-[0.06em] transition-[background-color,border-color,color] duration-150",
+                "inline-flex min-h-[34px] items-center rounded-[2px] border px-3.5 py-1 text-[11px] font-medium tracking-[0.06em] transition-[background-color,border-color,color,transform] duration-150 ease-[var(--ease-out)] active:scale-[0.97]",
                 housePicksOnly
                   ? "border-ink bg-ink text-paper"
                   : "border-ink/30 bg-transparent text-ink hover:border-ink"
@@ -107,72 +114,102 @@ export function MenuExplorer({ categories, items }: MenuExplorerProps) {
             >
               House Picks
             </button>
-            <span className="text-[11px] font-medium tabular-nums tracking-[0.08em] text-ink-muted">
-              {visibleItemCount} / {items.length}
+            <span className="inline-flex min-w-[46px] justify-end text-[11px] font-medium tabular-nums tracking-[0.08em] text-ink-muted">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.span
+                  key={visibleItemCount}
+                  initial={prefersReducedMotion ? false : { opacity: 0, y: 4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={
+                    prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: -4 }
+                  }
+                  transition={{ duration: 0.14, ease: [0.23, 1, 0.32, 1] }}
+                >
+                  {visibleItemCount}
+                </motion.span>
+              </AnimatePresence>
+              <span className="ml-1">/ {items.length}</span>
             </span>
           </div>
         </div>
       </div>
 
-      {visibleCategories.length === 0 ? (
-        <div className="mx-auto max-w-6xl px-5 py-24 text-center sm:px-8">
-          <p className="font-display text-3xl text-ink">
-            No House Picks in this category.
-          </p>
-          <p className="mt-2 text-[13px] text-ink-muted">
-            Signature and Must Try badges live across Coffee, Non-Coffee, and
-            Frappuccino.
-          </p>
-          <button
-            type="button"
-            onClick={() => {
-              setHousePicksOnly(false);
-              setSelectedCategory("all");
-            }}
-            className="mt-6 inline-flex min-h-[42px] items-center rounded-[2px] border border-ink bg-ink px-6 py-2 text-xs font-medium tracking-[0.06em] text-paper transition-opacity duration-150 hover:opacity-85"
+      <AnimatePresence mode="wait" initial={false}>
+        {visibleCategories.length === 0 ? (
+          <motion.div
+            key="empty-house-picks"
+            initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: prefersReducedMotion ? 0 : -6 }}
+            transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
+            className="mx-auto max-w-6xl px-5 py-24 text-center sm:px-8"
           >
-            Show all 39 items
-          </button>
-        </div>
-      ) : (
-        visibleCategories.map((category) => {
-          const categoryItems = filteredItems.filter(
-            (item) => item.category === category.id
-          );
-          const showKitchenInterlude =
-            selectedCategory === "all" &&
-            !housePicksOnly &&
-            category.id === "pasta";
+            <p className="font-display text-3xl text-ink">
+              No House Picks in this category.
+            </p>
+            <p className="mt-2 text-[13px] text-ink-muted">
+              Signature and Must Try badges live across Coffee, Non-Coffee, and
+              Frappuccino.
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                setHousePicksOnly(false);
+                setSelectedCategory("all");
+              }}
+              className="mt-6 inline-flex min-h-[42px] items-center rounded-[2px] border border-ink bg-ink px-6 py-2 text-xs font-medium tracking-[0.06em] text-paper transition-[opacity,transform] duration-150 ease-[var(--ease-out)] active:scale-[0.97] hover:opacity-85"
+            >
+              Show all 39 items
+            </button>
+          </motion.div>
+        ) : (
+          <motion.div
+            key={filterStateKey}
+            initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: prefersReducedMotion ? 0 : -6 }}
+            transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
+          >
+            {visibleCategories.map((category) => {
+              const categoryItems = filteredItems.filter(
+                (item) => item.category === category.id
+              );
+              const showKitchenInterlude =
+                selectedCategory === "all" &&
+                !housePicksOnly &&
+                category.id === "pasta";
 
-          return (
-            <Fragment key={category.id}>
-              {showKitchenInterlude && (
-                <EditorialBanner
-                  headingId="menu-kitchen-banner"
-                  src={EDITORIAL_IMAGES.menuFoodBanner}
-                  alt="Overhead café table with a bowl of Aglio Olio, iced coffee, espresso cup, and open cloth-bound book in soft daylight"
-                  heading={
-                    <>
-                      Something warm{" "}
-                      <em className="font-normal italic">
-                        for the long chapters.
-                      </em>
-                    </>
-                  }
-                  description="Warm pasta plates, crisp baked pizza, and shareable fries made to sit comfortably beside a book."
-                />
-              )}
-              <div className="mx-auto max-w-6xl px-5 sm:px-8">
-                <MenuCategory
-                  category={category}
-                  items={categoryItems}
-                  onInspectItem={setInspectedItem}
-                />
-              </div>
-            </Fragment>
-          );
-        })
-      )}
+              return (
+                <Fragment key={category.id}>
+                  {showKitchenInterlude && (
+                    <EditorialBanner
+                      headingId="menu-kitchen-banner"
+                      src={EDITORIAL_IMAGES.menuFoodBanner}
+                      alt="Overhead café table with a bowl of Aglio Olio, iced coffee, espresso cup, and open cloth-bound book in soft daylight"
+                      heading={
+                        <>
+                          Something warm{" "}
+                          <em className="font-normal italic">
+                            for the long chapters.
+                          </em>
+                        </>
+                      }
+                      description="Warm pasta plates, crisp baked pizza, and shareable fries made to sit comfortably beside a book."
+                    />
+                  )}
+                  <div className="mx-auto max-w-6xl px-5 sm:px-8">
+                    <MenuCategory
+                      category={category}
+                      items={categoryItems}
+                      onInspectItem={setInspectedItem}
+                    />
+                  </div>
+                </Fragment>
+              );
+            })}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <TastingSheetModal
         item={inspectedItem}

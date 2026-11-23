@@ -139,7 +139,7 @@ export function FloatingPhoto({
             ? { y: scrollY, rotate: scrollRotate, scale: scrollScale }
             : undefined
         }
-        className="w-full will-change-transform"
+        className="w-full"
       >
         <motion.div
           style={
@@ -153,12 +153,13 @@ export function FloatingPhoto({
           }
           animate={
             enableTilt
-              ? { y: isHovered ? -6 : 0, scale: isHovered ? 1.015 : 1 }
+              ? { y: isHovered ? -5 : 0, scale: isHovered ? 1.02 : 1 }
               : undefined
           }
-          transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
+          transition={{ duration: 0.28, ease: [0.23, 1, 0.32, 1] }}
           className={cn(
-            "relative w-full will-change-transform",
+            "relative w-full",
+            isHovered && "will-change-transform",
             aspectClass,
             frameClass,
             featherClass
@@ -170,11 +171,7 @@ export function FloatingPhoto({
             fill
             priority={priority}
             sizes={sizes}
-            className={cn(
-              "object-cover transition-transform duration-700 ease-[var(--ease-out)]",
-              enableTilt && isHovered && "scale-[1.03]",
-              imgClassName
-            )}
+            className={cn("object-cover", imgClassName)}
           />
         </motion.div>
       </motion.div>

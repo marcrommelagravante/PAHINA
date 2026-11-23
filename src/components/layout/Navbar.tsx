@@ -58,7 +58,7 @@ export function Navbar() {
           >
             <Link
               href="/"
-              className="inline-flex items-center gap-2.5 text-ink transition-opacity duration-150 hover:opacity-75"
+              className="group inline-flex items-center gap-2.5 text-ink transition-opacity duration-150 hover:opacity-80"
             >
               <PahinaEmblem size={28} showRingText={false} />
               <span className="font-display text-lg tracking-[0.24em] uppercase sm:text-xl">

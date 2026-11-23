@@ -78,8 +78,8 @@ export const VISIT_PLACEHOLDERS: VisitDetailPlaceholder[] = [
 export const ATMOSPHERE_GALLERY_IMAGES = [
   {
     id: "reading-corner",
-    src: "/images/atmospheric/reading-room-hero.jpg",
-    alt: "Sunlit reading corner inside PAHINA beside arched windows with a warm wooden table, an open book, ceramic coffee cup, pastel blue-grey walls, and integrated bookshelves",
+    src: "/images/atmospheric/reading-room-lounge.jpg",
+    alt: "Sunlit window-side banquette seating inside PAHINA with a matte ceramic coffee cup, powder-blue ribboned hardcover book, and reading glasses resting on the foreground oak table, looking toward two tall oak bookshelves along the back wall",
     caption: "Morning daylight along the window reading tables.",
     aspect: "landscape" as const,
   },
@@ -92,8 +92,8 @@ export const ATMOSPHERE_GALLERY_IMAGES = [
   },
   {
     id: "open-pages",
-    src: "/images/atmospheric/reading-room-nook.jpg",
-    alt: "Open linen-bound book beside a porcelain cup of espresso on warm oak with muted pastel blue-grey wall paneling behind",
+    src: "/images/atmospheric/home-reading-nook.jpg",
+    alt: "Open cream-paged cloth-bound book with a muted powder-blue ribbon bookmark beside a matte stoneware coffee cup on warm oak, with pastel Powder Blue wainscoting and tall oak bookshelves softly blurred behind",
     caption: "Curated books meant to stay beside your cup.",
     aspect: "portrait" as const,
   },

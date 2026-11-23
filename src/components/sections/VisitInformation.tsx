@@ -33,7 +33,7 @@ export function VisitInformation() {
             <div className="lg:col-span-6">
               <FloatingPhoto
                 src={EDITORIAL_IMAGES.visitWindowsillPhoto}
-                alt="Sunlit window table inside PAHINA with an open book, ceramic coffee cup, arched windows, and bookshelves"
+                alt="Concept architectural exterior of PAHINA's neighborhood storefront featuring muted pastel Powder Blue and Paper White paneling, tall arched black-mullioned glass windows, a warm oak entrance door, potted olive trees, and glimpses of the oak tables, vertical oak-slat counter, and twin bookshelves inside"
                 aspect="landscape"
                 drift={24}
                 scrollTilt={1.4}
@@ -42,8 +42,8 @@ export function VisitInformation() {
                 sizes="(max-width: 1024px) 96vw, 48vw"
               />
               <p className="mt-3 text-center font-editorial text-base italic text-ink-muted">
-                [Exterior Storefront Photo Placeholder] — Reserved for the
-                pastel blue-grey facade and arched glass windows.
+                Concept storefront study — pastel Powder Blue paneling and
+                arched glass windows opening onto our single-room interior.
               </p>
             </div>
 

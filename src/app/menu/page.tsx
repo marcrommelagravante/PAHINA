@@ -104,7 +104,7 @@ export default function MenuPage() {
             <div className="lg:col-span-6">
               <FloatingPhoto
                 src={EDITORIAL_IMAGES.menuHeroFlatlay}
-                alt="Hot Café Latte in cream stoneware beside a fluted glass of iced Spanish Latte and a charcoal linen book on warm paper"
+                alt="Minimalist café still-life on warm Paper White featuring a hot cappuccino in cream stoneware on a saucer, a tall fluted glass of iced coffee, a brushed stainless teaspoon, and a folded oatmeal-linen napkin"
                 aspect="portrait"
                 priority
                 drift={24}

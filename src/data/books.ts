@@ -32,15 +32,15 @@ export const READING_ROOM_MOMENTS: ReadingRoomMoment[] = [
   {
     id: "window-corner",
     title: "Two 5-layer shelves & daylight windows",
-    lead: "Two 5-tier oak bookcases recessed into pastel blue-grey walls beside arched glass.",
+    lead: "Two 5-tier oak bookcases set along pastel blue-grey walls beside arched glass and the espresso bar.",
     description:
-      "Rather than packing every wall floor-to-ceiling, our collection lives across two matching 5-layer wooden bookshelves kept within easy eye-level reach—leaving the room open to natural street daylight and comfortable walkways.",
+      "Rather than packing every wall floor-to-ceiling, our collection lives across two matching wooden bookshelves kept within easy eye-level reach right beside the espresso counter—leaving the room open to natural street daylight and comfortable walkways.",
     settingLabel: "Shelves",
-    settingDetail: "Two 5-layer warm oak bookcases",
+    settingDetail: "Two matching warm oak bookcases",
     rhythmLabel: "Daylight",
     rhythmDetail: "Tall arched street-facing glass",
     image: EDITORIAL_IMAGES.readingRoomTour.windowCorner,
-    alt: "Sunlit reading corner inside PAHINA beside tall arched windows with a warm wooden table, an open book, ceramic coffee cup, cushioned chair, and recessed 5-layer wooden bookshelves along pastel blue-grey walls",
+    alt: "Inside PAHINA's single open café room showing an arched daylight window, cushioned banquette tables with wall power outlets, two side-by-side tall oak bookshelves lit by brass sconces on a pastel Powder Blue wall, and the vertical oak-slat espresso and pastry counter",
     aspect: "landscape",
   },
   {
@@ -48,13 +48,13 @@ export const READING_ROOM_MOMENTS: ReadingRoomMoment[] = [
     title: "Tables, chairs & convenient outlets",
     lead: "Many sets of warm oak tables, cushioned chairs, and accessible power outlets.",
     description:
-      "Rows of warm oak tables and supportive linen-upholstered chairs are paired with accessible wall and table-side power outlets—so students, readers, and quiet workers can settle in for hours with an open book, notebook, or laptop beside their cup.",
+      "Rows of warm oak tables and supportive linen-upholstered chairs are paired with accessible wall and banquette-base power outlets—so students, readers, and quiet workers can settle in for hours with an open book, notebook, or laptop beside their cup.",
     settingLabel: "Seating",
     settingDetail: "Many oak table & chair sets",
     rhythmLabel: "Amenities",
     rhythmDetail: "Accessible power outlets at tables",
     image: EDITORIAL_IMAGES.readingRoomTour.tableNook,
-    alt: "Close-up of an open cloth-bound book resting flat beside a porcelain espresso cup on a warm oak reading table against muted pastel blue-grey wall paneling",
+    alt: "Row of warm oak café tables and cushioned oak chairs along a long oatmeal-linen wall banquette with flush duplex power outlets set into pastel Powder Blue wainscoting and the banquette base, facing two tall wooden bookshelves and the oak-slat counter",
     aspect: "portrait",
   },
   {
@@ -68,7 +68,7 @@ export const READING_ROOM_MOMENTS: ReadingRoomMoment[] = [
     rhythmLabel: "Stay",
     rhythmDetail: "No timers or rush between chapters",
     image: EDITORIAL_IMAGES.readingRoomTour.tableSpread,
-    alt: "Overhead sunlit café table spread with an open cream-paged book marked by a powder-blue ribbon beside a stoneware bowl of Aglio Olio, an iced coffee in fluted glass, and an espresso cup",
+    alt: "Sunlit window-side banquette seating inside PAHINA with a matte ceramic coffee cup, powder-blue ribboned hardcover book, and reading glasses resting on the foreground oak table, looking toward two tall oak bookshelves along the back wall",
     aspect: "landscape",
   },
   {
@@ -82,8 +82,8 @@ export const READING_ROOM_MOMENTS: ReadingRoomMoment[] = [
     rhythmLabel: "Books",
     rhythmDetail: "Read in, return before leaving",
     image: EDITORIAL_IMAGES.readingRoomTour.morningRitual,
-    alt: "Overhead morning flat-lay of an open linen-bound book beside a stoneware Café Latte, brushed teaspoon, and folded powder-blue linen napkin on warm paper",
-    aspect: "landscape",
+    alt: "Warm mid-afternoon inside PAHINA's single open room showing guests writing in a notebook beside an iced coffee and reading along the oak banquette row, a customer ordering at the vertical oak-slat espresso counter, and two wooden bookshelves along the pastel Powder Blue wall",
+    aspect: "portrait",
   },
 ];
 

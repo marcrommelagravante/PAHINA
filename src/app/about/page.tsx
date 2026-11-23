@@ -31,17 +31,17 @@ const ABOUT_PRINCIPLES = [
   {
     id: "scale",
     title: "Boutique neighborhood scale",
-    body: "Planned with compact service counters, small individual and two-person oak tables, and wide walkways so guests never feel crowded while carrying a cup or choosing a book.",
+    body: "Planned with a compact vertical oak-slat counter, warm two-person tables, and a wide central herringbone walkway so guests never feel crowded while carrying a cup or choosing a book.",
     src: EDITORIAL_IMAGES.aboutPrinciples.scale,
-    alt: "PAHINA interior with pastel blue-grey walls, oak two-top tables, and open walking aisles",
+    alt: "Mid-room view inside PAHINA showing the curved vertical oak-slat espresso and pastry counter on the right, warm oak two-top tables with cushioned chairs on the left, wide herringbone oak walkway, and two tall oak bookshelves ahead",
     feather: "oval" as const,
   },
   {
     id: "comfort",
     title: "Comfort before shelf count",
-    body: "Recessed shelves line selected pastel blue-grey walls instead of filling every corner, giving seating comfort and natural daylight clear priority.",
+    body: "Two warm oak bookshelves anchor one calm Powder Blue wall instead of crowding every corner, giving cushioned banquette seating, accessible outlets, and natural daylight clear priority.",
     src: EDITORIAL_IMAGES.aboutPrinciples.comfort,
-    alt: "Sunlit reading corner beside arched windows with a warm wooden table and recessed wooden bookshelves",
+    alt: "Tall black-mullioned daylight windows illuminating PAHINA's long cushioned oatmeal-linen wall banquette, warm oak tables, matching chairs, botanical prints, and flush Powder Blue wainscoting power outlets",
     feather: "oval" as const,
   },
   {
@@ -49,7 +49,7 @@ const ABOUT_PRINCIPLES = [
     title: "Shared in-café shelves",
     body: "The Reading Room is built around trust and ease: pick a title to read while you stay, and return it to the collection before heading out.",
     src: EDITORIAL_IMAGES.aboutPrinciples.shelves,
-    alt: "Open cloth-bound book resting beside a ceramic espresso cup on warm oak",
+    alt: "Two side-by-side tall warm oak bookshelves lit by brass sconces on PAHINA's pastel Powder Blue back wall, stocked with muted cloth-bound books behind a warm oak café table and ceramic coffee cup",
     feather: "oval" as const,
   },
   {
@@ -185,7 +185,7 @@ export default function AboutPage() {
       <EditorialBanner
         headingId="about-breathing-room-heading"
         src={EDITORIAL_IMAGES.aboutInteriorBanner}
-        alt="PAHINA boutique neighborhood café interior with muted pastel blue-grey walls, warm oak tables, arched glass windows, and integrated bookshelves"
+        alt="Wide panoramic view inside PAHINA's single open café room showing the curved vertical oak-slat espresso counter with soft under-glow, two tall oak bookshelves along the pastel Powder Blue back wall, herringbone oak floor, and long oatmeal-linen banquette beside arched daylight windows"
         heading={
           <>
             Designed for{" "}

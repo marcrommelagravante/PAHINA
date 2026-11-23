@@ -188,7 +188,7 @@ export function ScatteredMenuSpread({ items }: ScatteredMenuSpreadProps) {
           {/* Bottom-center floating drink: Signature Chocolate */}
           {renderFloatingPlate(third, {
             driftStyle: centerDrift,
-            featherClass: "feather-oval",
+            featherClass: "feather-tight",
             layout: "text-below-center",
             wrapperClassName: "lg:col-span-5 lg:col-start-4 lg:-mt-16",
             imgSizeClass: "aspect-[4/5] w-[250px] sm:w-[285px]",

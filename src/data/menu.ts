@@ -205,7 +205,7 @@ export const MENU_ITEMS: MenuItemData[] = [
     category: "coffee",
     subcategory: "Special Coffee",
     image: "/images/pahina-menu-assets/coffee/caramel-espresso-con-panna.jpg",
-    alt: "Caramel Espresso Con Panna served in a small glass cup with whipped cream and caramel ribbon",
+    alt: "Hot Caramel Espresso Con Panna in a faceted glass demitasse on a cream stoneware saucer with brushed spoon, crowned with whipped cream and caramel on warm oak",
     singlePrice: 125,
   },
   {
@@ -214,7 +214,7 @@ export const MENU_ITEMS: MenuItemData[] = [
     category: "coffee",
     subcategory: "Special Coffee",
     image: "/images/pahina-menu-assets/coffee/affogato.jpg",
-    alt: "Affogato with vanilla gelato inside freshly pulled dark espresso in a short glass",
+    alt: "Classic Affogato with a scoop of vanilla bean gelato melting in freshly pulled espresso inside a short clear glass on a cream ceramic saucer and warm oak table",
     singlePrice: 140,
   },
   {
@@ -223,7 +223,7 @@ export const MENU_ITEMS: MenuItemData[] = [
     category: "coffee",
     subcategory: "Special Coffee",
     image: "/images/pahina-menu-assets/coffee/oreo-dalgona.jpg",
-    alt: "Iced Oreo Dalgona with whipped coffee foam and dark cookie crumble over cold milk",
+    alt: "Iced Oreo Dalgona with velvety whipped coffee foam and dark chocolate cookie crumble over cold milk and ice in a clear glass on a warm oak tabletop",
     singlePrice: 140,
   },
 
@@ -255,7 +255,7 @@ export const MENU_ITEMS: MenuItemData[] = [
     subcategory: "Espresso-Based",
     image:
       "/images/pahina-menu-assets/frappuccino/espresso-based/java-chip-frappe.jpg",
-    alt: "Java Chip Frappe topped with whipped cream and dark chocolate drizzle in a clear tall glass",
+    alt: "Java Chip Frappe flecked with dark chocolate chips and crowned with whipped cream and chocolate drizzle on a folded oatmeal linen napkin and warm oak table",
     sizes: FRAPPE_STANDARD_SIZES,
   },
   {
@@ -275,7 +275,7 @@ export const MENU_ITEMS: MenuItemData[] = [
     subcategory: "Espresso-Based",
     image:
       "/images/pahina-menu-assets/frappuccino/espresso-based/mocha-frappe.jpg",
-    alt: "Mocha Frappe blended with chocolate and espresso topped with whipped cream",
+    alt: "Mocha Frappe swirled with dark chocolate ribbons and topped with whipped cream and cocoa drizzle on a folded oatmeal linen napkin and warm oak table",
     sizes: FRAPPE_STANDARD_SIZES,
   },
   {
@@ -295,7 +295,7 @@ export const MENU_ITEMS: MenuItemData[] = [
     subcategory: "Espresso-Based",
     image:
       "/images/pahina-menu-assets/frappuccino/espresso-based/salted-caramel-oreo-frappe.jpg",
-    alt: "Salted Caramel Oreo Frappe speckled with dark cookies, caramel drizzle, and a cookie garnish",
+    alt: "Salted Caramel Oreo Frappe speckled with dark cookie crumbs, amber caramel swirl, whipped cream, and a dark sandwich cookie on a folded oatmeal linen napkin and warm oak table",
     sizes: FRAPPE_SIGNATURE_SIZES,
     badge: "Must Try",
   },
@@ -319,7 +319,7 @@ export const MENU_ITEMS: MenuItemData[] = [
     subcategory: "Cream-Based",
     image:
       "/images/pahina-menu-assets/frappuccino/cream-based/oreo-frappe.jpg",
-    alt: "Cream-based Oreo Frappe blended with dark cookie crumbs and topped with whipped cream",
+    alt: "Cream-based Oreo Frappe speckled with dark chocolate cookie crumbs and crowned with whipped cream on a folded linen napkin and warm oak table",
     sizes: FRAPPE_STANDARD_SIZES,
   },
   {
@@ -338,7 +338,7 @@ export const MENU_ITEMS: MenuItemData[] = [
     category: "frappuccino",
     subcategory: "Cream-Based",
     image: "/images/pahina-menu-assets/frappuccino/cream-based/ube-frappe.jpg",
-    alt: "Velvety pastel-purple Ube Frappe topped with piped cream in a tall glass",
+    alt: "Velvety muted pastel-lavender Ube Frappe topped with piped whipped cream on a folded oatmeal linen napkin and warm oak table",
     sizes: FRAPPE_STANDARD_SIZES,
   },
   {
@@ -348,7 +348,7 @@ export const MENU_ITEMS: MenuItemData[] = [
     subcategory: "Cream-Based",
     image:
       "/images/pahina-menu-assets/frappuccino/cream-based/strawberry-frappe.jpg",
-    alt: "Pastel pink Strawberry Frappe topped with whipped cream and berry drizzle",
+    alt: "Blush-pink Strawberry Frappe with ruby berry ribbons and piped whipped cream on a folded linen napkin and warm oak table",
     sizes: FRAPPE_STANDARD_SIZES,
   },
   {
@@ -358,7 +358,7 @@ export const MENU_ITEMS: MenuItemData[] = [
     subcategory: "Cream-Based",
     image:
       "/images/pahina-menu-assets/frappuccino/cream-based/matcha-frappe.jpg",
-    alt: "Green tea Matcha Frappe finished with cream cap and fine matcha dusting",
+    alt: "Earthy sage-green Matcha Frappe finished with whipped cream and fine matcha dusting on a folded linen napkin and warm oak table",
     sizes: FRAPPE_STANDARD_SIZES,
   },
 
@@ -376,7 +376,7 @@ export const MENU_ITEMS: MenuItemData[] = [
     name: "Spaghetti Bolognese",
     category: "pasta",
     image: "/images/pahina-menu-assets/pasta/spaghetti-bolognese.jpg",
-    alt: "Spaghetti Bolognese served in a deep cream ceramic bowl with rich tomato ragu",
+    alt: "Spaghetti Bolognese with rich slow-simmered tomato ragu, grated parmesan, and fresh basil in a speckled stoneware bowl beside a folded linen napkin and fork on warm oak",
     priceUnconfirmed: true,
   },
   {
@@ -392,7 +392,7 @@ export const MENU_ITEMS: MenuItemData[] = [
     name: "Chicken Alfredo",
     category: "pasta",
     image: "/images/pahina-menu-assets/pasta/chicken-alfredo.jpg",
-    alt: "Chicken Alfredo pasta plated in a warm stoneware bowl on a wooden table",
+    alt: "Chicken Alfredo fettuccine ribbons topped with sliced pan-seared chicken breast, cracked black pepper, and parsley in a speckled stoneware bowl beside a linen napkin and fork on warm oak",
     priceUnconfirmed: true,
   },
   {
@@ -426,7 +426,7 @@ export const MENU_ITEMS: MenuItemData[] = [
     name: "Hawaiian",
     category: "pizza",
     image: "/images/pahina-menu-assets/pizza/hawaiian-pizza.jpg",
-    alt: "Hawaiian pizza topped with golden pineapple and ham on an artisan crust",
+    alt: "Artisan Hawaiian pizza topped with golden pineapple tidbits and roasted ham over bubbling melted mozzarella on a round warm oak board",
     priceUnconfirmed: true,
   },
   {
@@ -444,7 +444,7 @@ export const MENU_ITEMS: MenuItemData[] = [
     name: "Classic Fries",
     category: "fries",
     image: "/images/pahina-menu-assets/fries/classic-fries.jpg",
-    alt: "Golden crisp Classic Fries served in a ceramic dish lined with unbleached parchment",
+    alt: "Golden crisp Classic Fries dusted with sea salt inside a matte cream ceramic dish lined with plain unbleached parchment on warm oak",
     priceUnconfirmed: true,
   },
   {
@@ -460,7 +460,7 @@ export const MENU_ITEMS: MenuItemData[] = [
     name: "Sour Cream Fries",
     category: "fries",
     image: "/images/pahina-menu-assets/fries/sour-cream-fries.jpg",
-    alt: "Sour Cream Fries dusted with herb seasoning in a minimalist ceramic bowl",
+    alt: "Crisp golden Sour Cream Fries served in a matte cream ceramic dish lined with unbleached parchment beside a small ceramic ramekin of creamy sour cream dip on warm oak",
     priceUnconfirmed: true,
   },
   {
@@ -489,7 +489,7 @@ export const CATEGORY_SHOWCASE_IDS: Record<MenuCategoryId, readonly string[]> = 
   ],
   pasta: ["aglio-olio", "creamy-carbonara", "creamy-pesto"],
   pizza: ["classic-cheese-pizza", "pepperoni-pizza", "four-cheese-pizza"],
-  fries: ["truffle-parmesan-fries", "cheese-fries"],
+  fries: ["truffle-parmesan-fries", "cheese-fries", "classic-fries"],
 };
 
 export function getHomeShowcaseItems(): MenuItemData[] {

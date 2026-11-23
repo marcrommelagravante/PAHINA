@@ -91,12 +91,12 @@ export function ReadingRoomBookHero() {
             </div>
           </div>
 
-          {/* Right column: crisp architectural photograph showing guests reading inside PAHINA */}
+          {/* Right column: crisp architectural photograph of PAHINA's single-room café & reading room */}
           <figure className="lg:col-span-6">
             <div className="relative mx-auto aspect-[4/5] w-full max-w-[490px] overflow-hidden rounded-[2px] border border-soft bg-surface-elevated lg:ml-auto lg:mr-0">
               <Image
                 src={EDITORIAL_IMAGES.readingRoomHero}
-                alt="Inside PAHINA's sunlit boutique Reading Room showing guests reading quietly at warm oak two-top tables beside tall arched glass windows, muted pastel blue-grey paneled walls, and recessed wooden bookshelves"
+                alt="Wide architectural view inside PAHINA's single-room café and reading room featuring a vertical oak-slat espresso and pastry counter with warm under-glow on the right, two tall oak bookshelves along the pastel Powder Blue back wall, herringbone oak floors, and a long oatmeal-linen banquette with warm oak tables, chairs, and flush wall outlets on the left"
                 fill
                 priority
                 sizes="(max-width: 1024px) 92vw, 490px"
@@ -104,8 +104,8 @@ export function ReadingRoomBookHero() {
               />
             </div>
             <figcaption className="mx-auto mt-3.5 max-w-[490px] font-editorial text-base italic text-ink-muted lg:ml-auto lg:mr-0">
-              Morning daylight across our arched windows, warm oak tables, and
-              recessed shelves—kept intentionally uncrowded so you can linger.
+              Soft daylight across our warm oak tables, espresso counter, and
+              side-by-side bookshelves—all inside one calm, uncrowded room.
             </figcaption>
           </figure>
         </div>

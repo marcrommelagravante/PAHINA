@@ -49,7 +49,7 @@ export function HomeReadingFinale() {
               >
                 <Image
                   src={EDITORIAL_IMAGES.homeReadingFeature}
-                  alt="Open linen-bound book beside a porcelain cup of espresso on a warm oak table against pastel blue-grey walls"
+                  alt="Open cream-paged cloth-bound book marked with a muted powder-blue ribbon bookmark beside a matte stoneware coffee cup on a warm oak banquette table inside PAHINA, with pastel Powder Blue wainscoting, wall outlets, and oak bookshelves softly blurred behind"
                   fill
                   sizes="(max-width: 1024px) 90vw, 440px"
                   className="object-cover"

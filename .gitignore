@@ -45,3 +45,6 @@ next-env.d.ts
 .impeccable/mocks/
 .impeccable/questions/
 .impeccable/config.local.json
+
+.vercel
+.env*
